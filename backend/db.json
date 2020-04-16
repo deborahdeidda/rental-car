@@ -1,0 +1,133 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Harry",
+      "surname": "Wood",
+      "dateofbirth": "January 2 1966",
+      "mail": "jhon@g.com",
+      "password": "221133AA",
+      "bookings": "yes"
+    },
+    {
+      "id": 2,
+      "name": "Logan",
+      "surname": "Bennet",
+      "dateofbirth": "January 3 1966",
+      "mail": "jhon@0.com",
+      "password": "221933AA",
+      "bookings": "no"
+    },
+    {
+      "id": 3,
+      "name": "Kyle",
+      "surname": "Wilson",
+      "dateofbirth": "January 1 1966",
+      "mail": "jhon@j.com",
+      "password": "221833PP",
+      "bookings": "more then one"
+    },
+    {
+      "id": 4,
+      "name": "Harriet",
+      "surname": "Miller",
+      "dateofbirth": "January 2 1966",
+      "mail": "jhon@g.com",
+      "password": "221133AA",
+      "bookings": "yes"
+    },
+    {
+      "id": 5,
+      "name": "Elsie",
+      "surname": "Hill",
+      "dateofbirth": "January 3 1966",
+      "mail": "jhon@0.com",
+      "password": "221933AA",
+      "bookings": "no",
+      "type": "admin"
+    },
+    {
+      "id": 6,
+      "name": "Ethel",
+      "surname": "Perry",
+      "dateofbirth": "January 1 1966",
+      "mail": "jhon@j.com",
+      "password": "221833PP",
+      "bookings": "more then one",
+      "type": "admin"
+    },
+    {
+      "id": 7,
+      "name": "Sarah",
+      "surname": "Rivera",
+      "dateofbirth": "January 9 1966",
+      "mail": "jhon@jj.com",
+      "password": "221833PPF77",
+      "bookings": "more then once"
+    }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "booking_date": "April 5 2020",
+      "vehicle_type": "bus",
+      "model": "model 1",
+      "total_cost": 1000,
+      "booking_status": "pending",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "booking_date": "April 4 2020",
+      "vehicle_type": "taxi",
+      "model": "model taxi 99",
+      "total_cost": 2000,
+      "booking_status": "complete",
+      "userId": 2
+    },
+    {
+      "id": 3,
+      "booking_date": "April 2 2020",
+      "vehicle_type": "truck",
+      "model": "model truck 101",
+      "total_cost": 2200,
+      "booking_status": "failed",
+      "userId": 3
+    }
+  ],
+  "bus_vehicles": [
+    {
+      "id": 1,
+      "daily_cost": 100,
+      "vehicle_type": "bus 1",
+      "model": "model 2001",
+      "manufacturer": "busful",
+      "number_plate": "WQEl22",
+      "registration_year": 2000,
+      "availability": "yes",
+      "bookingId": 1
+    },
+    {
+      "id": 2,
+      "daily_cost": 100,
+      "vehicle_type": "bus 2",
+      "model": "model 2002",
+      "manufacturer": "busstop",
+      "number_plate": "WQE6",
+      "registration_year": 2010,
+      "availability": "yes",
+      "bookingId": 2
+    },
+    {
+      "id": 3,
+      "daily_cost": 100,
+      "vehicle_type": "bus 3",
+      "model": "model 2003",
+      "manufacturer": "bus easely",
+      "number_plate": "WQ00",
+      "registration_year": 2003,
+      "availability": "no",
+      "bookingId": 3
+    }
+  ]
+}
