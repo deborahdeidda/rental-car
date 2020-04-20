@@ -11,7 +11,7 @@ $(document).ready(function() {
 
         //now let's populate our col with Json data
         for(var i = 0; i < data.length; i++){
-            $bus.append('<div class="col-12 col-md-4" id=" ' + data[i]['id'] + '">' + " <b>Manufacturer:</b> " + data[i]['manufacturer'] + "<br>" + " <b>Vehicle type:</b> " + data[i]['vehicle_type'] + "<br>" + " <b>Model:</b> " + data[i]['model'] + "<br>" + " <b>Number plate:</b> " + data[i]['number_plate'] + "<br>" + " <b>Registration year:</b> " + data[i]['registration_year'] + "<br>" + " <b>Availability:</b> " + data[i]['availability'] + '</div>');
+            $bus.append('<div class="col-12 col-md-4" id=" ' + data[i]['id'] + '">' + '<div class="card" style="width: 18rem;"><img class="card-img-top" src="../img/bus.jfif" alt="Card image cap"><div class="card-body"><h5 class="card-title">' + data[i]['vehicle_type'] + '</h5>' + '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>' + '</div>' + '<ul class="list-group list-group-flush"><li class="list-group-item">' + "<b>Model </b>" + data[i]['model'] + '</li><li class="list-group-item">' + "<b>Manufacturer </b>"  + data[i]['manufacturer'] + '</li><li class="list-group-item">' + "<b>Registration year </b>" + data[i]['registration_year'] + '</li><li class="list-group-item">' + "<b>Number plate </b>" + data[i]['number_plate'] + '</li><li class="list-group-item">' + "<b>Availability </b>" + data[i]['availability'] + '</li>' + '</div>');
         }
 
         //let's write the total number of users
