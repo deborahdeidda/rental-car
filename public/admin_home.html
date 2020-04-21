@@ -9,6 +9,9 @@
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!--Fontawesome-->
+    <script src="https://kit.fontawesome.com/6696e776e1.js" crossorigin="anonymous"></script>
+
     <!--    Jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -37,31 +40,126 @@
                     </div>
 
                     <h2 id="h2"></h2>
-                    <a href="add_user.html"><button id="submit-btn" type="submit" class="btn btn-success">Add new user</button></a> 
                 </div>
             </div>
-            <div id="user" class="row"></div>
+            <div class="row my-2">
+                <div class="col-12 m-auto text-center">
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-size" role="document">
-                    <div class="modal-content modal-size">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Edit user</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                    <!--Add new user btn-->
+                    <button id="new-user" class="btn btn-outline-success">New user</button>
+
+                    <!--Add new user-->
+                    <form id="form">
+                        <h1 class="title-orange">Add a new user to database</h1>
+                        <p>Please fill in this form to add a new user.</p>
+                        <hr>
+
+                        <div class="row my-1">
+                            <div class="col-12 col-md-6 m-auto text-center">
+                                <label for="name"><b>Name</b></label><br>
+                                <input id="name" type="text" placeholder="Enter Name" name="name">
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            ...
+
+                        <div class="row my-1">
+                            <div class="col-12 col-md-6 m-auto text-center">
+                                <label for="surname"><b>Surname</b></label><br>
+                                <input id="surname" type="text" placeholder="Enter Surname" name="surname">
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+
+                        <div class="row my-1">
+                            <div class="col-12 col-md-6 m-auto text-center">
+                                <label for="birthday"><b>Birthday</b></label><br>
+                                <input id="birthday" type="date" placeholder="Enter Birthday" name="birthday">
+                            </div>
                         </div>
+
+                        <div class="row my-1">
+                            <div class="col-12 col-md-6 m-auto text-center">
+                                <label for="mail"><b>Mail</b></label><br>
+                                <input id="mail" type="mail" placeholder="Enter Mail" name="mail">
+                            </div>
+                        </div>
+                        <hr>
+
+                        <button id="create-new-user" type="submit" class="btn btn-dark">Add new user</button>
+
+                    </form>
+                    <br><br>
+
+                    <!--Alert add user-->
+                    <div id="show-alert" class="alert alert-success alert-dismissible fade show" role="alert">
+                        You added successfully a new user!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Edit user-->
+                    <form id="edit-form">
+                        <h1 class="title-orange">Edit user</h1>
+                        <p>Please fill in this form to edit the user.</p>
+                        <hr>
+
+                        <div class="row my-1">
+                            <div class="col-12 col-md-6 m-auto text-center">
+                                <input id="userId" type="hidden">
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-12 col-md-6 m-auto text-center">
+                                <label for="editName"><b>Edit Name</b></label><br>
+                                <input id="editName" type="text" placeholder="Edit name" name="editName">
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-12 col-md-6 m-auto text-center">
+                                <label for="editSurname"><b>Edit Surname</b></label><br>
+                                <input id="editSurname" type="text" placeholder="Edit Surname" name="editSurname">
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-12 col-md-6 m-auto text-center">
+                                <label for="editBirthday"><b>Edit Birthday</b></label><br>
+                                <input id="editBirthday" type="date" placeholder="Edit Birthday" name="editBirthday">
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-12 col-md-6 m-auto text-center">
+                                <label for="editMail"><b>Edit Mail</b></label><br>
+                                <input id="editMail" type="mail" placeholder="Edit Mail" name="editMail">
+                            </div>
+                        </div>
+                        <hr>
+                        
+                        <button id="edit-user-btn" type="submit" class="btn btn-dark">Edit user</button>
+                    </form>
+
+                    <!--Alert edit user-->
+                    <div id="show-alert-edit" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        You edited successfully this user!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 </div>
             </div>
+            
+            <div id="user" class="row"></div>
+
+            <div id="show-edit-user" class="row my-3">
+                <div class="col-12 col-md-6 m-auto text-center">
+
+
+
+                </div>
+            </div>
+                       
         </div>
 
                 <!-- Bootstrap-->
