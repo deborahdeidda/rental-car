@@ -29,6 +29,12 @@
                      <strong>You have been registered successfully!</strong>
                  </div>
 
+                 <!--Alert registered failed-->
+                 <div id="show-alert-registered-failed" class="alert-registered-failed my-2">
+                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                     <strong>Email and passwords required!</strong>
+                 </div>
+
                  <form id="registration-form" action="" method="POST">
                      <h2 class="title-orange">Register</h2>
                      <p>Please fill in this form to create an account.</p>
@@ -36,7 +42,6 @@
 
                      <div class="row my-1">
                          <div class="col-12 col-md-6 m-auto text-center">
-                             <div id="error-name" class="alert alert-danger"></div>
                              <label for="name"><b>Name</b></label><br>
                              <input id="name" type="text" placeholder="Enter Name" name="name">
                          </div>
@@ -44,8 +49,6 @@
 
                      <div class="row my-1">
                          <div class="col-12 col-md-6 m-auto text-center">
-                             <div id="error-email" class="alert alert-danger"></div>
-                             <div id="fill-email" class="alert alert-danger">Please enter the email.</div>
                              <label for="email"><b>Email</b></label><br>
                              <input id="email" type="email" placeholder="Enter Email" name="email">
                          </div>
@@ -53,7 +56,6 @@
 
                      <div class="row my-1">
                          <div class="col-12 col-md-6 m-auto text-center">
-                             <div id="error-password" class="alert alert-danger"></div>
                              <label for="password"><b>Password</b></label><br>
                              <input id="password" type="password" placeholder="Enter Password" name="password">
                          </div>

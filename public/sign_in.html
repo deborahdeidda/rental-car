@@ -27,6 +27,19 @@
                 <form id="login-form" action="" method="POST">
                     <h1 class="title-orange">Login</h1>
                     <p>Please fill in this form to login.</p>
+
+                    <!--Alert logged in successfully-->
+                    <div id="show-alert-logged-in" class="alert-logged-in my-2">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <strong>You logged in successfully!</strong>
+                    </div>
+
+                    <!--Alert failed logging in-->
+                    <div id="show-alert-error-logging-in" class="alert-error-logging-in my-2">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <strong>Email or password incorrect, try again.</strong>
+                    </div>
+
                     <hr>
 
                     <div class="row my-1">
