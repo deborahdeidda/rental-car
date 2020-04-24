@@ -16,6 +16,7 @@
     <!-- External js -->
     <script type="text/javascript" src="../js/parco_auto.js"></script>
     <script type="text/javascript" src="../js/navbar.js"></script>
+    <script type="text/javascript" src="../js/search_parco_auto.js"></script>
 </head>
 <body>
 
@@ -82,8 +83,21 @@
 
               <!-- Search form -->
               <div class="active-pink-3 active-pink-4 mb-4">
-                  <input class="form-control" type="text" placeholder="Search vehicle" aria-label="Search">
+                  <input id="search" class="form-control" type="text" placeholder="Search vehicle" aria-label="Search">
               </div>
+
+              <table class="table">
+                  <thead>
+                  <tr>
+                      <th>Vehicle type </th>
+                      <th>Model </th>
+                      <th>Registration year</th>
+                      <th>Number plate</th>
+                      <th>Availability</th>
+                  </tr>
+                  </thead>
+                  <tbody></tbody>
+              </table>
 
               <h2 id="h2"></h2>
           </div>

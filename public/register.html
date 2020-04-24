@@ -22,7 +22,14 @@
      <div class="container">
          <div class="row center">
              <div class="col-12 col-md-6 m-auto text-center">
-                 <form id="registration-form" action="register_success.html" method="post">
+
+                 <!--Alert registered successfully-->
+                 <div id="show-alert-registerd" class="alert-registered my-2">
+                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                     <strong>You have been registered successfully!</strong>
+                 </div>
+
+                 <form id="registration-form" action="" method="POST">
                      <h2 class="title-orange">Register</h2>
                      <p>Please fill in this form to create an account.</p>
                      <hr>
@@ -38,6 +45,7 @@
                      <div class="row my-1">
                          <div class="col-12 col-md-6 m-auto text-center">
                              <div id="error-email" class="alert alert-danger"></div>
+                             <div id="fill-email" class="alert alert-danger">Please enter the email.</div>
                              <label for="email"><b>Email</b></label><br>
                              <input id="email" type="email" placeholder="Enter Email" name="email">
                          </div>
@@ -50,21 +58,20 @@
                              <input id="password" type="password" placeholder="Enter Password" name="password">
                          </div>
                      </div>
-
-                     <div class="row my-1">
-                         <div class="col-12 col-md-6 m-auto text-center">
-                             <div id="error-repeat-password" class="alert alert-danger"></div>
-                             <label for="repeat-password"><b>Repeat Password</b></label>
-                             <input id="repeat-password" type="password" placeholder="Repeat Password" name="repeat-password">
-                         </div>
-                     </div>
+<!--                     <div class="row my-1">-->
+<!--                         <div class="col-12 col-md-6 m-auto text-center">-->
+<!--                             <div id="error-repeat-password" class="alert alert-danger"></div>-->
+<!--                             <label for="repeat-password"><b>Repeat Password</b></label>-->
+<!--                             <input id="repeat-password" type="password" placeholder="Repeat Password" name="repeat-password">-->
+<!--                         </div>-->
+<!--                     </div>-->
                      <hr>
 
                      <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-                     <button type="submit" class="registerbtn">Register</button>
+                     <button id="register-btn" type="submit" class="registerbtn">Register</button>
 
                      <div class="container signin">
-                         <p>Already have an account? <a href="login.html">Sign in</a>.</p>
+                         <p>Already have an account? <a href="sign_in.html">Sign in</a>.</p>
                      </div>
                  </form>
              </div>
