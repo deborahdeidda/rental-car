@@ -6,7 +6,4 @@ fetch("./navbar.html")
         document.querySelector("header").innerHTML = data
     })
 
-// $(document).ready(function() {
-//     $("header").loadHTML("../public/navbar.html")
-// })
 
