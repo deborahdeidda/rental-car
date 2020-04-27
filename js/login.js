@@ -35,6 +35,7 @@ $(document).ready(function(){
                 "password": password
             },
             success: function(data) {
+                console.log("jwt:",data.accessToken)
                 checkUser()
                 verifyFullFields()
                 if (user == "admin@admin.com"){
