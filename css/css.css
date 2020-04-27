@@ -1,9 +1,17 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .center {
-    padding-top: 7px;
+    padding-top: 60px;
 }
 
 .title-orange {
     color: #ff6347;
+}
+
+.container-height {
+    height: 650px;
 }
 
 /*Admin Cards*/
@@ -29,5 +37,116 @@
 .active-pink-3 input[type=text] {
     border: 1px solid #ff6347;
     box-shadow: 0 0 0 1px #ff6347;
+}
+
+/*Carousel*/
+.carousel-size {
+    width: 539px;
+    height: 375px;
+}
+
+/*Collapse*/
+.card-size {
+    height: 600px;
+    width: 1100px;
+    display: flex;
+    justify-content: center;
+
+}
+
+/*Modal*/
+.modal-size {
+    height: 800px;
+}
+
+/*Alerts*/
+.alert-show-bookings {
+    padding: 20px;
+    background-color: #ff6347;
+    color: white;
+}
+
+.alert-add-user {
+    padding: 20px;
+    background-color: #8dc251;
+    color: white;
+}
+
+.alert-registered {
+    padding: 20px;
+    background-color: #8dc251;
+    color: white;
+}
+
+.alert-logged-in {
+    padding: 20px;
+    background-color: #8dc251;
+    color: white;
+}
+
+.alert-edit-user  {
+    padding: 20px;
+    background-color: #8dc251;
+    color: white;
+}
+
+.alert-error-logging-in  {
+    padding: 20px;
+    background-color: #f4bd18;
+    color: white;
+}
+
+.alert-registered-failed  {
+    padding: 20px;
+    background-color: #f4bd18;
+    color: white;
+}
+
+.alert-login-user {
+    padding: 20px;
+    background-color: #f4bd18;
+    color: white;
+}
+
+.alert-no-bookings {
+    padding: 20px;
+    background-color: #f4bd18;
+    color: white;
+}
+
+.alert-delete-user {
+    padding: 20px;
+    background-color: red;
+    color: white;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
+/*Remove <a> decoration*/
+a.remove-decoration {
+    color: white;
+}
+
+a.remove-decoration:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.table-orange {
+    border-color: #ff6347;
+    
 }
 
