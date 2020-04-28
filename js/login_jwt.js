@@ -12,23 +12,16 @@ $(document).ready(function(){
 		console.log(id)
 		e.preventDefault()
 
-		// function checkUser(){
-		// 	if (user == "admin@admin.com"){
-		// 		true
-		// 	}  else if (user != "admin@admin.com"){
-		// 		true
-		// 	} else {
-		// 		false
-		// 	}
-		// }
-
 		function verifyFullFields(){
 			if (password != "" && user != ""){
-				true
+				console.log("correct fields")
 			}  else {
-				false
+				console.log("fields required")
+				$('#show-alert-error-logging-in').show()
 			}
 		}
+
+		verifyFullFields()
 
 		$.ajax({
 			url: "http://localhost:3000/login",
@@ -44,33 +37,45 @@ $(document).ready(function(){
 			
 			console.log("I got jwt:",data.accessToken)
 
-			verifyFullFields()
-			if (localStorage.getItem("admin") == "admin"){
-				console.log("I am admin")
-				$('#show-alert-error-logging-in').hide()
-				$('#show-alert-logged-in').show()
-
-				function redirect() {
-					setTimeout(function(){
-						window.location.replace("../public/index_admin.html")
-					}, 2000)
-				}
-				redirect()
-			} else if (localStorage.getItem("cRole") == "customer") {
-				console.log("I am customer")
-				$('#show-alert-error-logging-in').hide()
-				$('#show-alert-logged-in').show()
-				function redirect() {
-					setTimeout(function () {
-						window.location.replace("../public/index_customer.html")
-					}, 20000)
-				}
-				redirect()
-			}
-
 		}).fail(function(error){
 			console.log("something wrong")
 			$('#show-alert-error-logging-in').show()
+		})
+
+
+		$.ajax({
+			url: "http://localhost:3000/users?email=" + user,
+			method: "GET",
+			dataType: "json",
+			data: {	},
+			success: function(data){
+				console.log("data post login: ", data[0]['role'])
+
+				if (data[0]['role'] == "admin"){
+					console.log("I am admin")
+					$('#show-alert-error-logging-in').hide()
+					$('#show-alert-logged-in').show()
+
+					function redirect() {
+						setTimeout(function(){
+							window.location.replace("../public/index_admin.html")
+						}, 2000)
+					}
+					redirect()
+				} else if (data[0]['role'] == "customer") {
+					console.log("I am customer")
+					$('#show-alert-error-logging-in').hide()
+					$('#show-alert-logged-in').show()
+					function redirect() {
+						setTimeout(function () {
+							window.location.replace("../public/index_customer.html")
+						}, 2000)
+					}
+					redirect()
+				} else {
+					false
+				}
+			}
 		})
 	})
 })
