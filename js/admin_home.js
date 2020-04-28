@@ -1,18 +1,18 @@
 $(document).ready(function() {
 
 	$.ajax({
-		type: "POST", //GET, POST, PUT
-		url: '/authenticatedService',  //the url to call
-		data: yourData,     //Data sent to server
-		contentType: contentType,
-		beforeSend: function (xhr) {   //Include the bearer token in header
-			xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
+		type: "GET",
+		url: 'http://localhost:3000/users',
+		contentType: "json",
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
+			console.log(localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
-		//Response ok. process reuslt
+		console.log("done:", response)
 	}).fail(function (err)  {
-		//Error during request
-	});
+		console.log("failed:", err)
+	})
 
 	$('#form').hide()
 	$('#edit-form').hide()
@@ -91,6 +91,7 @@ $(document).ready(function() {
 			role: "customer"
 		}
 
+
 		$('#edit-form').hide()
 		$('#show-alert').hide()
 		$('#show-alert-edit').hide()
@@ -112,6 +113,9 @@ $(document).ready(function() {
 			dataType: "json",
 			data: data,
 			success: function(data){
+				var custRole = data.role
+				localStorage.setItem("custRole", custRole)
+				console.log("data:", data.role)
 				getAllUsers()
 			}
 		})

@@ -37,6 +37,19 @@ $(document).ready(function() {
                 "role": "customer"
             },
             success: function(data){
+                var customerRole = {
+                    "name": name,
+                    "email": email,
+                    "password": password,
+                    "surname": surname,
+                    "birthday": birthday,
+                    "role": "customer"
+                }
+
+                var customer = customerRole.role
+                console.log("the role is:" , customer)
+                localStorage.setItem("cRole", customer)
+
                 checkUser()
                 if (data){
                     $("#show-alert-registered-failed").hide()

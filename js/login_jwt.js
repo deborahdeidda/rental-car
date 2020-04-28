@@ -12,13 +12,15 @@ $(document).ready(function(){
 		console.log(id)
 		e.preventDefault()
 
-		function checkUser(){
-			if (user == "admin@admin.com"){
-				true
-			}  else if (user != ""){
-				false
-			}
-		}
+		// function checkUser(){
+		// 	if (user == "admin@admin.com"){
+		// 		true
+		// 	}  else if (user != "admin@admin.com"){
+		// 		true
+		// 	} else {
+		// 		false
+		// 	}
+		// }
 
 		function verifyFullFields(){
 			if (password != "" && user != ""){
@@ -39,11 +41,11 @@ $(document).ready(function(){
 		}).done(function(data){
 			var jwt = data.accessToken
 			localStorage.setItem("jwt", jwt)
+			
 			console.log("I got jwt:",data.accessToken)
 
-			checkUser()
 			verifyFullFields()
-			if (user == "admin@admin.com"){
+			if (localStorage.getItem("admin") == "admin"){
 				console.log("I am admin")
 				$('#show-alert-error-logging-in').hide()
 				$('#show-alert-logged-in').show()
@@ -51,17 +53,17 @@ $(document).ready(function(){
 				function redirect() {
 					setTimeout(function(){
 						window.location.replace("../public/index_admin.html")
-					}, 20000)
+					}, 2000)
 				}
 				redirect()
-			} else if (user != "admin@admin.com") {
+			} else if (localStorage.getItem("cRole") == "customer") {
 				console.log("I am customer")
 				$('#show-alert-error-logging-in').hide()
 				$('#show-alert-logged-in').show()
 				function redirect() {
 					setTimeout(function () {
 						window.location.replace("../public/index_customer.html")
-					}, 2000)
+					}, 20000)
 				}
 				redirect()
 			}
