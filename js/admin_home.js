@@ -1,5 +1,19 @@
 $(document).ready(function() {
 
+	$.ajax({
+		type: "POST", //GET, POST, PUT
+		url: '/authenticatedService',  //the url to call
+		data: yourData,     //Data sent to server
+		contentType: contentType,
+		beforeSend: function (xhr) {   //Include the bearer token in header
+			xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
+		}
+	}).done(function (response) {
+		//Response ok. process reuslt
+	}).fail(function (err)  {
+		//Error during request
+	});
+
 	$('#form').hide()
 	$('#edit-form').hide()
 	$('#show-alert').hide()
@@ -73,7 +87,8 @@ $(document).ready(function() {
 			name: $($('#form')[0].name).val(),
 			surname: $($('#form')[0].surname).val(),
 			birthday: $($('#form')[0].birthday).val(),
-			mail: $($('#form')[0].mail).val()
+			mail: $($('#form')[0].mail).val(),
+			role: "customer"
 		}
 
 		$('#edit-form').hide()

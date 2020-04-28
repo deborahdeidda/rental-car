@@ -8,6 +8,8 @@ $(document).ready(function(){
 		alert("clicked")
 		var user = $('#mail').val()
 		var password = $('#password').val()
+		var id = $('#login-form').val()
+		console.log(id)
 		e.preventDefault()
 
 		function checkUser(){
@@ -19,7 +21,7 @@ $(document).ready(function(){
 		}
 
 		function verifyFullFields(){
-			if (password != "" && password != ""){
+			if (password != "" && user != ""){
 				true
 			}  else {
 				false
@@ -35,10 +37,9 @@ $(document).ready(function(){
 				"password": password
 			}
 		}).done(function(data){
-
-			console.log("jwt:",data.accessToken)
 			var jwt = data.accessToken
 			localStorage.setItem("jwt", jwt)
+			console.log("I got jwt:",data.accessToken)
 
 			checkUser()
 			verifyFullFields()
@@ -50,10 +51,10 @@ $(document).ready(function(){
 				function redirect() {
 					setTimeout(function(){
 						window.location.replace("../public/index_admin.html")
-					}, 2000)
+					}, 20000)
 				}
 				redirect()
-			} else if (user != "") {
+			} else if (user != "admin@admin.com") {
 				console.log("I am customer")
 				$('#show-alert-error-logging-in').hide()
 				$('#show-alert-logged-in').show()

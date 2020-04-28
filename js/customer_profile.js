@@ -4,7 +4,7 @@ $(document).ready(function() {
     $user_data = $('#user-data')
 
     //retrieve Json data
-    $.getJSON('http://localhost:3000/640/users', function(data) {
+    $.getJSON('http://localhost:3000/users', function(data) {
 
         $user_data.html('')
 

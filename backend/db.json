@@ -1,47 +1,41 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Harry",
-      "surname": "Wood",
-      "dateofbirth": "January 2 1966",
-      "mail": "jhon@g.com",
-      "password": "221133AA",
-      "bookings": "yes"
+      "name": "Jane Hampton",
+      "surname": "Dudley",
+      "birthday": "2020-02-06",
+      "email": "Alias at facilis rer",
+      "id": 1
     },
     {
-      "id": 2,
       "name": "Logan",
       "surname": "Bennet",
-      "dateofbirth": "January 3 1966",
-      "mail": "jhon@0.com",
-      "password": "221933AA",
-      "bookings": "no"
+      "birthday": "2000-07-01",
+      "email": "",
+      "id": 2
     },
     {
       "id": 3,
       "name": "Kyle",
       "surname": "Wilson",
-      "dateofbirth": "January 1 1966",
-      "mail": "jhon@j.com",
-      "password": "221833PP",
+      "birthday": "2013-04-01",
+      "email": "jhon@j.com",
+      "password": "0000",
       "bookings": "more then one"
     },
     {
-      "id": 4,
-      "name": "Harriet",
-      "surname": "Miller",
-      "dateofbirth": "January 2 1966",
-      "mail": "jhon@g.com",
-      "password": "221133AA",
-      "bookings": "yes"
+      "name": "Tyrone Hahn",
+      "surname": "Wilkins",
+      "birthday": "2004-01-27",
+      "email": "Hic libero excepteur",
+      "id": 4
     },
     {
       "id": 5,
       "name": "Elsie",
       "surname": "Hill",
-      "dateofbirth": "January 3 1966",
-      "mail": "jhon@0.com",
+      "birthday": "1985-07-12",
+      "email": "jhon@lk.com",
       "password": "221933AA",
       "bookings": "no",
       "type": "admin"
@@ -50,8 +44,8 @@
       "id": 6,
       "name": "Ethel",
       "surname": "Perry",
-      "dateofbirth": "January 1 1966",
-      "mail": "jhon@j.com",
+      "birthday": "2010-03-01",
+      "email": "jhon@pp.com",
       "password": "221833PP",
       "bookings": "more then one",
       "type": "admin"
@@ -60,10 +54,69 @@
       "id": 7,
       "name": "Sarah",
       "surname": "Rivera",
-      "dateofbirth": "January 9 1966",
-      "mail": "jhon@jj.com",
+      "birthday": "2011-05-05",
+      "email": "jhon@jj.com",
       "password": "221833PPF77",
       "bookings": "more then once"
+    },
+    {
+      "email": "jhon@llllllllllllllllll.com",
+      "password": "$2a$10$U8iee1m4Z2A.n.rqBYgiyOIjhwv.zn6.bn3u33IMefLwuFryvUzFi",
+      "name": "Ethel",
+      "surname": "Perry",
+      "birthday": "2010-03-01",
+      "id": 8
+    },
+    {
+      "type": "admin",
+      "email": "admin@admin.com",
+      "password": "$2a$10$T2GoYkgcxgF/SLjK1qBK.e0Z6Uc8p2WsBXFy1gqYbmQWacmlWiGxi",
+      "name": "Admin",
+      "id": 34
+    },
+    {
+      "email": "mauro@mauro.it",
+      "password": "$2a$10$v0pgodc39GgXL6cRhh.HV.VWBXJ0xhWx/fOVqmxvj8zjBWm/8zCge",
+      "name": "mauro",
+      "id": 56
+    },
+    {
+      "name": "Noble Acosta",
+      "surname": "Mcfadden",
+      "birthday": "2017-07-16",
+      "mail": "Rerum tenetur Nam qu",
+      "id": 57
+    },
+    {
+      "name": "Hakeem Fuentes",
+      "surname": "Reilly",
+      "birthday": "1987-10-26",
+      "mail": "Alias dolor vel et s",
+      "id": 58
+    },
+    {
+      "email": "sazamumog@mailinator.com",
+      "password": "$2a$10$1muNIP07KiIUVDoh9yD62eisLwzRbTVndwXlXDzfN.oFhYeYEjw2S",
+      "name": "Martina Stewart",
+      "surname": "Black",
+      "birthday": "1978-10-07",
+      "id": 59
+    },
+    {
+      "email": "bymus@mailinator.net",
+      "password": "$2a$10$101ZDpO3tnLyAcJFla6kqOimzU4Td4OsaaYka/sD0bLLYJrnwJH4K",
+      "name": "Kareem Vincent",
+      "surname": "Mullen",
+      "birthday": "1987-10-14",
+      "id": 62
+    },
+    {
+      "email": "lywuko@mailinator.net",
+      "password": "$2a$10$z2fkRSUSzVNaUa2myPgc8.3vAI2nQeHgm1pcSimDnLmQXmr/FMFP2",
+      "name": "Fletcher Tyler",
+      "surname": "Chapman",
+      "birthday": "2020-02-23",
+      "id": 63
     }
   ],
   "bookings": [

@@ -33,7 +33,8 @@ $(document).ready(function() {
                 "email": email,
                 "password": password,
                 "surname": surname,
-                "birthday": birthday
+                "birthday": birthday,
+                "role": "customer"
             },
             success: function(data){
                 checkUser()
