@@ -87,7 +87,7 @@ $(document).ready(function() {
 			name: $($('#form')[0].name).val(),
 			surname: $($('#form')[0].surname).val(),
 			birthday: $($('#form')[0].birthday).val(),
-			mail: $($('#form')[0].mail).val(),
+			email: $($('#form')[0].mail).val(),
 			role: "customer"
 		}
 

@@ -1,45 +1,45 @@
 $(document).ready(function(){
-
-	var table = $('#data-table').DataTable()
-
-	$(document).on('change', '#drop-down-data', function(){
-
-		console.log("on change")
-
-		$.getJSON("http://localhost:3000/users", function(data){
-
-			var selectField = 1
-			$(document).on('change', '#drop-down-data', function(){
-
-				selectField = this.value
-
+	console.log("DOM searchbox ready")
+	$.ajax({
+		url: 'http://localhost:3000/users',
+		method: 'get',
+		dataType: 'json',
+		success: function (data) {
+			console.log("data searchbox: ", data)
+			var datatableInstance = $('#datatable').DataTable({
+				paging: true,
+				sort: true,
+				searching: true,
+				data: data,
+				columns: [
+					{ 'data': 'id' },
+					{ 'data': 'name' },
+					{ 'data': 'surname' },
+					{ 'data': 'birthday' },
+					{ 'data': 'email' }
+				]
 			})
-			console.log("selectField 2:", selectField)
-
-			var regex = new RegExp(selectField, 'i')
-
-			console.log("regex:", regex)
-
-			var output
-
-			console.log("data:", data)
-			
-			$.each(data, function(key, value){
-				console.log("data:", data, "value id:", value.id)
-				if (value.vehicle_type.search(regex) != -1 || value.model.search(regex) != -1){
-					output += "<tr>"
-					output += "<td id=' " + key + " ' > " + value.vehicle_type + " </td>"
-					output += "<td id=' " + key + " ' > " + value.model + " </td>"
-					output += "<td id=' " + key + " ' > " + value.registration_year + " </td>"
-					output += "<td id=' " + key + " ' > " + value.number_plate + " </td>"
-					output += "<td id=' " + key + " ' > " + value.availability + " </td>"
-					output += " </td>"
-				} else {
-					$('tbody').html("not found")
-				}
+				
+			$('#datatable thead th').each(function () {
+				var title = $('#datatable tfoot th').eq($(this).index()).text()
+				$(this).html('<input type="text" placeholder="Search ' + title + '" />')
 			})
-			$('tbody').html(output)
-		})
+
+			datatableInstance.columns().every(function () {
+				var dataTableColumn = this
+
+				var searchTextBoxes = $(this.header()).find('input')
+
+				searchTextBoxes.on('keyup change', function () {
+					dataTableColumn.search(this.value).draw()
+					console.log("????")
+				})
+
+				searchTextBoxes.on('click', function(e){
+					e.stopPropagation()
+				})
+			})
+		}
 	})
 })
 

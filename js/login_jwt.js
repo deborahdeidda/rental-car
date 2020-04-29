@@ -5,7 +5,7 @@ $(document).ready(function(){
 	$('#show-alert-error-logging-in').hide()
 
 	$('#login-btn').click(function(e){
-		alert("clicked")
+		console.log("clicked")
 		var user = $('#mail').val()
 		var password = $('#password').val()
 		var id = $('#login-form').val()
