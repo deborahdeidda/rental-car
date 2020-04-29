@@ -16,10 +16,16 @@
 	<!--Css-->
 	<link rel="stylesheet" href="../css/css.css">
 
+	<!--Css datatable-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
 	<!-- External js -->
 	<script type="text/javascript" src="../js/parco_auto.js"></script>
 	<script type="text/javascript" src="../js/admin_navbar.js"></script>
-	<script type="text/javascript" src="../js/search_parco_auto.js"></script>
+	<script type="text/javascript" src="../js/searchbox_parco_auto_admin.js"></script>
+
+	<!--Js datatable-->
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
 
@@ -81,26 +87,48 @@
 <!--Second container Parco auto-->
 <div id="parco-auto-btn" class="container">
 	<div class="row">
-		<div class="col-12 col-md-6 m-auto text-center">
+		<div class="col-12 m-auto text-center">
 			<h1>Parco auto</h1>
 
-			<!-- Search form -->
-			<div class="active-pink-3 active-pink-4 mb-4">
-				<input id="search" class="form-control" type="text" placeholder="Search vehicle" aria-label="Search">
-			</div>
+			<!--Searchbox-->
+			<form id="datatable-form">
+				<div style="width: 1000px; padding: 3px">
+					<table id="data-table">
+						<thead>
+							<tr>
+								<th>Vehicle type</th>
+								<th>Model</th>
+								<th>Registration year</th>
+								<th>Number plate</th>
+								<th>Availability</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Vehicle type</th>
+								<th>Model</th>
+								<th>Registration year</th>
+								<th>Number plate</th>
+								<th>Availability</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</form>
 
-			<table class="table">
-				<thead>
-				<tr>
-					<th>Vehicle type </th>
-					<th>Model </th>
-					<th>Registration year</th>
-					<th>Number plate</th>
-					<th>Availability</th>
-				</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
+			<!--OLD SEARCHBOX NO FILTERS-->
+			<!--<table class="table">-->
+			<!--<thead>-->
+			<!--<tr>-->
+			<!--<th>Vehicle type </th>-->
+			<!--<th>Model </th>-->
+			<!--<th>Registration year</th>-->
+			<!--<th>Number plate</th>-->
+			<!--<th>Availability</th>-->
+			<!--</tr>-->
+			<!--</thead>-->
+			<!--<tbody></tbody>-->
+			<!--</table>-->
 
 			<h2 id="h2"></h2>
 		</div>

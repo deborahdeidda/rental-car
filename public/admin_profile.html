@@ -33,11 +33,72 @@
 		</div>
 	</div>
 	<div class="row text-center">
-		<div id="user-data" class="col-12 col-md-6"></div>
+		<div id="admin-data" class="col-12 col-md-6"></div>
 		<div class="col-12 col-md-6">
 			<figure>
 				<img src="../img/avatar.png" alt="Avatar">
 			</figure>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12 col-md-6 m-auto text-center">
+			<!--Add new user-->
+			<form id="admin-form">
+				<h1 class="title-orange">Add a new Admin.</h1>
+				<p>Please fill in this form to add a new Admin.</p>
+				<hr>
+
+				<div class="row my-1">
+					<div class="col-12 col-md-6 m-auto text-center">
+						<label for="name"><b>Name</b></label><br>
+						<input id="name" type="text" placeholder="Enter Name" name="name">
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-12 col-md-6 m-auto text-center">
+						<label for="surname"><b>Surname</b></label><br>
+						<input id="surname" type="text" placeholder="Enter Surname" name="surname">
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-12 col-md-6 m-auto text-center">
+						<label for="birthday"><b>Birthday</b></label><br>
+						<input id="birthday" type="date" placeholder="Enter Birthday" name="birthday">
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-12 col-md-6 m-auto text-center">
+						<label for="email"><b>Email</b></label><br>
+						<input id="email" type="email" placeholder="Enter Email" name="email">
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-12 col-md-6 m-auto text-center">
+						<label for="password"><b>Password</b></label><br>
+						<input id="password" type="password" placeholder="Enter Password" name="password" required>
+					</div>
+				</div>
+				<hr>
+
+				<button id="create-new-admin" type="submit" class="btn btn-dark">Add new Admin</button>
+			</form>
+
+			<!--Alert admin added-->
+			<div id="alert-admin-added" class="alert-admin-added my-2">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				<strong>You added successfully a new Admin!</strong>
+			</div>
+
+			<!--Alert error registering new admin-->
+			<div id="alert-admin-error" class="alert-admin-error my-2">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				<strong>Please fill all fields to add a new Admin!</strong>
+			</div>
+
 		</div>
 	</div>
 </div>
