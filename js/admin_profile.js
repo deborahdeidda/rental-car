@@ -18,7 +18,7 @@ $(document).ready(function() {
 	}).fail(function (err)  {
 		console.log("failed:", err)
 	})
-	console.log("1")
+	
 	//variables
 	$admin_data = $('#admin-data')
 
@@ -30,8 +30,8 @@ $(document).ready(function() {
 		// now let's populate with Json data
 		if(data[0]){
 			$admin_data.append('<h4 id=" ' + data[0]['id'] + ' ">' + data[0]['name'] + " " + data[0]['surname'] + '</h4>' + "<br>" + '<p>' + "<b>ID </b>" + data[0]['id'] +  '</p>' + "<br>" + '<p>' + "<b>NAME </b>" + data[0]['name'] + '</p>' + "<br>" + '<p>' + "<b>SURNAME </b>" + data[0]['surname'] + '</p>' + "<br>" + '<p>' + "<b>DATE OF BIRTH </b>" + data[0]['birthday'] +  '</p>' + "<br>" + '<p>' + "<b>MAIL </b>" + data[0]['email'] + '</p>' + "<br>" +
-			'<div class="row pb-3 justify-content-center"><div class="col-2 d-inline-block">' +
 
+			'<div class="row pb-3 justify-content-center"><div class="col-2 d-inline-block">' +
 			'<i data-userid="' + data[0]['id'] + '" class="far fa-edit"></i></div>' +
 			'<div class="col-2 d-inline-block">' +
 			'<i id="editAdmin" class="fas fa-user-plus"></i>' +
@@ -40,7 +40,6 @@ $(document).ready(function() {
 		}
 		loadButtons()
 	})
-	console.log("2")
 
 	function loadButtons(){
 		$('#editAdmin').on('click', function(e){

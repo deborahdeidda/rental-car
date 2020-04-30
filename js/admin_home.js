@@ -86,13 +86,37 @@ $(document).ready(function() {
 			method: "get",
 			dataType: "json",
 			success: function(data){
+				console.log("get one user data: ", data.password)
+				var userPass = data.password
 				$($('#edit-form ')[0].userId).val(data.id)
 				$($('#edit-form')[0].editName).val(data.name)
 				$($('#edit-form')[0].editSurname).val(data.surname)
 				$($('#edit-form')[0].editBirthday).val(data.birthday)
-				$($('#edit-form')[0].editMail).val(data.mail)
+				$($('#edit-form')[0].editEmail).val(data.email)
 				$('#edit-form').show()
+
+				$('#edit-user-btn').click( function(e){
+					console.log("clicked")
+					let data = {
+						name: $($('#edit-form')[0].editName).val(),
+						surname: $($('#edit-form')[0].editSurname).val(),
+						birthday: $($('#edit-form')[0].editBirthday).val(),
+						email: $($('#edit-form')[0].editEmail).val(),
+						password: userPass,
+						role: "customer"
+					}
+					console.log("al click i dati sono questi:", data)
+
+
+					editUser($($('#edit-form')[0].userId).val(), data)
+					$('#edit-form').trigger("reset")
+					$('#show-alert-edit').show()
+					$('#edit-form').hide()
+					e.preventDefault()
+				})
 			}
+
+
 		})
 	}
 
@@ -101,7 +125,7 @@ $(document).ready(function() {
 			name: $($('#form')[0].name).val(),
 			surname: $($('#form')[0].surname).val(),
 			birthday: $($('#form')[0].birthday).val(),
-			email: $($('#form')[0].mail).val(),
+			email: $($('#form')[0].email).val(),
 			role: "customer"
 		}
 
@@ -184,26 +208,14 @@ $(document).ready(function() {
 			dataType: "json",
 			data: data,
 			success: function(data){
+				console.log("dati modificati:", data)
 				getAllUsers()
 			}
 		})
 	}
 
-	$('#edit-user-btn').click( function(e){
-		console.log("clicked")
-		let data = {
-			name: $($('#edit-form')[0].editName).val(),
-			surname: $($('#edit-form')[0].editSurname).val(),
-			birthday: $($('#edit-form')[0].editBirthday).val(),
-			mail: $($('#edit-form')[0].editMail).val()
-		}
+	// b
 
-		editUser($($('#edit-form')[0].userId).val(), data)
-		$('#edit-form').trigger("reset")
-		$('#show-alert-edit').show()
-		$('#edit-form').hide()
-		e.preventDefault()
-	})
 
 	function deleteUser(id, data){
 		$.ajax({
