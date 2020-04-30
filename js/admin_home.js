@@ -113,9 +113,6 @@ $(document).ready(function() {
 			dataType: "json",
 			data: data,
 			success: function(data){
-				var custRole = data.role
-				localStorage.setItem("custRole", custRole)
-				console.log("data:", data.role)
 				getAllUsers()
 			}
 		})
