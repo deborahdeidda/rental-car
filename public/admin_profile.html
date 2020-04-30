@@ -29,21 +29,21 @@
 	<div class="row">
 		<div class="col-12 m-auto text-center">
 			<h1>Welcome to Admin Section</h1>
-			<h2>Here is your data</h2>
-		</div>
-	</div>
-	<div class="row text-center">
-		<div id="admin-data" class="col-12 col-md-6"></div>
-		<div class="col-12 col-md-6">
-			<figure>
-				<img src="../img/avatar.png" alt="Avatar">
-			</figure>
-		</div>
-	</div>
-	<div class="row" id="admin">
-		<div class="col-12 col-md-6 m-auto text-center">
-			<!--Add new user-->
-			<form>
+
+			<!--Alert admin added-->
+			<div id="alert-admin-added" class="alert-admin-added my-2">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				<strong>You added successfully a new Admin!</strong>
+			</div>
+
+			<!--Alert error registering new admin-->
+			<div id="alert-admin-error" class="alert-admin-error my-2">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				<strong>Please fill all fields to add a new Admin!</strong>
+			</div>
+
+			<!--Add new admin-->
+			<form id="new-admin-form">
 				<h1 class="title-orange">Add a new Admin.</h1>
 				<p>Please fill in this form to add a new Admin.</p>
 				<hr>
@@ -87,18 +87,15 @@
 				<button id="create-new-admin" type="submit" class="btn btn-dark">Add new Admin</button>
 			</form>
 
-			<!--Alert admin added-->
-			<div id="alert-admin-added" class="alert-admin-added my-2">
-				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-				<strong>You added successfully a new Admin!</strong>
-			</div>
-
-			<!--Alert error registering new admin-->
-			<div id="alert-admin-error" class="alert-admin-error my-2">
-				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-				<strong>Please fill all fields to add a new Admin!</strong>
-			</div>
-
+			<h2>Here is your data</h2>
+		</div>
+	</div>
+	<div class="row text-center my-3">
+		<div id="admin-data" class="col-12 col-md-6"></div>
+		<div class="col-12 col-md-6">
+			<figure>
+				<img src="../img/avatar.png" alt="Avatar">
+			</figure>
 		</div>
 	</div>
 </div>
