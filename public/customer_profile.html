@@ -26,9 +26,67 @@
        <header></header>
 
        <div class="container">
-           <div class="row">
+           <div class="row my-2">
                <div class="col-12 m-auto text-center">
                    <h1>Welcome to Customer Section</h1>
+
+                   <!--Alert data edited-->
+                   <div id="alert-data-edited" class="alert-admin-added my-2">
+                       <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                       <strong>You edited successfully your data!</strong>
+                   </div>
+
+                   <!--Alert error editing the data-->
+                   <div id="alert-edit-error" class="alert-admin-error my-2">
+                       <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                       <strong>Please fill all fields to edit correctly your data!</strong>
+                   </div>
+
+                   <!--Edit data-->
+                   <form id="edit-form">
+                       <h1 class="title-orange">Edit your data.</h1>
+                       <p>Please fill in this form to edit your data.</p>
+                       <hr>
+
+                       <div class="row my-1">
+                           <div class="col-12 col-md-6 m-auto text-center">
+                               <input id="userId" type="hidden">
+                           </div>
+                       </div>
+
+                       <div class="row my-1">
+                           <div class="col-12 col-md-6 m-auto text-center">
+                               <label for="name"><b>Name</b></label><br>
+                               <input id="name" type="text" placeholder="Enter Name" name="name">
+                           </div>
+                       </div>
+
+                       <div class="row my-1">
+                           <div class="col-12 col-md-6 m-auto text-center">
+                               <label for="surname"><b>Surname</b></label><br>
+                               <input id="surname" type="text" placeholder="Enter Surname" name="surname">
+                           </div>
+                       </div>
+
+                       <div class="row my-1">
+                           <div class="col-12 col-md-6 m-auto text-center">
+                               <label for="birthday"><b>Birthday</b></label><br>
+                               <input id="birthday" type="date" placeholder="Enter Birthday" name="birthday">
+                           </div>
+                       </div>
+
+                       <div class="row my-1">
+                           <div class="col-12 col-md-6 m-auto text-center">
+                               <label for="email"><b>Email</b></label><br>
+                               <input id="email" type="email" placeholder="Enter Email" name="email">
+                           </div>
+                       </div>
+
+                       <hr>
+
+                       <button id="edit-data" type="submit" class="btn btn-dark">Edit</button>
+                   </form>
+
                    <h2>Here is your data</h2>
                </div>
            </div>
