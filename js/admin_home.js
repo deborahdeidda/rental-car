@@ -14,6 +14,20 @@ $(document).ready(function() {
 		console.log("failed:", err)
 	})
 
+	$.ajax({
+		type: "GET",
+		url: 'http://localhost:3000/bookings',
+		contentType: "json",
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
+			console.log(localStorage.getItem("jwt"))
+		}
+	}).done(function (response) {
+		console.log("done:", response)
+	}).fail(function (err)  {
+		console.log("failed:", err)
+	})
+
 	$('#form').hide()
 	$('#edit-form').hide()
 	$('#show-alert').hide()
@@ -40,7 +54,7 @@ $(document).ready(function() {
 			},
 			success: function(data){
 				$(data).each(function(i, user){
-					$('#user').append('<div class="col-12 col-md-4">' + '<div class="card">' + '<img src="../img/avatar.png" alt="Avatar" style="width:100%">' + '<div class="container">' + '<h4 user-id=" ' + user.id + ' ">' + user.name + ' ' + user.surname + '</h4><br>' + '<p><b>ID </b>' + user.id + '</p><br>' + '<p><b>NAME </b>' + user.name + '</p><br>' + '<p><b>SURNAME </b>' + user.surname + '</p><br>' + '<p><b>BIRTHDAY </b>' + user.birthday + '</p><br>' + '<p><b>MAIL </b>' + user.mail + '</p><br>' + '<div class="row pb-3"><div class="col-4 d-inline-block">' +
+					$('#user').append('<div class="col-12 col-md-4">' + '<div class="card">' + '<img src="../img/avatar.png" alt="Avatar" style="width:100%">' + '<div class="container">' + '<h4 user-id=" ' + user.id + ' ">' + user.name + ' ' + user.surname + '</h4><br>' + '<p><b>ID </b>' + user.id + '</p><br>' + '<p><b>NAME </b>' + user.name + '</p><br>' + '<p><b>SURNAME </b>' + user.surname + '</p><br>' + '<p><b>BIRTHDAY </b>' + user.birthday + '</p><br>' + '<p><b>EMAIL </b>' + user.email + '</p><br>' + '<div class="row pb-3"><div class="col-4 d-inline-block">' +
 
 						'<i data-userid="' + user.id + '" class="far fa-edit editUser"></i>'
 
@@ -128,7 +142,7 @@ $(document).ready(function() {
 			$('#alert-no-bookings').hide()
 			getOneUser($($(this)[0]).data('userid'))
 			$('html, body').animate({
-				scrollTop: ($('#show-alert-edit').offset().top)
+				scrollTop: ($('#edit-form').offset().top)
 			},'slow')
 			e.preventDefault()
 		})
@@ -149,6 +163,7 @@ $(document).ready(function() {
 		})
 
 		$('.showBookings').click(function(e){
+			console.log("SHOW ME THE BOOKINGS, CLICKED")
 			$('#form').hide()
 			$('#edit-form').hide()
 			$('#show-alert').hide()
@@ -202,18 +217,25 @@ $(document).ready(function() {
 	}
 
 	function showBookingUser(id, data){
+		console.log("I AM INSIDE BOOKINGS FUNCTION")
 		$('#show-bookings-alert').html('')
 		$.ajax({
-			url: "http://localhost:3000/660/bookings/" + id,
+			url: "http://localhost:3000/bookings?userId=" + id,
 			method: "get",
 			dataType: "json",
 			data: {
-				bookings: "booking user"
 			},
 			success: function(data){
-				$('#alert-no-bookings').hide()
-				$('#show-bookings-alert').append('<p>This reservation belogs to customer id: ' + '<b>' + data.userId + '</b>' + "<br>" + "Reservation date: " + '<b>' + data.booking_date + '</b>' + "<br>" + "Vehicle type: " + '<b>' + data.vehicle_type + '</b>' + "Model: " + '<b>' + data.model + '</b>' + "<br>" + "Total cost: " + '<b>' + data.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + data.booking_status + '</b>' + "<br>" + '</p><br>')
-				$('#show-bookings-box').show()
+				console.log("DATA:", data)
+				if(data[0]){
+					$('#alert-no-bookings').hide()
+					$('#show-bookings-alert').append('<p>This reservation belogs to customer id: ' + '<b>' + data[0]['userId'] + '</b>' + "<br>" + "Booking date: " + '<b>' + data[0]['booking_date'] + '</b>' + "<br>" + "Vehicle type: " + '<b>' + data[0]['vehicle_type'] + '</b>' + "Model: " + '<b>' + data[0]['model'] + '</b>' + "<br>" + "Daily cost: " + '<b>' + data[0]['daily_cost'] + '</b>' + "<br>" + "Total cost: " + '<b>' + data[0]['total_cost'] + '</b>' + "<br>" + "Booking status: " + '<b>' + data[0]['booking_status'] + '</b>' + "<br>" + '</p><br>')
+					$('#show-bookings-box').show()
+				} else {
+					console.log("no bookings")
+					$('#show-bookings-box').hide()
+					$('#alert-no-bookings').show()
+				}
 			},
 			error: function(){
 				$('#show-bookings-box').hide()
