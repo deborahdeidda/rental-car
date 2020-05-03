@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	console.log("DOM searchbox ready")
 	$.ajax({
-		url: 'http://localhost:3000/bus_vehicles',
+		url: 'http://localhost:3000/660/bus_vehicles',
 		method: 'get',
 		dataType: 'json',
 		success: function (data) {

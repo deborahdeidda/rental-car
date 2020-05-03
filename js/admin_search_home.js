@@ -1,45 +1,50 @@
 $(document).ready(function(){
 	console.log("DOM searchbox ready")
 	$.ajax({
-		url: 'http://localhost:3000/users',
-		method: 'get',
-		dataType: 'json',
-		success: function (data) {
-			console.log("data searchbox: ", data)
-			var datatableInstance = $('#datatable').DataTable({
-				paging: true,
-				sort: true,
-				searching: true,
-				data: data,
-				columns: [
-					{ 'data': 'id' },
-					{ 'data': 'name' },
-					{ 'data': 'surname' },
-					{ 'data': 'birthday' },
-					{ 'data': 'email' }
-				]
-			})
-				
-			$('#datatable thead th').each(function () {
-				var title = $('#datatable tfoot th').eq($(this).index()).text()
-				$(this).html('<input type="text" placeholder="Search ' + title + '" />')
-			})
-
-			datatableInstance.columns().every(function () {
-				var dataTableColumn = this
-
-				var searchTextBoxes = $(this.header()).find('input')
-
-				searchTextBoxes.on('keyup change', function () {
-					dataTableColumn.search(this.value).draw()
-					console.log("????")
-				})
-
-				searchTextBoxes.on('click', function(e){
-					e.stopPropagation()
-				})
-			})
+		type: 'get',
+		url: 'http://localhost:3000/660/users',
+		contentType: "json",
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
+			console.log("jwt:", localStorage.getItem("jwt"))
 		}
+	}).done(function (response) {
+		console.log("data searchbox: ", response)
+		var datatableInstance = $('#datatable').DataTable({
+			paging: true,
+			sort: true,
+			searching: true,
+			data: response,
+			columns: [
+				{ 'data': 'id' },
+				{ 'data': 'name' },
+				{ 'data': 'surname' },
+				{ 'data': 'birthday' },
+				{ 'data': 'email' }
+			]
+		})
+
+		$('#datatable thead th').each(function () {
+			var title = $('#datatable tfoot th').eq($(this).index()).text()
+			$(this).html('<input type="text" placeholder="Search ' + title + '" />')
+		})
+
+		datatableInstance.columns().every(function () {
+			var dataTableColumn = this
+
+			var searchTextBoxes = $(this.header()).find('input')
+
+			searchTextBoxes.on('keyup change', function () {
+				dataTableColumn.search(this.value).draw()
+				console.log("????")
+			})
+
+			searchTextBoxes.on('click', function(e){
+				e.stopPropagation()
+			})
+		})
+	}).fail(function (err)  {
+		console.log("failed:", err)
 	})
 })
 
