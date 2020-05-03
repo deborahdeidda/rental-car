@@ -9,7 +9,7 @@
 	<!--Bootstrap-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <!--Fontawesome-->
+  <!--Fontawesome-->
 	<script src="https://kit.fontawesome.com/6696e776e1.js" crossorigin="anonymous"></script>
 
 	<!-- Jquery -->
@@ -18,8 +18,14 @@
 	<!--Css-->
 	<link rel="stylesheet" href="../css/css.css">
 
+	<!--Css datatable-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
 	<!-- External js -->
 	<script type="text/javascript" src="../js/customer_home.js"></script>
+
+	<!--Js datatable-->
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 </head>
 <body>
@@ -58,7 +64,7 @@
 
     <div class="container">
 	    <div class="row my-2">
-		    <div class="col-12 col-md-6 m-auto text-center">
+		    <div class="col-12 m-auto text-center">
 			    <h1>Welcome to Customer home</h1>
 
 					<div class="col-12 col-md-6 m-auto py-2">
@@ -96,7 +102,7 @@
 							<strong>All field required.</strong>
 					</div>
 
-					<!--Add new booking-->
+					<!--Add new booking form-->
 					<form id="new-booking-form">
 						<h1 class="title-orange">Book now</h1>
 						<p>Please fill in this form to book a vehicle.</p>
@@ -112,14 +118,22 @@
 					    <div class="row my-1">
 						    <div class="col-12 col-md-6 m-auto text-center">
 							    <label for="type"><b>Vehicle type</b></label><br>
-							    <input id="type" type="text" placeholder="Enter Vehicle Type" name="type">
+									<select id="type" class="" name="type">
+											<option value="high">High Bus</option>
+											<option value="short">Short Bus</option>
+											<option value="long">Long Bus</option>
+									</select>
 						    </div>
 					    </div>
 
 					    <div class="row my-1">
 						    <div class="col-12 col-md-6 m-auto text-center">
 							    <label for="model"><b>Model</b></label><br>
-							    <input id="model" type="text" placeholder="Enter Model" name="model">
+									<select id="model" class="" name="model">
+											<option value="high">Model 2020</option>
+											<option value="short">Model 2005</option>
+											<option value="long">Model 1990</option>
+									</select>
 						    </div>
 					    </div>
 							<hr>
@@ -128,7 +142,7 @@
 					</form>
 					<br><br>
 
-					<!--Edit booking-->
+					<!--Edit booking form-->
 					<form id="edit-booking-form">
 							<h1 class="title-orange">Edit booking</h1>
 							<p>Please fill in this form to edit the booking.</p>
@@ -166,24 +180,51 @@
 					</form>
 					<br><br>
 
-			    <!-- Search form -->
-			    <div class="active-pink-3 active-pink-4 my-4">
-				    <input class="form-control" type="text" placeholder="Search reservation" aria-label="Search">
-			    </div>
+					<!--Searchbox-->
+					<form id="datatable-form">
+							<div style="width: 1000px; padding: 3px">
+									<table id="datatable">
+											<thead>
+												<tr>
+														<th>Vehicle type</th>
+														<th>Model</th>
+														<th>Booking date</th>
+														<th>Daily cost</th>
+														<th>Total cost</th>
+												</tr>
+											</thead>
+											<tfoot>
+											<tr>
+													<th>Vehicle type</th>
+													<th>Model</th>
+													<th>Booking date</th>
+													<th>Daily cost</th>
+													<th>Total cost</th>
+											</tr>
+											</tfoot>
+									</table>
+							</div>
+					</form>
 
 			    <h2 id="h2">Your reservations</h2>
 
-			    <!--If there are bookings-->
-			    <div id="bookings" class="row"></div>
-			    <div id="bookings2" class="row my-3"></div>
+					<div class="row">
+						<div class="col-12 col-md-6 m-auto text-center">
 
-			    <!--If there are no bookings-->
-			    <p class="no-bookings" id="no-bookings">You do not have any bookings yet!</p>
+							<!--If there are bookings-->
+					    <div id="bookings" class="row"></div>
+					    <!-- <div id="bookings2" class="row my-3"></div> -->
+
+					    <!--If there are no bookings-->
+					    <p class="no-bookings" id="no-bookings">You do not have any bookings yet!</p>
+
+						</div>
+					</div>
+
 
 
 		    </div>
 	    </div>
-	    <!-- <div id="user" class="row"></div> -->
     </div>
 
     <!-- Bootstrap-->
