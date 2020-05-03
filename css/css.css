@@ -72,6 +72,12 @@ html {
     color: white;
 }
 
+.alert-new-booking-added {
+  padding: 20px;
+  background-color: #8dc251;
+  color: white;
+}
+
 .alert-registered {
     padding: 20px;
     background-color: #8dc251;
@@ -90,10 +96,46 @@ html {
     color: white;
 }
 
+.alert-booking-edited {
+  padding: 20px;
+  background-color: #8dc251;
+  color: white;
+}
+
+.alert-admin-added {
+    padding: 20px;
+    background-color: #8dc251;
+    color: white;
+}
+
 .alert-error-logging-in  {
     padding: 20px;
     background-color: #f4bd18;
     color: white;
+}
+
+.alert-error-editing-user {
+  padding: 20px;
+  background-color: #f4bd18;
+  color: white;
+}
+
+.alert-error-booking {
+  padding: 20px;
+  background-color: #f4bd18;
+  color: white;
+}
+
+.alert-error-editing-booking {
+  padding: 20px;
+  background-color: #f4bd18;
+  color: white;
+}
+
+.alert-user-error {
+  padding: 20px;
+  background-color: #f4bd18;
+  color: white;
 }
 
 .alert-registered-failed  {
@@ -114,10 +156,22 @@ html {
     color: white;
 }
 
+.alert-admin-error {
+    padding: 20px;
+    background-color: #f4bd18;
+    color: white;
+}
+
 .alert-delete-user {
     padding: 20px;
     background-color: red;
     color: white;
+}
+
+.alert-booking-deleted {
+  padding: 20px;
+  background-color: red;
+  color: white;
 }
 
 .closebtn {
@@ -147,6 +201,9 @@ a.remove-decoration:hover {
 
 .table-orange {
     border-color: #ff6347;
-    
+
 }
 
+.no-bookings {
+  color: red;
+}
