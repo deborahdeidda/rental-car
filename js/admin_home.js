@@ -50,6 +50,56 @@ $(document).ready(function() {
 	$('#show-bookings-box').hide()
 	$('#alert-no-bookings').hide()
 	$("#alert-user-error").hide()
+	$("#alert-error-editing-user").hide()
+
+
+	//searchbox
+	$.ajax({
+		type: 'get',
+		url: 'http://localhost:3000/660/users',
+		contentType: "json",
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
+			console.log("jwt:", localStorage.getItem("jwt"))
+		}
+	}).done(function (response) {
+		console.log("data searchbox: ", response)
+		var datatableInstance = $('#datatable').DataTable({
+			paging: true,
+			sort: true,
+			searching: true,
+			data: response,
+			columns: [
+				{ 'data': 'id' },
+				{ 'data': 'name' },
+				{ 'data': 'surname' },
+				{ 'data': 'birthday' },
+				{ 'data': 'email' }
+			]
+		})
+
+		$('#datatable thead th').each(function () {
+			var title = $('#datatable tfoot th').eq($(this).index()).text()
+			$(this).html('<input type="text" placeholder="Search ' + title + '" />')
+		})
+
+		datatableInstance.columns().every(function () {
+			var dataTableColumn = this
+
+			var searchTextBoxes = $(this.header()).find('input')
+
+			searchTextBoxes.on('keyup change', function () {
+				dataTableColumn.search(this.value).draw()
+				console.log("????")
+			})
+
+			searchTextBoxes.on('click', function(e){
+				e.stopPropagation()
+			})
+		})
+	}).fail(function (err)  {
+		console.log("failed:", err)
+	})
 
 
 	getAllUsers()
@@ -121,6 +171,12 @@ $(document).ready(function() {
 
 				$('#edit-user-btn').click( function(e){
 					console.log("clicked")
+
+					var editName = $('#editName').val()
+					var editSurname = $('#editSurname').val()
+					var editBirthday = $('#editBirthday').val()
+					var editBirthday = $('#editEmail').val()
+
 					let data = {
 						name: $($('#edit-form')[0].editName).val(),
 						surname: $($('#edit-form')[0].editSurname).val(),
@@ -131,12 +187,19 @@ $(document).ready(function() {
 					}
 					console.log("al click i dati sono questi:", data)
 
-
-					editUser($($('#edit-form')[0].userId).val(), data)
-					$('#edit-form').trigger("reset")
-					$('#show-alert-edit').show()
-					$('#edit-form').hide()
-					e.preventDefault()
+					if (editName != "" && editSurname != "" && editBirthday != "" && editBirthday != "" ){
+						console.log("all fields filled:", editName + " " + editSurname + " " +  editBirthday + " " +  editBirthday)
+						$("#alert-error-editing-user").hide()
+						editUser($($('#edit-form')[0].userId).val(), data)
+						$('#edit-form').trigger("reset")
+						$('#show-alert-edit').show()
+						$('#edit-form').hide()
+						e.preventDefault()
+					} else {
+						console.log("not all fields are filled:", editName + editSurname + editBirthday + editBirthday)
+						$("#alert-error-editing-user").show()
+						e.preventDefault()
+					}
 				})
 		}).fail(function (err)  {
 			console.log("failed:", err)
@@ -188,20 +251,22 @@ $(document).ready(function() {
 
 	function createNewUser(data){
 		$.ajax({
-			type: "post",
+			method: "post",
 			url: "http://localhost:3000/660/users",
-			contentType: "json",
+			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 			data: data,
-		}).done(function (response) {
-			console.log("success")
-			getAllUsers()
-		}).fail(function (err)  {
-			console.log("error")
-			// $("#alert-admin-error").show()
+			success: function(data){
+				console.log("success:", data)
+				getAllUsers()
+			},
+			error: function(){
+				console.log("error")
+				// $("#alert-admin-error").show()
+			}
 		})
 	}
 
@@ -268,7 +333,8 @@ $(document).ready(function() {
 		})
 	}
 
-	function deleteUser(id, data){
+	function deleteUser(id){
+		console.log("cosa c'è qui:", id)
 		$.ajax({
 			url: "http://localhost:3000/660/users/" + id,
 			method: "DELETE",
@@ -277,7 +343,8 @@ $(document).ready(function() {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 				console.log("jwt:", localStorage.getItem("jwt"))
 			},
-		}).done(function (data) {
+		}).done(function (response) {
+			console.log("success:", response)
 			getAllUsers()
 		}).fail(function (err)  {
 			console.log("failed:", err)
@@ -297,15 +364,21 @@ $(document).ready(function() {
 			}
 		}).done(function (data) {
 			console.log("DATA:", data)
-			if(data[0]){
-				$('#alert-no-bookings').hide()
-				$('#show-bookings-alert').append('<p>This reservation belogs to customer id: ' + '<b>' + data[0]['userId'] + '</b>' + "<br>" + "Booking date: " + '<b>' + data[0]['booking_date'] + '</b>' + "<br>" + "Vehicle type: " + '<b>' + data[0]['vehicle_type'] + '</b>'+ "<br>" + "Model: " + '<b>' + data[0]['model'] + '</b>' + "<br>" + "Daily cost: " + '<b>' + data[0]['daily_cost'] + '</b>' + "<br>" + "Total cost: " + '<b>' + data[0]['total_cost'] + '</b>' + "<br>" + "Booking status: " + '<b>' + data[0]['booking_status'] + '</b>' + "<br>" + '</p><br>')
-				$('#show-bookings-box').show()
-			} else {
-				console.log("no bookings")
-				$('#show-bookings-box').hide()
-				$('#alert-no-bookings').show()
-			}
+			if(data){
+				$(data).each(function(i, booking){
+					console.log("quante prenotazioni?:", data)
+						$('#alert-no-bookings').hide()
+						$('#show-bookings-alert').append('<p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Vehicle type: " + '<b>' + booking.vehicle_type + '</b>'+ "<br>" + "Model: " + '<b>' + booking.model + '</b>' + "<br>" + "Daily cost: " + '<b>' + booking.daily_cost + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b>' + "<br>" + '</p><br>')
+						$('#show-bookings-box').show()
+					})
+				}  else {
+					console.log("no bookings")
+					$('#show-bookings-box').hide()
+					$('#alert-no-bookings').show()
+				}
+
+
+
 		}).fail(function (err)  {
 			$('#show-bookings-box').hide()
 			$('#alert-no-bookings').show()

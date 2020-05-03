@@ -39,6 +39,53 @@ $(document).ready(function(){
 		console.log("failed:", err)
 	})
 
+	//searchbox
+	$.ajax({
+		type: "get",
+		url:"http://localhost:3000/600/bookings?userId="+ localStorage.getItem("userid"),
+		contentType: "json",
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
+			console.log("jwt:", localStorage.getItem("jwt"))
+		},
+		success: function (data) {
+			console.log("bookings searchbox: ", data)
+			var datatableInstance = $('#datatable').DataTable({
+				paging: true,
+				sort: true,
+				searching: true,
+				data: data,
+				columns: [
+					{ 'data': 'vehicle_type' },
+					{ 'data': 'model' },
+					{ 'data': 'booking_date' },
+					{ 'data': 'daily_cost' },
+					{ 'data': 'total_cost' }
+				]
+			})
+
+			$('#datatable thead th').each(function () {
+				var title = $('#datatable tfoot th').eq($(this).index()).text()
+				$(this).html('<input type="text" placeholder="Search ' + title + '" />')
+			})
+
+			datatableInstance.columns().every(function () {
+				var dataTableColumn = this
+
+				var searchTextBoxes = $(this.header()).find('input')
+
+				searchTextBoxes.on('keyup change', function () {
+					console.log("keyup and change")
+					dataTableColumn.search(this.value).draw()
+				})
+
+				searchTextBoxes.on('click', function(e){
+					e.stopPropagation()
+				})
+			})
+		}
+	})
+
 	checkBookings()
 
 	function checkBookings(){
@@ -55,7 +102,8 @@ $(document).ready(function(){
 			if(response[0]){
 				$(response).each(function(i, booking){
 					$('#bookings').show()
-					$('#bookings').append('<div class="col-12 col-md-6 d-flex align-items-center">' +
+					$('#bookings2').show()
+					$('#bookings').append('<div class="row py-4"><div class="col-12 col-md-6 d-flex align-items-center">' +
 						'<img class="img-fluid" src="../img/bus.jfif" alt="Bus">' + '</div>' +
 						'<div class="col-12 col-md-6">' +
 						'<h2>' + booking.vehicle_type + '</h2>' +
@@ -63,14 +111,12 @@ $(document).ready(function(){
 						'<p>Booking date: <b>' + booking.booking_date +'</b></p>' +
 						'<p>Daily cost: <b>' + booking.daily_cost +'</b></p>' +
 						'<p>Total cost: <b>' + booking.total_cost +'</b></p>' +
-						'</div>')
-					$('#bookings2').show()
-					$('#bookings2').append('<div class="row pb-3 justify-content-center"><div class="col-2 d-inline-block">' +
-					'<i data-userid="' + response[0]['userId'] + '" id="editBooking" class="far fa-edit"></i></div>' +
-					'<div class="col-2 d-inline-block">' +
-					'<i data-userid="' + response[0]['userId'] + '" id="deleteBooking" class="far fa-trash-alt"></i>' +
+						'</div><div class="row mb-4 m-auto text-center"><div class="col-2 d-inline-block">' +
+						'<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" id="editBooking" class="far fa-edit"></i></div>' +
+						'<div class="col-2 d-inline-block">' +
+						'<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" class="far fa-trash-alt deleteBooking"></i>' +
 
-					'</div></div>')
+						'</div></div></div>')
 					loadButtons()
 				})
 			} else {
@@ -111,11 +157,11 @@ $(document).ready(function(){
 		})
 	}
 
+	//new booking btn
 	$('#new-booking').on('click', function(e){
 		alert("clicked")
 		$('#new-booking-form').show()
 	})
-
 	$('#create-new-booking').on('click', function(e){
 
 		let date = $('#date').val()
@@ -135,6 +181,7 @@ $(document).ready(function(){
 
 		if (date != "" && type != "" && model != ""){
 				console.log("all fields filled")
+				$("#alert-error-booking").hide()
 				createNewBooking(data)
 				e.preventDefault()
 		} else {
@@ -160,17 +207,18 @@ $(document).ready(function(){
 				booking_date: $($('#new-booking-form')[0].date).val(),
 				vehicle_type: $($('#new-booking-form')[0].type).val(),
 				model: $($('#new-booking-form')[0].model).val(),
-				daily_cost: localStorage.getItem("dailycost"),
-				total_cost: localStorage.getItem("totalcost"),
+				daily_cost: parseInt(localStorage.getItem("dailycost")),
+				total_cost: parseInt(localStorage.getItem("totalcost")),
 				booking_status: "awaiting",
-				userId: localStorage.getItem("userid")
+				userId: parseInt(localStorage.getItem("userid"))
 			},
 		}).done(function (response) {
-			console.log("success:", response)
+			console.log("new booking:", response)
 			$('#alert-new-booking-added').show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-new-booking-added').offset().top)
 			},'slow')
+			checkBookings()
 		}).fail(function (err)  {
 			console.log("error:", err)
 			// $("#alert-admin-error").show()
@@ -187,9 +235,10 @@ $(document).ready(function(){
 			e.preventDefault()
 		})
 
-		$('#deleteBooking').click(function(e){
+		$('.deleteBooking').click(function(e){
 			alert("I want to delete")
-			deleteBooking($($(this)[0]).data('userid'))
+			deleteBooking( $($(this)[0]).data('bookingid'), $($(this)[0]).data('userid') )
+			console.log("this:", $($(this)[0]).data('bookingid'), $($(this)[0]).data('userid'))
 			// $('#').show()
 			// $('html, body').animate({
 			// 	scrollTop: ($('#').offset().top)
@@ -209,8 +258,8 @@ $(document).ready(function(){
 			booking_date: $($('#edit-booking-form')[0].editDate).val(),
 			vehicle_type: $($('#edit-booking-form')[0].editType).val(),
 			model: $($('#edit-booking-form')[0].editModel).val(),
-			daily_cost: localStorage.getItem("dailycost"),
-			total_cost: localStorage.getItem("totalcost"),
+			daily_cost: parseInt(localStorage.getItem("dailycost")),
+			total_cost: parseInt(localStorage.getItem("totalcost")),
 			booking_status: localStorage.getItem("bookingstatus")
 		}
 		console.log("i dati da modificare sono questi:", data)
@@ -240,33 +289,31 @@ $(document).ready(function(){
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 				console.log("jwt:", localStorage.getItem("jwt"))
 			},
-			data: data,
-		}).done(function (response) {
-			console.log("dati modificati:", response)
+			data: data
+		}).done(function (data) {
+			console.log("dati modificati:", data)
 			$('#edit-booking-form').trigger("reset")
 			$('#alert-booking-edited').show()
 			$('#edit-booking-form').hide()
-		}).fail(function (err) {
-			console.log("booking failed:", err)
+		}).fail(function (err)  {
+			console.log("failed:", err)
 		})
 	}
 
 	function deleteBooking(id, data){
-		console.log("cosa sono:", id, data)
+		console.log("booking id:", id)
 		$.ajax({
 			method: "DELETE",
-			url: "http://localhost:3000/660/bookings?userId=" + localStorage.getItem("userid"),
-			dataType: "json",
+			url: "http://localhost:3000/660/bookings?id=" + id + "&userId=" + localStorage.getItem("userid"),
+			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 				console.log("I want to delete this booking, jwt:", localStorage.getItem("jwt"))
-			},
-			success: function(data){
-				console.log("booking deleted")
-			},
-			error: function(err){
-				console.log("failed deleting")
 			}
+		}).done(function (data) {
+				console.log("booking deleted")
+		}).fail(function (err)  {
+			console.log("failed deleting")
 		})
 	}
 

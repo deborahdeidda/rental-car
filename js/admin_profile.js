@@ -40,9 +40,7 @@ $(document).ready(function() {
 				if(response){
 					$admin_data.append('<h4 id=" ' + response.id + ' ">' + response.name + " " + response.surname + '</h4>' + "<br>" + '<p>' + "<b>ID </b>" + response.id +  '</p>' + "<br>" + '<p>' + "<b>NAME </b>" + response.name + '</p>' + "<br>" + '<p>' + "<b>SURNAME </b>" + response.surname + '</p>' + "<br>" + '<p>' + "<b>DATE OF BIRTH </b>" + response.birthday +  '</p>' + "<br>" + '<p>' + "<b>MAIL </b>" + response.email + '</p>' + "<br>" +
 
-					'<div class="row pb-3 justify-content-center"><div class="col-2 d-inline-block">' +
-					'<i data-userid="' + response.id + '" class="far fa-edit"></i></div>' +
-					'<div class="col-2 d-inline-block">' +
+					'<div class="row pb-3 justify-content-center"><div class="col-6 d-inline-block">' +
 					'<i id="editAdmin" class="fas fa-user-plus"></i>' +
 
 					' </div></div>')
