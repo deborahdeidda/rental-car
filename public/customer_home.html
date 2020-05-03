@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Customer home</title>
+
+  <!--Index customer home-->
+
+	<!--Bootstrap-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!--Fontawesome-->
+	<script src="https://kit.fontawesome.com/6696e776e1.js" crossorigin="anonymous"></script>
+
+	<!-- Jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<!--Css-->
+	<link rel="stylesheet" href="../css/css.css">
+
+	<!-- External js -->
+	<script type="text/javascript" src="../js/customer_home.js"></script>
+
+</head>
+<body>
+
+	<!--Start Navbar-->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="./customer_parco_auto.html">
+	        <span style="font-size: 2em; color: Tomato;">
+	            <i class="fas fa-car"></i>
+	        </span>
+			Rental Car
+		</a>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+			<ul class="navbar-nav m-auto mt-2 mt-lg-0">
+				<li class="nav-item mx-3">
+					<a class="nav-link" href="./customer_parco_auto.html">Parco auto<span class="sr-only">(current)</span></a>
+				</li>
+				<li id="customer-home" class="nav-item mx-3">
+					<a class="nav-link" href="customer_home.html">Customer home<span class="sr-only">(current)</span></a>
+				</li>
+				<li id="customer-profile" class="nav-item mx-3">
+					<a class="nav-link" href="customer_profile.html">Customer profile<span class="sr-only">(current)</span></a>
+				</li>
+			</ul>
+	        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+	            <li class="nav-item mx-3">
+	                <a class="nav-link" href="index_parco_auto.html">Logout<span class="sr-only">(current)</span></a>
+	            </li>
+	        </ul>
+		</div>
+	</nav>
+	<!--End Navbar-->
+
+    <div class="container">
+	    <div class="row my-2">
+		    <div class="col-12 col-md-6 m-auto text-center">
+			    <h1>Welcome to Customer home</h1>
+
+					<div class="col-12 col-md-6 m-auto py-2">
+							<!--Add new booking btn-->
+							<button id="new-booking" class="btn btn-outline-success">New Booking</button>
+					</div>
+
+					<!--Alert new booking added-->
+					<div id="alert-new-booking-added" class="alert-new-booking-added my-2">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong>You added successfully a new booking!</strong>
+					</div>
+
+					<!--Alert booking deleted -->
+					<div id="alert-booking-deleted" class="alert-booking-deleted my-2">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong>You deleted successfully the booking!</strong>
+					</div>
+
+					<!--Alert booking edited-->
+					<div id="alert-booking-edited" class="alert-booking-edited my-2">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong>You edited successfully your booking!</strong>
+					</div>
+
+					<!--Alert error editing booking-->
+					<div id="alert-error-editing-booking" class="alert-error-editing-booking my-2">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong>All field required to edit the booking.</strong>
+					</div>
+
+					<!--Alert error booking-->
+					<div id="alert-error-booking" class="alert-error-booking my-2">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong>All field required.</strong>
+					</div>
+
+					<!--Add new booking-->
+					<form id="new-booking-form">
+						<h1 class="title-orange">Book now</h1>
+						<p>Please fill in this form to book a vehicle.</p>
+							<hr>
+
+							<div class="row my-1">
+						    <div class="col-12 col-md-6 m-auto text-center">
+							    <label for="date"><b>Booking date</b></label><br>
+							    <input id="date" type="date" placeholder="Enter Bookind Date" name="date">
+						    </div>
+					    </div>
+
+					    <div class="row my-1">
+						    <div class="col-12 col-md-6 m-auto text-center">
+							    <label for="type"><b>Vehicle type</b></label><br>
+							    <input id="type" type="text" placeholder="Enter Vehicle Type" name="type">
+						    </div>
+					    </div>
+
+					    <div class="row my-1">
+						    <div class="col-12 col-md-6 m-auto text-center">
+							    <label for="model"><b>Model</b></label><br>
+							    <input id="model" type="text" placeholder="Enter Model" name="model">
+						    </div>
+					    </div>
+							<hr>
+
+							<button id="create-new-booking" type="submit" class="btn btn-dark">Book now</button>
+					</form>
+					<br><br>
+
+					<!--Edit booking-->
+					<form id="edit-booking-form">
+							<h1 class="title-orange">Edit booking</h1>
+							<p>Please fill in this form to edit the booking.</p>
+							<hr>
+
+							<div class="row my-1">
+									<div class="col-12 col-md-6 m-auto text-center">
+											<input id="userId" type="hidden">
+									</div>
+							</div>
+
+							<div class="row my-1">
+						    <div class="col-12 col-md-6 m-auto text-center">
+							    <label for="editDate"><b>Booking date</b></label><br>
+							    <input id="editDate" type="date" placeholder="Edit Booking Date" name="editDate">
+						    </div>
+					    </div>
+
+					    <div class="row my-1">
+						    <div class="col-12 col-md-6 m-auto text-center">
+							    <label for="editType"><b>Vehicle type</b></label><br>
+							    <input id="editType" type="text" placeholder="Edit Vehicle Type" name="editType">
+						    </div>
+					    </div>
+
+					    <div class="row my-1">
+						    <div class="col-12 col-md-6 m-auto text-center">
+							    <label for="editModel"><b>Edit Model</b></label><br>
+							    <input id="editModel" type="text" placeholder="Edit Model" name="editModel">
+						    </div>
+					    </div>
+							<hr>
+
+							<button id="edit-booking-btn" type="submit" class="btn btn-dark">Edit</button>
+					</form>
+					<br><br>
+
+			    <!-- Search form -->
+			    <div class="active-pink-3 active-pink-4 my-4">
+				    <input class="form-control" type="text" placeholder="Search reservation" aria-label="Search">
+			    </div>
+
+			    <h2 id="h2">Your reservations</h2>
+
+			    <!--If there are bookings-->
+			    <div id="bookings" class="row"></div>
+			    <div id="bookings2" class="row my-3"></div>
+
+			    <!--If there are no bookings-->
+			    <p class="no-bookings" id="no-bookings">You do not have any bookings yet!</p>
+
+
+		    </div>
+	    </div>
+	    <!-- <div id="user" class="row"></div> -->
+    </div>
+
+    <!-- Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>

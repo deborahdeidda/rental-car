@@ -22,17 +22,46 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 
     <!--Js-->
-    <script src="../js/admin_navbar.js" type="text/javascript"></script>
     <script src="../js/admin_home.js" type="text/javascript"></script>
-    <script src="../js/searchbox_index_admin.js" type="text/javascript"></script>
+    <script src="../js/admin_search_home.js" type="text/javascript"></script>
 
     <!--Js datatable-->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    
+
 </head>
 <body>
-        <!--Navbar-->
-        <header></header>
+
+  <!--Start Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="admin_parco_auto.html">
+          <span style="font-size: 2em; color: Tomato;">
+              <i class="fas fa-car"></i>
+          </span>
+      Rental Car
+    </a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav m-auto mt-2 mt-lg-0">
+        <li class="nav-item mx-3">
+          <a class="nav-link" href="admin_parco_auto.html">Parco auto<span class="sr-only">(current)</span></a>
+        </li>
+        <li id="customer-home" class="nav-item mx-3">
+          <a class="nav-link" href="admin_home.html">Admin home<span class="sr-only">(current)</span></a>
+        </li>
+        <li id="customer-profile" class="nav-item mx-3">
+          <a class="nav-link" href="admin_profile.html">Admin profile<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item mx-3">
+          <a class="nav-link" href="index_parco_auto.html">Logout<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!--End Navbar-->
 
         <div class="container">
             <div class="row my-2">
@@ -45,10 +74,9 @@
             <div class="row mb-4 mt-2">
                 <div class="col-12 m-auto text-center">
 
-                    <div class="col-12 col-md-6 m-auto">
+                    <div class="col-12 col-md-6 m-auto py-2">
                         <!--Add new user btn-->
                         <button id="new-user" class="btn btn-outline-success">New user</button>
-                        <br><br>
                     </div>
 
                     <!-- Alert show bookings-->
@@ -69,10 +97,16 @@
                         <strong>There are no bookings!</strong>
                     </div>
 
-                    <!--Alert add user-->
+                    <!--Alert user added-->
                     <div id="show-alert" class="alert-add-user my-2">
                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                         <strong>You added successfully a new user!</strong>
+                    </div>
+
+                    <!--Alert user error-->
+                    <div id="alert-user-error" class="alert-user-error my-2">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <strong>All fileds are required to add a new user.</strong>
                     </div>
 
                     <!--Alert edit user-->
@@ -110,8 +144,8 @@
 
                         <div class="row my-1">
                             <div class="col-12 col-md-6 m-auto text-center">
-                                <label for="mail"><b>Mail</b></label><br>
-                                <input id="mail" type="mail" placeholder="Enter Mail" name="mail">
+                                <label for="email"><b>Email</b></label><br>
+                                <input id="email" type="email" placeholder="Enter Email" name="email">
                             </div>
                         </div>
                         <hr>
@@ -161,7 +195,7 @@
                         </div>
 
                         <hr>
-                        
+
                         <button id="edit-user-btn" type="submit" class="btn btn-dark">Edit user</button>
                     </form>
                     <br><br>
@@ -193,13 +227,13 @@
                     </form>
                 </div>
             </div>
-            
+
             <div id="user" class="row mt-2"></div>
 
             <div id="show-edit-user" class="row my-3">
                 <div class="col-12 col-md-6 m-auto text-center"></div>
             </div>
-                       
+
         </div>
 
         <!-- Bootstrap-->
