@@ -371,11 +371,11 @@ $(document).ready(function() {
 					console.log("quante prenotazioni?:", data)
 					if (booking.booking_status == "confirmed"){
 						$('#alert-no-bookings').hide()
-						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Vehicle type: " + '<b>' + booking.vehicle_type + '</b>'+ "<br>" + "Model: " + '<b>' + booking.model + '</b>' + "<br>" + "Daily cost: " + '<b>' + booking.daily_cost + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b>' + "<br>" + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking"></i><br>')
+						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b>' + "<br>" + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking"></i><br>')
 						$('#show-bookings-box').show()
 					} else if (booking.booking_status == "pending"){
 						$('#alert-no-bookings').hide()
-						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Vehicle type: " + '<b>' + booking.vehicle_type + '</b>'+ "<br>" + "Model: " + '<b>' + booking.model + '</b>' + "<br>" + "Daily cost: " + '<b>' + booking.daily_cost + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking px-4"></i>' + '<i data-bookingid="' + booking.id + '" class="fas fa-check confirmBooking px-4"></i>')
+						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b><br>' + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking px-4"></i>' + '<i data-bookingid="' + booking.id + '" data-bookingstatus="' + booking.booking_status + '" class="fas fa-check confirmBooking px-4"></i>')
 						$('#show-bookings-box').show()
 						loadButtonsBookings()
 					}
@@ -398,6 +398,36 @@ $(document).ready(function() {
 			e.preventDefault()
 		})
 
+		$('.confirmBooking').click(function(e){
+			alert("I want to confirm")
+			var bookingStatus = $($(this)[0]).data('bookingstatus')
+			confirmBooking($($(this)[0]).data('bookingid'), bookingStatus)
+			// $('html, body').animate({
+			// 	scrollTop: ($('#edit-form').offset().top)
+			// },'slow')
+			e.preventDefault()
+		})
+
+	}
+
+	function confirmBooking(id, bookingStatus){
+		console.log("booking data:", bookingStatus)
+		$.ajax({
+			method: "PUT",
+			url: "http://localhost:3000/660/bookings?id=" + id,
+			dataType: "json",
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
+				console.log("jwt:", localStorage.getItem("jwt"))
+			},
+			data: {
+				booking_status: "confirmed"
+			}
+		}).done(function (response) {
+			console.log("dati confermati:", response)
+		}).fail(function (err)  {
+			console.log("failed:", err)
+		})
 	}
 
 	function deleteBooking(id){

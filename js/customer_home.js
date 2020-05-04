@@ -56,11 +56,9 @@ $(document).ready(function(){
 				searching: true,
 				data: data,
 				columns: [
-					{ 'data': 'vehicle_type' },
-					{ 'data': 'model' },
 					{ 'data': 'booking_date' },
-					{ 'data': 'daily_cost' },
-					{ 'data': 'total_cost' }
+					{ 'data': 'total_cost' },
+					{ 'data': 'booking_status' }
 				]
 			})
 
@@ -106,11 +104,9 @@ $(document).ready(function(){
 					$('#bookings').append('<div class="row py-4"><div class="col-12 col-md-6 d-flex align-items-center">' +
 						'<img class="img-fluid" src="../img/bus.jfif" alt="Bus">' + '</div>' +
 						'<div class="col-12 col-md-6">' +
-						'<h2>' + booking.vehicle_type + '</h2>' +
-						'<p>Model: <b>' + booking.model +'</b></p>' +
 						'<p>Booking date: <b>' + booking.booking_date +'</b></p>' +
-						'<p>Daily cost: <b>' + booking.daily_cost +'</b></p>' +
 						'<p>Total cost: <b>' + booking.total_cost +'</b></p>' +
+						'<p>Booking status: <b>' + booking.booking_status +'</b></p>' +
 						'</div><div class="row mb-4 m-auto text-center"><div class="col-2 d-inline-block px-4">' +
 						'<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" class="far fa-edit editBooking"></i></div>' +
 						'<div class="col-2 d-inline-block x-4">' +
@@ -217,7 +213,7 @@ $(document).ready(function(){
 				daily_cost: 100,
 				total_cost: 1000,
 				booking_status: "pending",
-				userId: parseInt(localStorage.getItem("userid"))
+				userId: JSON.parse((localStorage.getItem("userid")))
 			},
 		}).done(function (response) {
 			console.log("new booking:", response)
