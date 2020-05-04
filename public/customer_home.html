@@ -119,9 +119,9 @@
 						    <div class="col-12 col-md-6 m-auto text-center">
 							    <label for="type"><b>Vehicle type</b></label><br>
 									<select id="type" class="" name="type">
-											<option value="high">High Bus</option>
-											<option value="short">Short Bus</option>
-											<option value="long">Long Bus</option>
+											<option value="High Bus">High Bus</option>
+											<option value="Short Bus">Short Bus</option>
+											<option value="Long Bus">Long Bus</option>
 									</select>
 						    </div>
 					    </div>
@@ -130,9 +130,9 @@
 						    <div class="col-12 col-md-6 m-auto text-center">
 							    <label for="model"><b>Model</b></label><br>
 									<select id="model" class="" name="model">
-											<option value="high">Model 2020</option>
-											<option value="short">Model 2005</option>
-											<option value="long">Model 1990</option>
+											<option value="Model 2020">Model 2020</option>
+											<option value="Model 2005">Model 2005</option>
+											<option value="Model 1990">Model 1990</option>
 									</select>
 						    </div>
 					    </div>
@@ -150,30 +150,39 @@
 
 							<div class="row my-1">
 									<div class="col-12 col-md-6 m-auto text-center">
-											<input id="userId" type="hidden">
+											<input id="id" type="hidden">
 									</div>
 							</div>
 
 							<div class="row my-1">
 						    <div class="col-12 col-md-6 m-auto text-center">
-							    <label for="editDate"><b>Booking date</b></label><br>
+							    <label for="editDate"><b>Edit Booking date</b></label><br>
 							    <input id="editDate" type="date" placeholder="Edit Booking Date" name="editDate">
 						    </div>
 					    </div>
 
-					    <div class="row my-1">
+							<div class="row my-1">
 						    <div class="col-12 col-md-6 m-auto text-center">
-							    <label for="editType"><b>Vehicle type</b></label><br>
-							    <input id="editType" type="text" placeholder="Edit Vehicle Type" name="editType">
+							    <label for="editType"><b>Edit Vehicle type</b></label><br>
+									<select id="editType" class="" name="editType">
+											<option value="High Bus">High Bus</option>
+											<option value="Short Bus">Short Bus</option>
+											<option value="Long Bus">Long Bus</option>
+									</select>
 						    </div>
 					    </div>
 
-					    <div class="row my-1">
+							<div class="row my-1">
 						    <div class="col-12 col-md-6 m-auto text-center">
 							    <label for="editModel"><b>Edit Model</b></label><br>
-							    <input id="editModel" type="text" placeholder="Edit Model" name="editModel">
+									<select id="editModel" class="" name="editModel">
+											<option value="Model 2020">Model 2020</option>
+											<option value="Model 2005">Model 2005</option>
+											<option value="Model 1990">Model 1990</option>
+									</select>
 						    </div>
 					    </div>
+
 							<hr>
 
 							<button id="edit-booking-btn" type="submit" class="btn btn-dark">Edit</button>
