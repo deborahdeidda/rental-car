@@ -51,6 +51,8 @@ $(document).ready(function() {
 	$('#alert-no-bookings').hide()
 	$("#alert-user-error").hide()
 	$("#alert-error-editing-user").hide()
+	$("#alert-booking-deleted").hide()
+
 
 
 	//searchbox
@@ -334,7 +336,7 @@ $(document).ready(function() {
 	}
 
 	function deleteUser(id){
-		console.log("cosa c'è qui:", id)
+		console.log("user id:", id)
 		$.ajax({
 			url: "http://localhost:3000/660/users/" + id,
 			method: "DELETE",
@@ -367,21 +369,58 @@ $(document).ready(function() {
 			if(data){
 				$(data).each(function(i, booking){
 					console.log("quante prenotazioni?:", data)
+					if (booking.booking_status == "confirmed"){
 						$('#alert-no-bookings').hide()
-						$('#show-bookings-alert').append('<p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Vehicle type: " + '<b>' + booking.vehicle_type + '</b>'+ "<br>" + "Model: " + '<b>' + booking.model + '</b>' + "<br>" + "Daily cost: " + '<b>' + booking.daily_cost + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b>' + "<br>" + '</p><br>')
+						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Vehicle type: " + '<b>' + booking.vehicle_type + '</b>'+ "<br>" + "Model: " + '<b>' + booking.model + '</b>' + "<br>" + "Daily cost: " + '<b>' + booking.daily_cost + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b>' + "<br>" + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking"></i><br>')
 						$('#show-bookings-box').show()
+					} else if (booking.booking_status == "pending"){
+						$('#alert-no-bookings').hide()
+						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Vehicle type: " + '<b>' + booking.vehicle_type + '</b>'+ "<br>" + "Model: " + '<b>' + booking.model + '</b>' + "<br>" + "Daily cost: " + '<b>' + booking.daily_cost + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking px-4"></i>' + '<i data-bookingid="' + booking.id + '" class="fas fa-check confirmBooking px-4"></i>')
+						$('#show-bookings-box').show()
+						loadButtonsBookings()
+					}
 					})
 				}  else {
 					console.log("no bookings")
 					$('#show-bookings-box').hide()
 					$('#alert-no-bookings').show()
 				}
-
-
-
 		}).fail(function (err)  {
 			$('#show-bookings-box').hide()
 			$('#alert-no-bookings').show()
 		})
 	}
+
+	function loadButtonsBookings(){
+
+		$('.deleteBooking').click(function(e){
+			deleteBooking($($(this)[0]).data('bookingid'))
+			e.preventDefault()
+		})
+
+	}
+
+	function deleteBooking(id){
+		console.log("booking id:", id)
+		$.ajax({
+			url: "http://localhost:3000/660/bookings/" + id,
+			method: "DELETE",
+			contentType: "json",
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
+				console.log("jwt:", localStorage.getItem("jwt"))
+			},
+		}).done(function (response) {
+			console.log("booking deleted:", response)
+			$('#show-bookings-box').hide()
+			$("#alert-booking-deleted").show()
+			$('html, body').animate({
+				scrollTop: ($('#alert-booking-deleted').offset().top)
+			},'slow')
+		}).fail(function (err)  {
+			console.log("failed deleting:", err)
+		})
+	}
+
+
 })

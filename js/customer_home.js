@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 	$.ajax({
 		type: "GET",
-		url: 'http://localhost:3000/600/users/' + localStorage.getItem("userid"),
+		url: 'http://localhost:3000/660/users/' + localStorage.getItem("userid"),
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
@@ -27,14 +27,14 @@ $(document).ready(function(){
 
 	$.ajax({
 		type: "GET",
-		url: 'http://localhost:3000/600/bookings?userId=' + localStorage.getItem("userid"),
+		url: 'http://localhost:3000/660/bookings?userId=' + localStorage.getItem("userid"),
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 			console.log("jwt:", localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
-		console.log("bookings:", response[0])
+		console.log("bookings:", response)
 	}).fail(function (err)  {
 		console.log("failed:", err)
 	})
@@ -42,7 +42,7 @@ $(document).ready(function(){
 	//searchbox
 	$.ajax({
 		type: "get",
-		url:"http://localhost:3000/600/bookings?userId="+ localStorage.getItem("userid"),
+		url:"http://localhost:3000/660/bookings?userId="+ localStorage.getItem("userid"),
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
@@ -91,15 +91,15 @@ $(document).ready(function(){
 	function checkBookings(){
 		$.ajax({
 			type: "get",
-			url:"http://localhost:3000/600/bookings?userId="+ localStorage.getItem("userid"),
+			url:"http://localhost:3000/660/bookings?userId="+ localStorage.getItem("userid"),
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 				console.log("jwt:", localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
-			console.log("success:", response[0])
-			if(response[0]){
+			console.log("success:", response)
+			if(response){
 				$(response).each(function(i, booking){
 					$('#bookings').show()
 					$('#bookings2').show()
@@ -111,9 +111,9 @@ $(document).ready(function(){
 						'<p>Booking date: <b>' + booking.booking_date +'</b></p>' +
 						'<p>Daily cost: <b>' + booking.daily_cost +'</b></p>' +
 						'<p>Total cost: <b>' + booking.total_cost +'</b></p>' +
-						'</div><div class="row mb-4 m-auto text-center"><div class="col-2 d-inline-block">' +
-						'<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" id="editBooking" class="far fa-edit"></i></div>' +
-						'<div class="col-2 d-inline-block">' +
+						'</div><div class="row mb-4 m-auto text-center"><div class="col-2 d-inline-block px-4">' +
+						'<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" class="far fa-edit editBooking"></i></div>' +
+						'<div class="col-2 d-inline-block x-4">' +
 						'<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" class="far fa-trash-alt deleteBooking"></i>' +
 
 						'</div></div></div>')
@@ -128,10 +128,11 @@ $(document).ready(function(){
 		})
 	}
 
-	function getOneBooking(id){
+	function getOneBooking(bookingID, userID){
+		console.log("booking id:", bookingID, "user id:", userID)
 		$.ajax({
 			type: "get",
-			url: "http://localhost:3000/600/bookings?userId=" + localStorage.getItem("userid"),
+			url: "http://localhost:3000/660/bookings?id=" + bookingID + "&userId=" + userID,
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
@@ -139,14 +140,19 @@ $(document).ready(function(){
 			}
 		}).done(function (response) {
 				console.log("get one booking: ", response[0])
+
 				var id = response[0]['id']
 				localStorage.setItem("Id", id)
+
 				var dailyCost = response[0]['daily_cost']
 				localStorage.setItem("dailycost", dailyCost)
+
 				var totalCost = response[0]['total_cost']
 				localStorage.setItem("totalcost", totalCost)
+
 				var bookingStatus = response[0]['booking_status']
 				localStorage.setItem("bookingstatus", bookingStatus)
+
 				$($('#edit-booking-form')[0].userId).val(response[0].userId)
 				$($('#edit-booking-form')[0].editDate).val(response[0].booking_date)
 				$($('#edit-booking-form')[0].editType).val(response[0].vehicle_type)
@@ -172,9 +178,10 @@ $(document).ready(function(){
 			booking_date: $($('#new-booking-form')[0].date).val(),
 			vehicle_type: $($('#new-booking-form')[0].type).val(),
 			model: $($('#new-booking-form')[0].model).val(),
-			daily_cost: localStorage.getItem("dailycost"),
-			total_cost: localStorage.getItem("totalcost"),
-			booking_status: "awaiting"
+			daily_cost: 100,
+			total_cost: 1000,
+			booking_status: "pending",
+			userId: parseInt(localStorage.getItem("userid"))
 		}
 
 		console.log("la richiesta di prenotazione è questa:", data)
@@ -197,7 +204,7 @@ $(document).ready(function(){
 	function createNewBooking(){
 		$.ajax({
 			method: "post",
-			url: "http://localhost:3000/660/bookings",
+			url: "http://localhost:3000/660/bookings?userId=" + localStorage.getItem("userid"),
 			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
@@ -207,9 +214,9 @@ $(document).ready(function(){
 				booking_date: $($('#new-booking-form')[0].date).val(),
 				vehicle_type: $($('#new-booking-form')[0].type).val(),
 				model: $($('#new-booking-form')[0].model).val(),
-				daily_cost: parseInt(localStorage.getItem("dailycost")),
-				total_cost: parseInt(localStorage.getItem("totalcost")),
-				booking_status: "awaiting",
+				daily_cost: 100,
+				total_cost: 1000,
+				booking_status: "pending",
 				userId: parseInt(localStorage.getItem("userid"))
 			},
 		}).done(function (response) {
@@ -226,9 +233,12 @@ $(document).ready(function(){
 	}
 
 	function loadButtons(){
-		$('#editBooking').click(function(e){
+		$('.editBooking').click(function(e){
 			alert("I want to edit")
-			getOneBooking($($(this)[0]).data('userid'))
+			var bookingID = $($(this)[0]).data('bookingid')
+			var userID = $($(this)[0]).data('userid')
+			getOneBooking(bookingID, userID)
+			console.log("edit this:", bookingID, userID)
 			$('html, body').animate({
 				scrollTop: ($('#edit-booking-form').offset().top)
 			},'slow')
@@ -237,8 +247,10 @@ $(document).ready(function(){
 
 		$('.deleteBooking').click(function(e){
 			alert("I want to delete")
-			deleteBooking( $($(this)[0]).data('bookingid'), $($(this)[0]).data('userid') )
-			console.log("this:", $($(this)[0]).data('bookingid'), $($(this)[0]).data('userid'))
+			var booking = $($(this)[0])
+			var bookingID = $($(this)[0]).data('bookingid')
+			var userID = $($(this)[0]).data('userid')
+			deleteBooking(bookingID, userID)
 			// $('#').show()
 			// $('html, body').animate({
 			// 	scrollTop: ($('#').offset().top)
@@ -250,11 +262,12 @@ $(document).ready(function(){
 	$('#edit-booking-btn').click( function(e){
 		alert("clicked")
 
-		let date = $('#editDate').val()
-		let type = $('#editType').val()
-		let model = $('#editModel').val()
+		var date = $('#editDate').val()
+		var type = $('#editType').val()
+		var model = $('#editModel').val()
 
 		let data = {
+
 			booking_date: $($('#edit-booking-form')[0].editDate).val(),
 			vehicle_type: $($('#edit-booking-form')[0].editType).val(),
 			model: $($('#edit-booking-form')[0].editModel).val(),
@@ -266,7 +279,9 @@ $(document).ready(function(){
 
 		if (date != "" && type != "" && model != ""){
 				console.log("all fields filled")
-				editBooking($($('#edit-booking-form')[0].userId).val(), data)
+				console.log( "invio dati:", $($('#edit-booking-form')[0].id).val(), data )
+				editBooking($($('#edit-booking-form')[0].id).val(), data)
+
 				e.preventDefault()
 		} else {
 			console.log("not all fields are filled")
@@ -279,11 +294,11 @@ $(document).ready(function(){
 
 	})
 
-	function editBooking(id, data){
-		console.log("editBooking function, what are: ", id, data)
+	function editBooking(bookingID, userID, data){
+		console.log("booking id:", bookingID, "user id:", userID, "booking:", data)
 		$.ajax({
 			method: "PUT",
-			url: "http://localhost:3000/660/bookings?userId=" + id,
+			url: "http://localhost:3000/660/bookings?id=" + bookingID + "&userId=" + userID,
 			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
@@ -300,17 +315,17 @@ $(document).ready(function(){
 		})
 	}
 
-	function deleteBooking(id, data){
-		console.log("booking id:", id)
+	function deleteBooking(bookingID, userID){
+		console.log("booking id:", bookingID, "user id:", userID)
 		$.ajax({
-			method: "DELETE",
-			url: "http://localhost:3000/660/bookings?id=" + id + "&userId=" + localStorage.getItem("userid"),
-			contentType: "json",
+			url: "http://localhost:3000/660/bookings?id=" + bookingID + "&userId=" + userID,
+			method: "delete",
+			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 				console.log("I want to delete this booking, jwt:", localStorage.getItem("jwt"))
 			}
-		}).done(function (data) {
+		}).done(function (response) {
 				console.log("booking deleted")
 		}).fail(function (err)  {
 			console.log("failed deleting")
