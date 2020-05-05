@@ -66,6 +66,12 @@ html {
     color: white;
 }
 
+.alert-booking-confirmed {
+  padding: 20px;
+  background-color: #8dc251;
+  color: white;
+}
+
 .alert-add-user {
     padding: 20px;
     background-color: #8dc251;
