@@ -158,9 +158,152 @@
 			<!--</table>-->
 
 			<h2 id="h2"></h2>
+
+			<div class="col-12 col-md-6 m-auto pb-3 pt-2">
+					<!--Add new vehicle btn-->
+					<button id="add-vehicle" class="btn btn-outline-success">New vehicle</button>
+			</div>
+
+			<!--Add vehicle-->
+			<form class="m-auto text-center py-3" id="add-vehicle-form">
+					<h1 class="title-orange">Add vehicle</h1>
+					<p>Please fill in this form to add a vehicle.</p>
+					<hr>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="type"><b>Vehicle Type</b></label><br>
+									<input id="type" type="text" placeholder="Vehicle Type" name="type">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="model"><b>Model</b></label><br>
+									<input id="model" type="text" placeholder="Model" name="model">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="manufacturer"><b>Manufacturer</b></label><br>
+									<input id="manufacturer" type="text" placeholder="Manufacturer" name="manufacturer">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="year"><b>Registration Year</b></label><br>
+									<input id="year" type="date" placeholder="Registration year" name="year">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="plate"><b>Number Plate</b></label><br>
+									<input id="plate" type="text" placeholder="Number Plate" name="plate">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="availability"><b>Availability</b></label><br>
+									<input id="availability" type="text" placeholder="Availability" name="availability">
+							</div>
+					</div>
+
+					<hr>
+
+					<button id="add-vehicle-btn" type="submit" class="btn btn-dark">Add</button>
+			</form>
+
+			<!--Edit vehicle-->
+			<form class="m-auto text-center py-3" id="vehicle-form">
+					<h1 class="title-orange">Edit vehicle</h1>
+					<p>Please fill in this form to edit the vehicle.</p>
+					<hr>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<input id="vehicleId" type="hidden">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="editType"><b>Edit Vehicle Type</b></label><br>
+									<input id="editType" type="text" placeholder="Edit Vehicle Type" name="editType">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="editModel"><b>Edit Model</b></label><br>
+									<input id="editModel" type="text" placeholder="Edit Model" name="editModel">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="editManufacturer"><b>Edit Manufacturer</b></label><br>
+									<input id="editManufacturer" type="text" placeholder="Edit Manufacturer" name="editManufacturer">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="editRyear"><b>Edit Registration Year</b></label><br>
+									<input id="editRyear" type="date" placeholder="Edit Registration year" name="editRyear">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="editPlate"><b>Edit Number Plate</b></label><br>
+									<input id="editPlate" type="text" placeholder="Edit Number Plate" name="editPlate">
+							</div>
+					</div>
+
+					<div class="row my-1">
+							<div class="col-12 col-md-6 m-auto text-center">
+									<label for="editAvailability"><b>Edit Availability</b></label><br>
+									<input id="editAvailability" type="text" placeholder="Edit Availability" name="editAvailability">
+							</div>
+					</div>
+
+					<hr>
+
+					<button id="edit-vehicle-btn" type="submit" class="btn btn-dark">Edit</button>
+			</form>
+
+			<!-- Alert vehicle deleted -->
+			<div id="alert-vehicle-deleted" class="alert-vehicle-deleted my-2">
+					<span class="closebtn delete" onclick="this.parentElement.style.display='none';">&times;</span>
+					<strong>You deleted successfully the vehicle!</strong>
+			</div>
+
+			<!-- Alert vehicle edited -->
+			<div id="alert-vehicle-edited" class="alert-vehicle-edited my-2">
+					<span class="closebtn delete">&times;</span>
+					<strong>You edited successfully the vehicle!</strong>
+			</div>
+
+			<!-- Alert all field required adding new vehicle -->
+			<div id="alert-error-adding-vehicle" class="alert-error-adding-vehicle my-2">
+					<span class="closebtn delete">&times;</span>
+					<strong>All fields required!</strong>
+			</div>
+
+			<!-- Alert new vehicle added -->
+			<div id="alert-vehicle-added" class="alert-vehicle-added my-2">
+					<span class="closebtn delete">&times;</span>
+					<strong>New vehicle added successfully!</strong>
+			</div>
+
 		</div>
 	</div>
 	<div id="bus" class="row"></div>
+
 </div>
 
 <!-- Bootstrap-->
