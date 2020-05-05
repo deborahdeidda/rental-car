@@ -90,10 +90,22 @@
 							<strong>You deleted successfully your booking!</strong>
 					</div>
 
+					<!--Alert error deleting booking-->
+					<div id="alert-error-deleting" class="alert-error-deleting my-2">
+							<span class="closebtn delete" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong>You cannot delete your booking anymore!</strong>
+					</div>
+
 					<!--Alert error editing booking-->
 					<div id="alert-error-editing-booking" class="alert-error-editing-booking my-2">
 							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 							<strong>All field required to edit the booking.</strong>
+					</div>
+
+					<!--Alert error editing booking (2days)-->
+					<div id="error-editing-booking" class="error-editing-booking my-2">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong>You cannot edit your booking anymore!</strong>
 					</div>
 
 					<!--Alert error booking-->
@@ -218,7 +230,6 @@
 
 							<!--If there are bookings-->
 					    <div id="bookings" class="row"></div>
-					    <!-- <div id="bookings2" class="row my-3"></div> -->
 
 					    <!--If there are no bookings-->
 					    <p class="no-bookings" id="no-bookings">You do not have any bookings yet!</p>
