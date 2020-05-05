@@ -66,6 +66,12 @@ html {
     color: white;
 }
 
+.alert-vehicle-added {
+  padding: 20px;
+  background-color: #8dc251;
+  color: white;
+}
+
 .alert-booking-confirmed {
   padding: 20px;
   background-color: #8dc251;
@@ -102,6 +108,12 @@ html {
     color: white;
 }
 
+.alert-vehicle-edited {
+  padding: 20px;
+  background-color: #8dc251;
+  color: white;
+}
+
 .alert-booking-edited {
   padding: 20px;
   background-color: #8dc251;
@@ -127,6 +139,12 @@ html {
 }
 
 .alert-error-deleting {
+  padding: 20px;
+  background-color: #f4bd18;
+  color: white;
+}
+
+.alert-error-adding-vehicle {
   padding: 20px;
   background-color: #f4bd18;
   color: white;
@@ -187,6 +205,12 @@ html {
 }
 
 .alert-booking-deleted {
+  padding: 20px;
+  background-color: red;
+  color: white;
+}
+
+.alert-vehicle-deleted {
   padding: 20px;
   background-color: red;
   color: white;
