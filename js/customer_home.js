@@ -10,7 +10,9 @@ $(document).ready(function(){
 	$('#edit-booking-form').hide()
 	$("#alert-error-editing-booking").hide()
 	$("#alert-error-booking").hide()
-
+	$("#alert-error-deleting").hide()
+	$("#error-editing-booking").hide()
+	
 	$.ajax({
 		type: "GET",
 		url: 'http://localhost:3000/660/users/' + localStorage.getItem("userid"),
@@ -110,10 +112,12 @@ $(document).ready(function(){
 					'<p>Booking date: <b>' + booking.booking_date +'</b></p>' +
 					'<p>Total cost: <b>' + booking.total_cost +'</b></p>' +
 					'<p>Booking status: <b>' + booking.booking_status +'</b></p>' +
-					'</div><div class="row mb-4 m-auto text-center"><div class="col-2 d-inline-block px-4">' +
-					'<i data-bookingid="' + booking.id + '" class="far fa-edit editBooking"></i></div>' +
-					'<div class="col-2 d-inline-block x-4">' +
-					'<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking"></i>' +
+					'</div><div class="row m-auto text-center"><div class="col-12"><p>Puoi effettuare la cancellazione o modifica solamente se la data odierna dista almeno di 2 giorni dalla data di prenotazione.</p>' +
+
+					'<div class="row mb-4 m-auto text-center"><div class="col-6 d-inline-block px-4">' +
+					'<i data-bookingdate="' +  booking.booking_date + '" data-bookingid="' + booking.id + '" class="far fa-edit editBooking"></i><hr></div>' +
+					'<div class="col-6 d-inline-block x-4">' +
+					'<i data-bookingdate="' +  booking.booking_date + '" data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking"></i><hr>' +
 
 					'</div></div></div>')
 				loadButtons()
@@ -229,16 +233,60 @@ $(document).ready(function(){
 
 	function loadButtons(){
 		$('.editBooking').click(function(e){
-			getOneBooking($($(this)[0]).data('bookingid'))
-			$('html, body').animate({
-				scrollTop: ($('#edit-booking-form').offset().top)
-			},'slow')
-			e.preventDefault()
+
+			var bookingDate = $($(this)[0]).data('bookingdate')
+			var fullBookingDate = new Date(bookingDate)
+
+			var todayDate = new Date()
+
+			var difference = todayDate - fullBookingDate
+
+			var millisecondsInOneSecond = 1000
+			var secondInOneHour = 3600
+			var hoursInOneDay = 24
+
+			var result = parseInt(difference / (millisecondsInOneSecond * secondInOneHour * hoursInOneDay))
+
+			if (result == -2 || result < -2){
+				getOneBooking($($(this)[0]).data('bookingid'))
+				$('html, body').animate({
+					scrollTop: ($('#edit-booking-form').offset().top)
+				},'slow')
+				e.preventDefault()
+			} else {
+				$("#error-editing-booking").show()
+				$('html, body').animate({
+					scrollTop: ($('#error-editing-booking').offset().top)
+				},'slow')
+			}
+
 		})
 
 		$('.deleteBooking').click(function(e){
-			deleteBooking($($(this)[0]).data('bookingid'))
-			e.preventDefault()
+
+			var bookingDate = $($(this)[0]).data('bookingdate')
+			var fullBookingDate = new Date(bookingDate)
+
+			var todayDate = new Date()
+
+			var difference = todayDate - fullBookingDate
+
+			var millisecondsInOneSecond = 1000
+			var secondInOneHour = 3600
+			var hoursInOneDay = 24
+
+			var result = parseInt(difference / (millisecondsInOneSecond * secondInOneHour * hoursInOneDay))
+
+			if (result == -2 || result < -2){
+				deleteBooking($($(this)[0]).data('bookingid'))
+				e.preventDefault()
+			} else {
+				$("#alert-error-deleting").show()
+				$('html, body').animate({
+					scrollTop: ($('#alert-error-deleting').offset().top)
+				},'slow')
+			}
+
 		})
 	}
 
