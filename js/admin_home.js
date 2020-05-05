@@ -240,11 +240,10 @@ $(document).ready(function() {
 				e.preventDefault()
 		} else {
 			console.log("not all fields are filled")
-
 			$("#alert-user-error").show()
-			// $('html, body').animate({
-			// 	scrollTop: ($('#alert-user-error').offset().top)
-			// },'slow')
+			$('html, body').animate({
+				scrollTop: ($('#alert-user-error').offset().top)
+			},'slow')
 			e.preventDefault()
 		}
 	})
@@ -265,7 +264,6 @@ $(document).ready(function() {
 			},
 			error: function(){
 				console.log("error")
-				// $("#alert-admin-error").show()
 			}
 		})
 	}
@@ -363,11 +361,11 @@ $(document).ready(function() {
 				console.log("jwt:", localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
-			console.log("DATA:", response)
+			console.log("response:", response)
 
 			if(response.length == 0){
 				console.log("no bookings")
-				// $('#show-bookings-box').hide()
+				$('#show-bookings-box').hide()
 				$('#alert-no-bookings').show()
 			}
 
