@@ -52,8 +52,7 @@ $(document).ready(function() {
 	$("#alert-user-error").hide()
 	$("#alert-error-editing-user").hide()
 	$("#alert-booking-deleted").hide()
-
-
+	$("#alert-booking-confirmed").hide()
 
 	//searchbox
 	$.ajax({
@@ -127,9 +126,8 @@ $(document).ready(function() {
 				$(response).each(function(i, user){
 					$('#user').append('<div class="col-12 col-md-4">' + '<div class="card">' + '<img src="../img/avatar.png" alt="Avatar" style="width:100%">' + '<div class="container">' + '<h4 user-id=" ' + user.id + ' ">' + user.name + ' ' + user.surname + '</h4><br>' + '<p><b>ID </b>' + user.id + '</p><br>' + '<p><b>NAME </b>' + user.name + '</p><br>' + '<p><b>SURNAME </b>' + user.surname + '</p><br>' + '<p><b>BIRTHDAY </b>' + user.birthday + '</p><br>' + '<p><b>EMAIL </b>' + user.email + '</p><br>' + '<div class="row pb-3"><div class="col-4 d-inline-block">' +
 
-						'<i data-userid="' + user.id + '" class="far fa-edit editUser"></i>'
-
-						+ '<div class="col-4 d-inline-block">' +
+						'<i data-userid="' + user.id + '" class="far fa-edit editUser"></i>' +
+						'<div class="col-4 d-inline-block">' +
 
 						'<i data-userid="' + user.id + '" class="far fa-trash-alt deleteUser"></i>' +
 						'' +
@@ -364,27 +362,29 @@ $(document).ready(function() {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 				console.log("jwt:", localStorage.getItem("jwt"))
 			}
-		}).done(function (data) {
-			console.log("DATA:", data)
-			if(data){
-				$(data).each(function(i, booking){
-					console.log("quante prenotazioni?:", data)
+		}).done(function (response) {
+			console.log("DATA:", response)
+
+			if(response.length == 0){
+				console.log("no bookings")
+				// $('#show-bookings-box').hide()
+				$('#alert-no-bookings').show()
+			}
+
+			$(response).each(function(i, booking){
+					console.log("quante prenotazioni?:", response)
 					if (booking.booking_status == "confirmed"){
 						$('#alert-no-bookings').hide()
 						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b>' + "<br>" + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking"></i><br>')
 						$('#show-bookings-box').show()
 					} else if (booking.booking_status == "pending"){
 						$('#alert-no-bookings').hide()
-						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b><br>' + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking px-4"></i>' + '<i data-bookingid="' + booking.id + '" data-bookingstatus="' + booking.booking_status + '" class="fas fa-check confirmBooking px-4"></i>')
+						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b><br>' + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking px-4"></i>' + '<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" data-totalcost="' + booking.total_cost + '" data-dailycost="' + booking.daily_cost + '" data-model="' + booking.model + '" data-type="' + booking.vehicle_type + '" data-bookingdate="' + booking.booking_date + '" data-bookingstatus="' + booking.booking_status + '" class="fas fa-check confirmBooking px-4"></i>')
 						$('#show-bookings-box').show()
 						loadButtonsBookings()
 					}
-					})
-				}  else {
-					console.log("no bookings")
-					$('#show-bookings-box').hide()
-					$('#alert-no-bookings').show()
-				}
+			})
+
 		}).fail(function (err)  {
 			$('#show-bookings-box').hide()
 			$('#alert-no-bookings').show()
@@ -399,32 +399,46 @@ $(document).ready(function() {
 		})
 
 		$('.confirmBooking').click(function(e){
-			alert("I want to confirm")
 			var bookingStatus = $($(this)[0]).data('bookingstatus')
-			confirmBooking($($(this)[0]).data('bookingid'), bookingStatus)
-			// $('html, body').animate({
-			// 	scrollTop: ($('#edit-form').offset().top)
-			// },'slow')
+			var userId = $($(this)[0]).data('userid')
+			var type = $($(this)[0]).data('type')
+			var model = $($(this)[0]).data('model')
+			var dailyCost = $($(this)[0]).data('dailycost')
+			var totalCost = $($(this)[0]).data('totalcost')
+			var bookingDate = $($(this)[0]).data('bookingdate')
+			confirmBooking($($(this)[0]).data('bookingid'), bookingStatus, userId, type, totalCost, bookingDate, model)
 			e.preventDefault()
 		})
 
 	}
 
-	function confirmBooking(id, bookingStatus){
-		console.log("booking data:", bookingStatus)
+	function confirmBooking(id, bookingStatus, userId, type, totalCost, bookingDate, model){
+		console.log("booking data:", id, bookingStatus, userId, type, totalCost, bookingDate, model)
 		$.ajax({
 			method: "PUT",
-			url: "http://localhost:3000/660/bookings?id=" + id,
+			url: "http://localhost:3000/660/bookings/" + id,
 			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 			data: {
+				id: $($(this)[0]).data('bookingid'),
+				userId: userId,
+				model: model,
+				booking_date: bookingDate,
+				vehicle_type: type,
+				daily_cost: 100,
+				total_cost:	totalCost,
 				booking_status: "confirmed"
 			}
-		}).done(function (response) {
-			console.log("dati confermati:", response)
+		}).done(function (data) {
+			console.log("dati confermati:", data)
+			$('#show-bookings-box').hide()
+			$("#alert-booking-confirmed").show()
+			$('html, body').animate({
+				scrollTop: ($('#alert-booking-confirmed').offset().top)
+			},'slow')
 		}).fail(function (err)  {
 			console.log("failed:", err)
 		})

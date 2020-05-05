@@ -92,11 +92,12 @@ $(document).ready(function() {
 		$(response).each(function(i, vehicle){
       $bus.append('<div class="col-12 col-md-4" id=" ' + vehicle.id + '">' + '<div class="card" style="width: 18rem;"><img class="card-img-top" src="../img/bus.jfif" alt="Card image cap"><div class="card-body"><h5 class="card-title">' + vehicle.vehicle_type + '</h5>' + '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>' + '</div>' + '<ul class="list-group list-group-flush"><li class="list-group-item">' + "<b>Model </b>" + vehicle.model + '</li><li class="list-group-item">' + "<b>Manufacturer </b>"  + vehicle.manufacturer + '</li><li class="list-group-item">' + "<b>Registration year </b>" + vehicle.registration_year + '</li><li class="list-group-item">' + "<b>Number plate </b>" + vehicle.number_plate + '</li><li class="list-group-item">' + "<b>Availability </b>" + vehicle.availability + '</li><li class="list-group-item">' +
 
-			'<i data-userid="' + vehicle.id + '" class="far fa-edit px-4 editVehicle"></i>' +
-			'<i data-userid="' + vehicle.id + '" class="far fa-trash-alt px-5 deleteVehicle"></i>' +
-			'<i data-userid="' + vehicle.id + '" class="fas fa-user-plus px-4 addVehicle"></i>' +
+			'<i data-vehicleid="' + vehicle.id + '" class="far fa-edit px-4 editVehicle"></i>' +
+			'<i data-vehicleid="' + vehicle.id + '" class="far fa-trash-alt px-5 deleteVehicle"></i>' +
+			'<i data-vehicleid="' + vehicle.id + '" class="fas fa-user-plus px-4 addVehicle"></i>' +
 
 			'</li>' + '</div>')
+			loadButtons()
     })
 
     //let's write the total number of users
@@ -108,6 +109,25 @@ $(document).ready(function() {
 	}).fail(function (err)  {
 		console.log("failed:", err)
 	})
+
+	function loadButtons(){
+		$('.editVehicle').click(function(e){
+			getOneUser($($(this)[0]).data('vehicleid'))
+			// $('html, body').animate({
+			// 	scrollTop: ($('#edit-form').offset().top)
+			// },'slow')
+			e.preventDefault()
+		})
+
+		$('.deleteVehicle').click(function(e){
+			deleteVehicle($($(this)[0]).data('vehicleid'))
+			// $('#alert-user-deleted').show()
+			// $('html, body').animate({
+			// 	scrollTop: ($('#alert-user-deleted').offset().top)
+			// },'slow')
+			e.preventDefault()
+		})
+	}
 
 })
 
