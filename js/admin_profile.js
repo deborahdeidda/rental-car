@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 
 	console.log("DOM readyy")
@@ -69,7 +70,6 @@ $(document).ready(function() {
 		var surname = $('#surname').val()
 		var birthday = $('#birthday').val()
 		var email = $('#email').val()
-		// var password = $('#password').val()
 		var role = "admin"
 
 		let data = {
@@ -77,7 +77,6 @@ $(document).ready(function() {
 			surname: $('#surname').val(),
 			birthday: $('#birthday').val(),
 			email: $('#email').val(),
-			// password: $('#password').val(),
 			role: "admin"
 		}
 

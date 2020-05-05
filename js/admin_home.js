@@ -464,5 +464,4 @@ $(document).ready(function() {
 		})
 	}
 
-
 })
