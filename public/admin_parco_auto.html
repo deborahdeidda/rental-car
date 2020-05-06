@@ -143,20 +143,6 @@
 				</div>
 			</form>
 
-			<!--OLD SEARCHBOX NO FILTERS-->
-			<!--<table class="table">-->
-			<!--<thead>-->
-			<!--<tr>-->
-			<!--<th>Vehicle type </th>-->
-			<!--<th>Model </th>-->
-			<!--<th>Registration year</th>-->
-			<!--<th>Number plate</th>-->
-			<!--<th>Availability</th>-->
-			<!--</tr>-->
-			<!--</thead>-->
-			<!--<tbody></tbody>-->
-			<!--</table>-->
-
 			<h2 id="h2"></h2>
 
 			<div class="col-12 col-md-6 m-auto pb-3 pt-2">
@@ -221,6 +207,13 @@
 			<form class="m-auto text-center py-3" id="vehicle-form">
 					<h1 class="title-orange">Edit vehicle</h1>
 					<p>Please fill in this form to edit the vehicle.</p>
+
+					<!-- Alert all field required adding new vehicle -->
+					<div id="alert-error-adding-vehicle" class="alert-error-adding-vehicle my-2">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong>All fields required!</strong>
+					</div>
+
 					<hr>
 
 					<div class="row my-1">
@@ -286,12 +279,6 @@
 			<div id="alert-vehicle-edited" class="alert-vehicle-edited my-2">
 					<span class="closebtn delete">&times;</span>
 					<strong>You edited successfully the vehicle!</strong>
-			</div>
-
-			<!-- Alert all field required adding new vehicle -->
-			<div id="alert-error-adding-vehicle" class="alert-error-adding-vehicle my-2">
-					<span class="closebtn delete">&times;</span>
-					<strong>All fields required!</strong>
 			</div>
 
 			<!-- Alert new vehicle added -->
