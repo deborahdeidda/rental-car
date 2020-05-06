@@ -6,7 +6,6 @@ $(document).ready(function() {
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-			console.log("jwt:", localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
 		console.log("user id is:", response[0]['id'])
@@ -20,7 +19,6 @@ $(document).ready(function() {
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-			console.log("jwt:", localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
 		console.log("users are:", response)
@@ -34,7 +32,6 @@ $(document).ready(function() {
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-			console.log("jwt:", localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
 		console.log("bookings:", response)
@@ -61,10 +58,8 @@ $(document).ready(function() {
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-			console.log("jwt:", localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
-		console.log("data searchbox: ", response)
 		var datatableInstance = $('#datatable').DataTable({
 			paging: true,
 			sort: true,
@@ -91,7 +86,6 @@ $(document).ready(function() {
 
 			searchTextBoxes.on('keyup change', function () {
 				dataTableColumn.search(this.value).draw()
-				console.log("????")
 			})
 
 			searchTextBoxes.on('click', function(e){
@@ -117,7 +111,6 @@ $(document).ready(function() {
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 			data: {
 				test: "test data"
@@ -157,20 +150,17 @@ $(document).ready(function() {
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
-				console.log("get one user data: ", response.password)
 				var userPass = response.password
-				$($('#edit-form ')[0].userId).val(response.id)
-				$($('#edit-form')[0].editName).val(response.name)
-				$($('#edit-form')[0].editSurname).val(response.surname)
-				$($('#edit-form')[0].editBirthday).val(response.birthday)
-				$($('#edit-form')[0].editEmail).val(response.email)
+				$('#userId').val(response.id)
+				$('#editName').val(response.name)
+				$('#editSurname').val(response.surname)
+				$('#editBirthday').val(response.birthday)
+				$('#editEmail').val(response.email)
 				$('#edit-form').show()
 
 				$('#edit-user-btn').click( function(e){
-					console.log("clicked")
 
 					var editName = $('#editName').val()
 					var editSurname = $('#editSurname').val()
@@ -178,25 +168,22 @@ $(document).ready(function() {
 					var editBirthday = $('#editEmail').val()
 
 					let data = {
-						name: $($('#edit-form')[0].editName).val(),
-						surname: $($('#edit-form')[0].editSurname).val(),
-						birthday: $($('#edit-form')[0].editBirthday).val(),
-						email: $($('#edit-form')[0].editEmail).val(),
+						name: $('#editName').val(),
+						surname: $('#editSurname').val(),
+						birthday: $('#editBirthday').val(),
+						email: $('#editEmail').val(),
 						password: userPass,
 						role: "customer"
 					}
-					console.log("al click i dati sono questi:", data)
 
 					if (editName != "" && editSurname != "" && editBirthday != "" && editBirthday != "" ){
-						console.log("all fields filled:", editName + " " + editSurname + " " +  editBirthday + " " +  editBirthday)
 						$("#alert-error-editing-user").hide()
-						editUser($($('#edit-form')[0].userId).val(), data)
+						editUser($('#userId').val(), data)
 						$('#edit-form').trigger("reset")
 						$('#show-alert-edit').show()
 						$('#edit-form').hide()
 						e.preventDefault()
 					} else {
-						console.log("not all fields are filled:", editName + editSurname + editBirthday + editBirthday)
 						$("#alert-error-editing-user").show()
 						e.preventDefault()
 					}
@@ -208,8 +195,6 @@ $(document).ready(function() {
 
 	$('#create-new-user').on('click', function(e){
 
-		alert("clicked")
-
 		var name = $('#name').val()
 		var surname = $('#surname').val()
 		var birthday = $('#birthday').val()
@@ -217,10 +202,10 @@ $(document).ready(function() {
 		var role = "customer"
 
 		let data = {
-			name: $($('#form')[0].name).val(),
-			surname: $($('#form')[0].surname).val(),
-			birthday: $($('#form')[0].birthday).val(),
-			email: $($('#form')[0].email).val(),
+			name: $('#name').val(),
+			surname: ('#surname').val(),
+			birthday: $('#birthday').val(),
+			email: $('#email').val(),
 			role: "customer"
 		}
 
@@ -232,14 +217,12 @@ $(document).ready(function() {
 		$('#alert-no-bookings').hide()
 
 		if (email != "" && name != "" && surname != "" && birthday != "" ){
-				console.log("all fields filled")
 				createNewUser(data)
 				$('#form').trigger("reset")
 				$('#show-alert').show()
 				$('#form').hide()
 				e.preventDefault()
 		} else {
-			console.log("not all fields are filled")
 			$("#alert-user-error").show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-user-error').offset().top)
@@ -255,11 +238,9 @@ $(document).ready(function() {
 			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 			data: data,
 			success: function(data){
-				console.log("success:", data)
 				getAllUsers()
 			},
 			error: function(){
@@ -276,7 +257,7 @@ $(document).ready(function() {
 			$('#alert-user-deleted').hide()
 			$('#show-bookings-box').hide()
 			$('#alert-no-bookings').hide()
-			getOneUser($($(this)[0]).data('userid'))
+			getOneUser($(e.target).data('userid'))
 			$('html, body').animate({
 				scrollTop: ($('#edit-form').offset().top)
 			},'slow')
@@ -290,7 +271,7 @@ $(document).ready(function() {
 			$('#show-alert-edit').hide()
 			$('#show-bookings-box').hide()
 			$('#alert-no-bookings').hide()
-			deleteUser($($(this)[0]).data('userid'))
+			deleteUser($(e.target).data('userid'))
 			$('#alert-user-deleted').show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-user-deleted').offset().top)
@@ -299,13 +280,12 @@ $(document).ready(function() {
 		})
 
 		$('.showBookings').click(function(e){
-			console.log("SHOW ME THE BOOKINGS, CLICKED")
 			$('#form').hide()
 			$('#edit-form').hide()
 			$('#show-alert').hide()
 			$('#show-alert-edit').hide()
 			$('#alert-user-deleted').hide()
-			showBookingUser($($(this)[0]).data('userid'))
+			showBookingUser($(e.target).data('userid'))
 			$('html, body').animate({
 				scrollTop: ($('#show-bookings-box').offset().top)
 			},'slow')
@@ -320,11 +300,9 @@ $(document).ready(function() {
 			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 			data: data,
 		}).done(function (data) {
-			console.log("dati modificati:", data)
 			getAllUsers()
 		}).fail(function (err)  {
 			console.log("failed:", err)
@@ -332,17 +310,14 @@ $(document).ready(function() {
 	}
 
 	function deleteUser(id){
-		console.log("user id:", id)
 		$.ajax({
 			url: "http://localhost:3000/660/users/" + id,
 			method: "DELETE",
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 		}).done(function (response) {
-			console.log("success:", response)
 			getAllUsers()
 		}).fail(function (err)  {
 			console.log("failed:", err)
@@ -350,7 +325,6 @@ $(document).ready(function() {
 	}
 
 	function showBookingUser(id, data){
-		console.log("I AM INSIDE BOOKINGS FUNCTION")
 		$('#show-bookings-alert').html('')
 		$.ajax({
 			type: "get",
@@ -358,10 +332,8 @@ $(document).ready(function() {
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
-			console.log("response:", response)
 
 			if(response.length == 0){
 				console.log("no bookings")
@@ -370,11 +342,11 @@ $(document).ready(function() {
 			}
 
 			$(response).each(function(i, booking){
-					console.log("quante prenotazioni?:", response)
 					if (booking.booking_status == "confirmed"){
 						$('#alert-no-bookings').hide()
 						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b>' + "<br>" + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking"></i><br>')
 						$('#show-bookings-box').show()
+						loadButtonsBookings()
 					} else if (booking.booking_status == "pending"){
 						$('#alert-no-bookings').hide()
 						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b><br>' + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking px-4"></i>' + '<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" data-totalcost="' + booking.total_cost + '" data-dailycost="' + booking.daily_cost + '" data-model="' + booking.model + '" data-type="' + booking.vehicle_type + '" data-bookingdate="' + booking.booking_date + '" data-bookingstatus="' + booking.booking_status + '" class="fas fa-check confirmBooking px-4"></i>')
@@ -392,36 +364,34 @@ $(document).ready(function() {
 	function loadButtonsBookings(){
 
 		$('.deleteBooking').click(function(e){
-			deleteBooking($($(this)[0]).data('bookingid'))
+			deleteBooking($(e.target).data('bookingid'))
 			e.preventDefault()
 		})
 
 		$('.confirmBooking').click(function(e){
-			var bookingStatus = $($(this)[0]).data('bookingstatus')
-			var userId = $($(this)[0]).data('userid')
-			var type = $($(this)[0]).data('type')
-			var model = $($(this)[0]).data('model')
-			var dailyCost = $($(this)[0]).data('dailycost')
-			var totalCost = $($(this)[0]).data('totalcost')
-			var bookingDate = $($(this)[0]).data('bookingdate')
-			confirmBooking($($(this)[0]).data('bookingid'), bookingStatus, userId, type, totalCost, bookingDate, model)
+			var bookingStatus = $(e.target).data('bookingstatus')
+			var userId = $(e.target).data('userid')
+			var type = $(e.target).data('type')
+			var model = $(e.target).data('model')
+			var dailyCost = $(e.target).data('dailycost')
+			var totalCost = $(e.target).data('totalcost')
+			var bookingDate = $(e.target).data('bookingdate')
+			confirmBooking($(e.target).data('bookingid'), bookingStatus, userId, type, totalCost, bookingDate, model)
 			e.preventDefault()
 		})
 
 	}
 
 	function confirmBooking(id, bookingStatus, userId, type, totalCost, bookingDate, model){
-		console.log("booking data:", id, bookingStatus, userId, type, totalCost, bookingDate, model)
 		$.ajax({
 			method: "PUT",
 			url: "http://localhost:3000/660/bookings/" + id,
 			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 			data: {
-				id: $($(this)[0]).data('bookingid'),
+				id: id,
 				userId: userId,
 				model: model,
 				booking_date: bookingDate,
@@ -431,7 +401,6 @@ $(document).ready(function() {
 				booking_status: "confirmed"
 			}
 		}).done(function (data) {
-			console.log("dati confermati:", data)
 			$('#show-bookings-box').hide()
 			$("#alert-booking-confirmed").show()
 			$('html, body').animate({
@@ -443,17 +412,14 @@ $(document).ready(function() {
 	}
 
 	function deleteBooking(id){
-		console.log("booking id:", id)
 		$.ajax({
 			url: "http://localhost:3000/660/bookings/" + id,
 			method: "DELETE",
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 		}).done(function (response) {
-			console.log("booking deleted:", response)
 			$('#show-bookings-box').hide()
 			$("#alert-booking-deleted").show()
 			$('html, body').animate({

@@ -1,7 +1,5 @@
-
 $(document).ready(function() {
 
-	console.log("DOM readyy")
 	$("#alert-admin-added").hide()
 	$("#alert-admin-error").hide()
 	$("#new-admin-form").hide()
@@ -12,7 +10,6 @@ $(document).ready(function() {
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-			console.log(localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
 		console.log("done:", response)
@@ -31,10 +28,8 @@ $(document).ready(function() {
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt (function get user n):", localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
-			console.log("function get user n:", response.id)
 			$admin_data.html('')
 
 				// now let's populate with Json data
@@ -81,7 +76,6 @@ $(document).ready(function() {
 		}
 
 		if (email != "" && name != "" && surname != "" && birthday != "" ){
-			console.log("all fields filled")
 			createNewAdmin(data)
 			$('#new-admin-form').trigger("reset")
 			$("#alert-admin-error").hide()
@@ -89,7 +83,6 @@ $(document).ready(function() {
 			$('#new-admin-form').hide()
 			e.preventDefault()
 		} else {
-			console.log("not all fields are filled")
 			$("#alert-admin-error").show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-admin-error').offset().top)
@@ -105,34 +98,15 @@ $(document).ready(function() {
 			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt (function get user n):", localStorage.getItem("jwt"))
 			},
 			data: data,
 			success: function(data){
 				console.log("success")
-				// $('#alert-admin-added').show()
-				// $('#new-admin-form').hide()
 			},
 			error: function(){
 				console.log("error")
-				// $("#alert-admin-error").show()
 			}
 		})
 	}
-
-	// function createNewAdmin(data){
-	// 	$.ajax({
-	// 		url: "http://localhost:3000/users",
-	// 		method: "POST",
-	// 		dataType: "json",
-	// 		data: data,
-	// 		success: function(data){
-	// 			console.log("SUCCESS data:", data)
-	// 			var adminRole = data.role
-	// 			localStorage.setItem("aRole", adminRole)
-	// 			console.log("the role is:", data.role)
-	// 		}
-	// 	})
-	// }
 
 })

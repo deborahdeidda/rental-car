@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	console.log("DOM ready")
+
 	$('#bookings').hide()
 	$('#bookings2').hide()
 	$('#no-bookings').hide()
@@ -12,14 +12,13 @@ $(document).ready(function(){
 	$("#alert-error-booking").hide()
 	$("#alert-error-deleting").hide()
 	$("#error-editing-booking").hide()
-	
+
 	$.ajax({
 		type: "GET",
 		url: 'http://localhost:3000/660/users/' + localStorage.getItem("userid"),
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-			console.log("jwt:", localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
 		console.log("user id is:", response.id)
@@ -33,7 +32,6 @@ $(document).ready(function(){
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-			console.log("jwt:", localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
 		console.log("bookings:", response)
@@ -48,10 +46,8 @@ $(document).ready(function(){
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-			console.log("jwt:", localStorage.getItem("jwt"))
 		},
 		success: function (data) {
-			console.log("bookings searchbox: ", data)
 			var datatableInstance = $('#datatable').DataTable({
 				paging: true,
 				sort: true,
@@ -75,7 +71,6 @@ $(document).ready(function(){
 				var searchTextBoxes = $(this.header()).find('input')
 
 				searchTextBoxes.on('keyup change', function () {
-					console.log("keyup and change")
 					dataTableColumn.search(this.value).draw()
 				})
 
@@ -95,12 +90,9 @@ $(document).ready(function(){
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
-			console.log("success:", response)
 			if(response.length == 0){
-				console.log("no bookings")
 				$('#no-bookings').show()
 			}
 
@@ -129,28 +121,18 @@ $(document).ready(function(){
 	}
 
 	function getOneBooking(id){
-		console.log("booking id:", id)
 		$.ajax({
 			type: "get",
 			url: "http://localhost:3000/660/bookings/" + id,
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
-				console.log("get one booking: ", response)
-
-				var dailyCost = response.daily_cost
-				localStorage.setItem("dailycost", dailyCost)
-
-				var totalCost = response.total_cost
-				localStorage.setItem("totalcost", totalCost)
-
-				$($('#edit-booking-form')[0].bookingid).val(response.id)
-				$($('#edit-booking-form')[0].editDate).val(response.booking_date)
-				$($('#edit-booking-form')[0].editType).val(response.vehicle_type)
-				$($('#edit-booking-form')[0].editModel).val(response.model)
+				$('#bookingid').val(response.id)
+				$('#editDate').val(response.booking_date)
+				$('#editType').val(response.vehicle_type)
+				$('#editModel').val(response.model)
 				$('#edit-booking-form').show()
 		}).fail(function (err)  {
 			console.log("failed:", err)
@@ -168,24 +150,20 @@ $(document).ready(function(){
 		let model = $('#model').val()
 
 		let data = {
-			booking_date: $($('#new-booking-form')[0].date).val(),
-			vehicle_type: $($('#new-booking-form')[0].type).val(),
-			model: $($('#new-booking-form')[0].model).val(),
+			booking_date: $('#date').val(),
+			vehicle_type: $('#type').val(),
+			model: $('#model').val(),
 			daily_cost: 100,
 			total_cost: 1000,
 			booking_status: "pending",
 			userId: parseInt(localStorage.getItem("userid"))
 		}
 
-		console.log("la richiesta di prenotazione è questa:", data)
-
 		if (date != "" && type != "" && model != ""){
-				console.log("all fields filled")
 				$("#alert-error-booking").hide()
 				createNewBooking(data)
 				e.preventDefault()
 		} else {
-			console.log("not all fields are filled")
 			$("#alert-error-booking").show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-error-booking').offset().top)
@@ -207,19 +185,17 @@ $(document).ready(function(){
 			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 			data: {
-				booking_date: $($('#new-booking-form')[0].date).val(),
-				vehicle_type: $($('#new-booking-form')[0].type).val(),
-				model: $($('#new-booking-form')[0].model).val(),
+				booking_date: $('#date').val(),
+				vehicle_type: $('#type').val(),
+				model: $('#model').val(),
 				daily_cost: 100,
 				total_cost: 1000,
 				booking_status: "pending",
 				userId: (localStorage.getItem("userid"))
 			},
 		}).done(function (response) {
-			console.log("new booking:", response)
 			$('#alert-new-booking-added').show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-new-booking-added').offset().top)
@@ -227,14 +203,13 @@ $(document).ready(function(){
 			refresh()
 		}).fail(function (err)  {
 			console.log("error:", err)
-			// $("#alert-admin-error").show()
 		})
 	}
 
 	function loadButtons(){
 		$('.editBooking').click(function(e){
 
-			var bookingDate = $($(this)[0]).data('bookingdate')
+			var bookingDate = $(e.target).data('bookingdate')
 			var fullBookingDate = new Date(bookingDate)
 
 			var todayDate = new Date()
@@ -248,7 +223,7 @@ $(document).ready(function(){
 			var result = parseInt(difference / (millisecondsInOneSecond * secondInOneHour * hoursInOneDay))
 
 			if (result == -2 || result < -2){
-				getOneBooking($($(this)[0]).data('bookingid'))
+				getOneBooking( $(e.target).data('bookingid') )
 				$('html, body').animate({
 					scrollTop: ($('#edit-booking-form').offset().top)
 				},'slow')
@@ -264,7 +239,7 @@ $(document).ready(function(){
 
 		$('.deleteBooking').click(function(e){
 
-			var bookingDate = $($(this)[0]).data('bookingdate')
+			var bookingDate = $(e.target).data('bookingdate')
 			var fullBookingDate = new Date(bookingDate)
 
 			var todayDate = new Date()
@@ -278,7 +253,7 @@ $(document).ready(function(){
 			var result = parseInt(difference / (millisecondsInOneSecond * secondInOneHour * hoursInOneDay))
 
 			if (result == -2 || result < -2){
-				deleteBooking($($(this)[0]).data('bookingid'))
+				deleteBooking( $(e.target).data('bookingid') )
 				e.preventDefault()
 			} else {
 				$("#alert-error-deleting").show()
@@ -298,23 +273,19 @@ $(document).ready(function(){
 
 		let data = {
 
-			booking_date: $($('#edit-booking-form')[0].editDate).val(),
-			vehicle_type: $($('#edit-booking-form')[0].editType).val(),
-			model: $($('#edit-booking-form')[0].editModel).val(),
+			booking_date: $('#editDate').val(),
+			vehicle_type: $('#editType').val(),
+			model: $('#editModel').val(),
 			daily_cost: 100,
 			total_cost: 2000,
 			booking_status: "pending",
 			userId: localStorage.getItem("userid")
 		}
-		console.log("i dati da modificare sono questi:", data)
 
 		if (date != "" && type != "" && model != ""){
-				console.log("all fields filled")
-				console.log( "invio dati:", $($('#edit-booking-form')[0].bookingid).val(), data )
-				editBooking($($('#edit-booking-form')[0].bookingid).val(), data)
+				editBooking($('#bookingid').val(), data)
 				e.preventDefault()
 		} else {
-			console.log("not all fields are filled")
 			$("#alert-error-editing-booking").show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-error-editing-booking').offset().top)
@@ -325,18 +296,15 @@ $(document).ready(function(){
 	})
 
 	function editBooking(id, data){
-		console.log("id:", id, "booking:", data)
 		$.ajax({
 			method: "PUT",
 			url: "http://localhost:3000/660/bookings/" + id,
 			dataType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("jwt:", localStorage.getItem("jwt"))
 			},
 			data: data,
 		}).done(function (data) {
-			console.log("dati modificati:", data)
 			$('#edit-booking-form').trigger("reset")
 			$('#alert-booking-edited').show()
 			$('html, body').animate({
@@ -350,17 +318,14 @@ $(document).ready(function(){
 	}
 
 	function deleteBooking(id){
-		console.log("b.i:", id)
 		$.ajax({
 			url: "http://localhost:3000/660/bookings/" + id,
 			method: "delete",
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-				console.log("I want to delete this booking, jwt:", localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
-			console.log("booking deleted")
 			$('#alert-booking-deleted').show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-booking-deleted').offset().top)

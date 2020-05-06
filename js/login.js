@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	console.log("DOM ready")
 
 	//hide errors in html
 	$('#show-alert-logged-in').hide()
@@ -7,7 +6,6 @@ $(document).ready(function(){
 
 	//button clicked to login
 	$('#login-btn').click(function(e){
-		console.log("clicked")
 
 		//form values
 		var user = $('#mail').val()
@@ -18,7 +16,6 @@ $(document).ready(function(){
 
 		function verifyFullFields(){
 			if (password != "" && user != ""){
-				console.log("correct fields")
 
 				$.ajax({
 					url: "http://localhost:3000/login",
@@ -33,18 +30,12 @@ $(document).ready(function(){
 					var jwt = data.accessToken
 					localStorage.setItem("jwt", jwt)
 
-					console.log("I got jwt:",data.accessToken)
-
 					$.ajax({
 						type: "GET",
 						url: "http://localhost:3000/users?email=" + user,
 						contentType: "json",
-						// beforeSend: function (xhr) {
-						// 	xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-						// 	console.log("I am asking the full data user with: ", localStorage.getItem("jwt"))
-						// }
 					}).done(function(data){
-							console.log("full data: ", data)
+
 							var userEmail = data[0]['email']
 							localStorage.setItem("useremail", userEmail)
 							var userId = data[0]['id']
@@ -80,18 +71,13 @@ $(document).ready(function(){
 							}
 					})
 				}).fail(function(error){
-					console.log("something wrong")
 					$('#show-alert-error-logging-in').show()
 				})
 
 			}  else {
-				console.log("fields required")
 				$('#show-alert-error-logging-in').show()
 			}
 		}
-
-
-
 
 	})
 })

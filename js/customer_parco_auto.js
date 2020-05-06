@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	console.log("DOM searchbox ready")
 	$.ajax({
 		url: 'http://localhost:3000/660/bus_vehicles',
 		method: 'get',
@@ -31,7 +30,6 @@ $(document).ready(function(){
 				var searchTextBoxes = $(this.header()).find('input')
 
 				searchTextBoxes.on('keyup change', function() {
-					console.log("searchTextBoxes:", searchTextBoxes)
 					dataTableColumn.search(this.value).draw()
 				})
 

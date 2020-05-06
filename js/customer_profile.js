@@ -10,7 +10,6 @@ $(document).ready(function() {
   		contentType: "json",
   		beforeSend: function (xhr) {
   			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-  			console.log("jwt (I am user n) :", localStorage.getItem("jwt"))
   		}
   	}).done(function (response) {
   		console.log("I am user n:", response.id)
@@ -29,12 +28,9 @@ $(document).ready(function() {
   			contentType: "json",
   			beforeSend: function (xhr) {
   				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-  				console.log("jwt (function get user n):", localStorage.getItem("jwt"))
   			}
   		}).done(function (response) {
-  			console.log("function get user n:", response.id)
         $user_data.html('')
-
         // now let's populate with Json data
         if(response){
             $user_data.append('<h4 id=" ' + response.id + ' ">' + response.name + " " + response.surname + '</h4>' + "<br>" + '<p>' + "<b>NAME </b>" + response.name + '</p>' + "<br>" + '<p>' + "<b>SURNAME </b>" + response.surname + '</p>' + "<br>" + '<p>' + "<b>DATE OF BIRTH </b>" + response.birthday +  '</p>' + "<br>" + '<p>' + "<b>EMAIL </b>" + response.email + '</p>' + "<br>" +
@@ -61,27 +57,24 @@ $(document).ready(function() {
       				console.log("jwt (get single data):", localStorage.getItem("jwt"))
       			}
         }).done(function (response) {
-    			console.log("get single data:", response)
           var pass = response.password
-              $($('#edit-form ')[0].userId).val(response.id)
-              $($('#edit-form')[0].name).val(response.name)
-              $($('#edit-form')[0].surname).val(response.surname)
-              $($('#edit-form')[0].birthday).val(response.birthday)
-              $($('#edit-form')[0].email).val(response.email)
+              $('#userId').val(response.id)
+              $('#name').val(response.name)
+              $('#surname').val(response.surname)
+              $('#birthday').val(response.birthday)
+              $('#email').val(response.email)
               $('#edit-form').show()
 
               $('#edit-data').click( function(e){
-                  alert("clicked")
                   let data = {
-                      name: $($('#edit-form')[0].name).val(),
-                      surname: $($('#edit-form')[0].surname).val(),
-                      birthday: $($('#edit-form')[0].birthday).val(),
-                      email: $($('#edit-form')[0].email).val(),
+                      name: $('#name').val(),
+                      surname: $('#surname').val(),
+                      birthday: $('#birthday').val(),
+                      email: $('#email').val(),
                       role: "customer",
                       password: pass
                   }
-                  console.log("I want my new data to be those:", data)
-                  editUser($($('#edit-form')[0].userId).val(), data)
+                  editUser($('#userId').val(), data)
                   e.preventDefault()
               })
 
@@ -93,7 +86,7 @@ $(document).ready(function() {
     function loadButton(){
         $('#editData').on('click', function(e){
             $("#edit-form").show()
-            getData($($(this)[0]).data('userid'))
+            getData( $(e.target).data('userid') )
             $('html, body').animate({
                 scrollTop: ($('#edit-form').offset().top)
             },'slow')
@@ -102,18 +95,15 @@ $(document).ready(function() {
     }
 
     function editUser(id, data){
-      console.log("data to be edited:", data, "with user:", id)
       $.ajax({
   			method: "put",
   			url:"http://localhost:3000/600/users/" + id,
   			dataType: "json",
   			beforeSend: function (xhr) {
   				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-  				console.log("jwt:", localStorage.getItem("jwt"))
   			},
         data: data,
         success: function(data){
-          console.log("data edited: ", data)
           $('#edit-form').trigger("reset")
           $('#edit-form').hide()
           $('#alert-data-edited').show()

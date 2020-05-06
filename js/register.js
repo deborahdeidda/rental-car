@@ -1,12 +1,10 @@
 $(document).ready(function() {
-
-    //hide errors in html
+  
     $("#error-email").hide()
     $("#error-password").hide()
     $("#fill-email").hide()
     $("#show-alert-registerd").hide()
     $("#show-alert-registered-failed").hide()
-
 
     $("#register-btn").click(function(e) {
 
@@ -41,7 +39,7 @@ $(document).ready(function() {
                 if (data){
                     $("#show-alert-registered-failed").hide()
                     $("#show-alert-registerd").show()
-                } 
+                }
             },
             error: function(){
                 $("#show-alert-registered-failed").show()
