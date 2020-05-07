@@ -1,44 +1,6 @@
 $(document).ready(function() {
 
-	$.ajax({
-		type: "GET",
-		url: 'http://localhost:3000/660/users?id=' + localStorage.getItem("userid"),
-		contentType: "json",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		}
-	}).done(function (response) {
-		console.log("user id is:", response[0]['id'])
-	}).fail(function (err)  {
-		console.log("failed:", err)
-	})
-
-	$.ajax({
-		type: "GET",
-		url: 'http://localhost:3000/660/users',
-		contentType: "json",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		}
-	}).done(function (response) {
-		console.log("users are:", response)
-	}).fail(function (err)  {
-		console.log("failed:", err)
-	})
-
-	$.ajax({
-		type: "GET",
-		url: 'http://localhost:3000/660/bookings',
-		contentType: "json",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		}
-	}).done(function (response) {
-		console.log("bookings:", response)
-	}).fail(function (err)  {
-		console.log("failed:", err)
-	})
-
+	//hide alert in html
 	$('#form').hide()
 	$('#edit-form').hide()
 	$('#show-alert').hide()
@@ -51,15 +13,18 @@ $(document).ready(function() {
 	$("#alert-booking-deleted").hide()
 	$("#alert-booking-confirmed").hide()
 
-	//searchbox
+	getAllUsers()
+
 	$.ajax({
-		type: 'get',
-		url: 'http://localhost:3000/660/users',
+		type: "GET",
+		url: "http://localhost:3000/660/users",
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
+
+		//searchbox
 		var datatableInstance = $('#datatable').DataTable({
 			paging: true,
 			sort: true,
@@ -92,12 +57,10 @@ $(document).ready(function() {
 				e.stopPropagation()
 			})
 		})
+
 	}).fail(function (err)  {
-		console.log("failed:", err)
+		return err
 	})
-
-
-	getAllUsers()
 
 	$('#new-user').on('click', function(e){
 		  $('#form').show()
@@ -106,7 +69,7 @@ $(document).ready(function() {
 	function getAllUsers(){
 		$('#user').html('')
 		$.ajax({
-			type: "get",
+			type: "GET",
 			url: "http://localhost:3000/660/users",
 			contentType: "json",
 			beforeSend: function (xhr) {
@@ -116,20 +79,30 @@ $(document).ready(function() {
 				test: "test data"
 			},
 		}).done(function (response) {
-				$(response).each(function(i, user){
-					$('#user').append('<div class="col-12 col-md-4">' + '<div class="card">' + '<img src="../img/avatar.png" alt="Avatar" style="width:100%">' + '<div class="container">' + '<h4 user-id=" ' + user.id + ' ">' + user.name + ' ' + user.surname + '</h4><br>' + '<p><b>ID </b>' + user.id + '</p><br>' + '<p><b>NAME </b>' + user.name + '</p><br>' + '<p><b>SURNAME </b>' + user.surname + '</p><br>' + '<p><b>BIRTHDAY </b>' + user.birthday + '</p><br>' + '<p><b>EMAIL </b>' + user.email + '</p><br>' + '<div class="row pb-3"><div class="col-4 d-inline-block">' +
 
-						'<i data-userid="' + user.id + '" class="far fa-edit editUser"></i>' +
-						'<div class="col-4 d-inline-block">' +
+			//users card
+			$(response).each(function(i, user){
+				$('#user').append('<div class="col-12 col-md-4">' +
+				'<div class="card">' +
+				'<img src="../img/avatar.png" alt="Avatar" style="width:100%">' +
+				'<div class="container">' +
+				'<h4 user-id=" ' + user.id + ' ">' + user.name + ' ' + user.surname + '</h4><br>' +
+				'<p><b>ID </b>' + user.id + '</p><br>' +
+				'<p><b>NAME </b>' + user.name + '</p><br>' +
+				'<p><b>SURNAME </b>' + user.surname + '</p><br>' +
+				'<p><b>BIRTHDAY </b>' + user.birthday + '</p><br>' +
+				'<p><b>EMAIL </b>' + user.email + '</p><br>' +
+				'<div class="row pb-3">' +
+				'<div class="col-4 d-inline-block">' +
+				'<i data-userid="' + user.id + '" class="far fa-edit editUser"></i>' +
+				'<div class="col-4 d-inline-block">' +
+				'<i data-userid="' + user.id + '" class="far fa-trash-alt deleteUser"></i>' + '' +
+				'</div><div class="col-4 d-inline-block">' + '' +
+				'<i data-userid="' + user.id + '" class="fas fa-book showBookings"></i>' +
+				'</div></div></div>')
+			})
 
-						'<i data-userid="' + user.id + '" class="far fa-trash-alt deleteUser"></i>' +
-						'' +
-						'</div><div class="col-4 d-inline-block">' +
-						'' +
-						'<i data-userid="' + user.id + '" class="fas fa-book showBookings"></i>' +
-
-						'</div></div></div>')
-				})
+			loadButtons()
 
 				//let's write the total number of users
 				var $numberofusers = response.length;
@@ -137,15 +110,15 @@ $(document).ready(function() {
 					return "Number of users: " + $numberofusers
 				})
 
-				loadButtons()
 		}).fail(function (err)  {
-			console.log("failed:", err)
+			return err
 		})
 	}
 
+	//get single user to edit
 	function getOneUser(id){
 		$.ajax({
-			type: "get",
+			type: "GET",
 			url: "http://localhost:3000/660/users/" + id,
 			contentType: "json",
 			beforeSend: function (xhr) {
@@ -160,6 +133,7 @@ $(document).ready(function() {
 				$('#editEmail').val(response.email)
 				$('#edit-form').show()
 
+				//btn - edit user form
 				$('#edit-user-btn').click( function(e){
 
 					var editName = $('#editName').val()
@@ -189,10 +163,11 @@ $(document).ready(function() {
 					}
 				})
 		}).fail(function (err)  {
-			console.log("failed:", err)
+			return err
 		})
 	}
 
+	//btn - new user form
 	$('#create-new-user').on('click', function(e){
 
 		var name = $('#name').val()
@@ -233,7 +208,7 @@ $(document).ready(function() {
 
 	function createNewUser(data){
 		$.ajax({
-			method: "post",
+			method: "POST",
 			url: "http://localhost:3000/660/users",
 			dataType: "json",
 			beforeSend: function (xhr) {
@@ -243,8 +218,8 @@ $(document).ready(function() {
 			success: function(data){
 				getAllUsers()
 			},
-			error: function(){
-				console.log("error")
+			error: function(err){
+				return err
 			}
 		})
 	}
@@ -257,7 +232,7 @@ $(document).ready(function() {
 			$('#alert-user-deleted').hide()
 			$('#show-bookings-box').hide()
 			$('#alert-no-bookings').hide()
-			getOneUser($(e.target).data('userid'))
+			getOneUser( $(e.target).data('userid') )
 			$('html, body').animate({
 				scrollTop: ($('#edit-form').offset().top)
 			},'slow')
@@ -271,7 +246,7 @@ $(document).ready(function() {
 			$('#show-alert-edit').hide()
 			$('#show-bookings-box').hide()
 			$('#alert-no-bookings').hide()
-			deleteUser($(e.target).data('userid'))
+			deleteUser( $(e.target).data('userid') )
 			$('#alert-user-deleted').show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-user-deleted').offset().top)
@@ -285,7 +260,7 @@ $(document).ready(function() {
 			$('#show-alert').hide()
 			$('#show-alert-edit').hide()
 			$('#alert-user-deleted').hide()
-			showBookingUser($(e.target).data('userid'))
+			showBookingUser( $(e.target).data('userid') )
 			$('html, body').animate({
 				scrollTop: ($('#show-bookings-box').offset().top)
 			},'slow')
@@ -305,7 +280,7 @@ $(document).ready(function() {
 		}).done(function (data) {
 			getAllUsers()
 		}).fail(function (err)  {
-			console.log("failed:", err)
+			return err
 		})
 	}
 
@@ -319,15 +294,15 @@ $(document).ready(function() {
 			},
 		}).done(function (response) {
 			getAllUsers()
-		}).fail(function (err)  {
-			console.log("failed:", err)
+		}).fail(function (err) {
+			return err
 		})
 	}
 
 	function showBookingUser(id, data){
 		$('#show-bookings-alert').html('')
 		$.ajax({
-			type: "get",
+			type: "GET",
 			url: "http://localhost:3000/660/bookings?userId=" + id,
 			contentType: "json",
 			beforeSend: function (xhr) {
@@ -344,12 +319,23 @@ $(document).ready(function() {
 			$(response).each(function(i, booking){
 					if (booking.booking_status == "confirmed"){
 						$('#alert-no-bookings').hide()
-						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b>' + "<br>" + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking"></i><br>')
+						$('#show-bookings-alert').append('<hr>' +
+						'<p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" +
+						"Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" +
+						"Booking status: " + '<b>' + booking.booking_status + '</b>' + "<br>" +
+						"Booking id: " + '<b>' + booking.id + '</b></p>' +
+						'<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking"></i><br>')
 						$('#show-bookings-box').show()
 						loadButtonsBookings()
-					} else if (booking.booking_status == "pending"){
+					} else {
 						$('#alert-no-bookings').hide()
-						$('#show-bookings-alert').append('<hr><p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" + "Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" + "Booking status: " + '<b>' + booking.booking_status + '</b><br>' + "Booking id: " + '<b>' + booking.id + '</b></p>' + '<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking px-4"></i>' + '<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" data-totalcost="' + booking.total_cost + '" data-dailycost="' + booking.daily_cost + '" data-model="' + booking.model + '" data-type="' + booking.vehicle_type + '" data-bookingdate="' + booking.booking_date + '" data-bookingstatus="' + booking.booking_status + '" class="fas fa-check confirmBooking px-4"></i>')
+						$('#show-bookings-alert').append('<hr>' +
+						'<p>This reservation belogs to customer id: ' + '<b>' + booking.userId + '</b>' + "<br>" + "Booking date: " + '<b>' + booking.booking_date + '</b>' + "<br>" +
+						"Total cost: " + '<b>' + booking.total_cost + '</b>' + "<br>" +
+						"Booking status: " + '<b>' + booking.booking_status + '</b><br>' +
+						"Booking id: " + '<b>' + booking.id + '</b></p>' +
+						'<i data-bookingid="' + booking.id + '" class="far fa-trash-alt deleteBooking px-4"></i>' +
+						'<i data-bookingid="' + booking.id + '" data-userid="' + booking.userId + '" data-totalcost="' + booking.total_cost + '" data-dailycost="' + booking.daily_cost + '" data-model="' + booking.model + '" data-type="' + booking.vehicle_type + '" data-bookingdate="' + booking.booking_date + '" data-bookingstatus="' + booking.booking_status + '" class="fas fa-check confirmBooking px-4"></i>')
 						$('#show-bookings-box').show()
 						loadButtonsBookings()
 					}
@@ -406,8 +392,8 @@ $(document).ready(function() {
 			$('html, body').animate({
 				scrollTop: ($('#alert-booking-confirmed').offset().top)
 			},'slow')
-		}).fail(function (err)  {
-			console.log("failed:", err)
+		}).fail(function (err) {
+			return err
 		})
 	}
 
@@ -426,7 +412,7 @@ $(document).ready(function() {
 				scrollTop: ($('#alert-booking-deleted').offset().top)
 			},'slow')
 		}).fail(function (err)  {
-			console.log("failed deleting:", err)
+			return err
 		})
 	}
 

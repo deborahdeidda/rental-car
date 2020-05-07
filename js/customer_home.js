@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+	//hide alert in html
 	$('#bookings').hide()
 	$('#bookings2').hide()
 	$('#no-bookings').hide()
@@ -13,90 +14,73 @@ $(document).ready(function(){
 	$("#alert-error-deleting").hide()
 	$("#error-editing-booking").hide()
 
-	$.ajax({
-		type: "GET",
-		url: 'http://localhost:3000/660/users/' + localStorage.getItem("userid"),
-		contentType: "json",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		}
-	}).done(function (response) {
-		console.log("user id is:", response.id)
-	}).fail(function (err)  {
-		console.log("failed:", err)
-	})
+	getBookings()
 
 	$.ajax({
 		type: "GET",
-		url: 'http://localhost:3000/660/bookings?userId=' + localStorage.getItem("userid"),
-		contentType: "json",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		}
-	}).done(function (response) {
-		console.log("bookings:", response)
-	}).fail(function (err)  {
-		console.log("failed:", err)
-	})
-
-	//searchbox
-	$.ajax({
-		type: "get",
 		url:"http://localhost:3000/660/bookings?userId="+ localStorage.getItem("userid"),
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		},
-		success: function (data) {
-			var datatableInstance = $('#datatable').DataTable({
-				paging: true,
-				sort: true,
-				searching: true,
-				data: data,
-				columns: [
-					{ 'data': 'booking_date' },
-					{ 'data': 'total_cost' },
-					{ 'data': 'booking_status' }
-				]
-			})
-
-			$('#datatable thead th').each(function () {
-				var title = $('#datatable tfoot th').eq($(this).index()).text()
-				$(this).html('<input type="text" placeholder="Search ' + title + '" />')
-			})
-
-			datatableInstance.columns().every(function () {
-				var dataTableColumn = this
-
-				var searchTextBoxes = $(this.header()).find('input')
-
-				searchTextBoxes.on('keyup change', function () {
-					dataTableColumn.search(this.value).draw()
-				})
-
-				searchTextBoxes.on('click', function(e){
-					e.stopPropagation()
-				})
-			})
 		}
+	}).done(function (response) {
+
+		//searchbox - initialise
+		var datatableInstance = $('#datatable').DataTable({
+			paging: true,
+			sort: true,
+			searching: true,
+			data: response,
+			columns: [
+				{ 'data': 'booking_date' },
+				{ 'data': 'total_cost' },
+				{ 'data': 'booking_status' }
+			]
+		})
+
+		$('#datatable thead th').each(function () {
+			var title = $('#datatable tfoot th').eq($(this).index()).text()
+			$(this).html('<input type="text" placeholder="Search ' + title + '" />')
+		})
+
+		datatableInstance.columns().every(function () {
+			var dataTableColumn = this
+
+			var searchTextBoxes = $(this.header()).find('input')
+
+			searchTextBoxes.on('keyup change', function () {
+				dataTableColumn.search(this.value).draw()
+			})
+
+			searchTextBoxes.on('click', function(e){
+				e.stopPropagation()
+			})
+		})
+
+	}).fail(function (err)  {
+		return err
 	})
 
-	checkBookings()
-
-	function checkBookings(){
+	function getBookings(){
 		$.ajax({
-			type: "get",
+			type: "GET",
 			url:"http://localhost:3000/660/bookings?userId="+ localStorage.getItem("userid"),
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
+
 			if(response.length == 0){
+				$('#bookings').hide()
 				$('#no-bookings').show()
+				return response.length
 			}
 
+			console.log(response)
+			$('#bookings').html('')
 			$(response).each(function(i, booking){
+				$('#no-bookings').hide()
 				$('#bookings').show()
 				$('#bookings').append('<div class="row py-4"><div class="col-12 col-md-6 d-flex align-items-center">' +
 					'<img class="img-fluid" src="../img/bus.jfif" alt="Bus">' + '</div>' +
@@ -105,7 +89,6 @@ $(document).ready(function(){
 					'<p>Total cost: <b>' + booking.total_cost +'</b></p>' +
 					'<p>Booking status: <b>' + booking.booking_status +'</b></p>' +
 					'</div><div class="row m-auto text-center"><div class="col-12"><p>Puoi effettuare la cancellazione o modifica solamente se la data odierna dista almeno di 2 giorni dalla data di prenotazione.</p>' +
-
 					'<div class="row mb-4 m-auto text-center"><div class="col-6 d-inline-block px-4">' +
 					'<i data-bookingdate="' +  booking.booking_date + '" data-bookingid="' + booking.id + '" class="far fa-edit editBooking"></i><hr></div>' +
 					'<div class="col-6 d-inline-block x-4">' +
@@ -116,7 +99,7 @@ $(document).ready(function(){
 			})
 
 		}).fail(function (err)  {
-			console.log("failed")
+			return err
 		})
 	}
 
@@ -135,14 +118,16 @@ $(document).ready(function(){
 				$('#editModel').val(response.model)
 				$('#edit-booking-form').show()
 		}).fail(function (err)  {
-			console.log("failed:", err)
+			return err
 		})
 	}
 
-	//new booking btn
+	//btn - show new booking form
 	$('#new-booking').on('click', function(e){
 		$('#new-booking-form').show()
 	})
+
+	//btn - send data to book
 	$('#create-new-booking').on('click', function(e){
 
 		let date = $('#date').val()
@@ -172,13 +157,7 @@ $(document).ready(function(){
 		}
 	})
 
-	function refresh(){
-		$('.delete').click(function(){
-			location.reload()
-		})
-	}
-
-	function createNewBooking(){
+	function createNewBooking(data){
 		$.ajax({
 			method: "post",
 			url: "http://localhost:3000/660/bookings?userId=" + localStorage.getItem("userid"),
@@ -186,23 +165,18 @@ $(document).ready(function(){
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 			},
-			data: {
-				booking_date: $('#date').val(),
-				vehicle_type: $('#type').val(),
-				model: $('#model').val(),
-				daily_cost: 100,
-				total_cost: 1000,
-				booking_status: "pending",
-				userId: (localStorage.getItem("userid"))
-			},
-		}).done(function (response) {
+			data: data,
+		}).done(function (data) {
+			$('#alert-booking-edited').hide()
+			$('#alert-booking-deleted').hide()
 			$('#alert-new-booking-added').show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-new-booking-added').offset().top)
 			},'slow')
-			refresh()
-		}).fail(function (err)  {
-			console.log("error:", err)
+			$('#new-booking-form').hide()
+			getBookings()
+		}).fail(function (err) {
+			return err
 		})
 	}
 
@@ -265,6 +239,7 @@ $(document).ready(function(){
 		})
 	}
 
+	//btn - send data to edit
 	$('#edit-booking-btn').click( function(e){
 
 		var date = $('#editDate').val()
@@ -272,7 +247,6 @@ $(document).ready(function(){
 		var model = $('#editModel').val()
 
 		let data = {
-
 			booking_date: $('#editDate').val(),
 			vehicle_type: $('#editType').val(),
 			model: $('#editModel').val(),
@@ -305,15 +279,17 @@ $(document).ready(function(){
 			},
 			data: data,
 		}).done(function (data) {
+			$('#alert-new-booking-added').hide()
+			$('#alert-booking-deleted').hide()
 			$('#edit-booking-form').trigger("reset")
 			$('#alert-booking-edited').show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-booking-edited').offset().top)
 			},'slow')
 			$('#edit-booking-form').hide()
-			refresh()
+			getBookings()
 		}).fail(function (err)  {
-			console.log("failed:", err)
+			return err
 		})
 	}
 
@@ -326,13 +302,15 @@ $(document).ready(function(){
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
+			$('#alert-new-booking-added').hide()
+			$('#alert-booking-edited').hide()
 			$('#alert-booking-deleted').show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-booking-deleted').offset().top)
 			},'slow')
-			refresh()
+			getBookings()
 		}).fail(function (err)  {
-			console.log("failed deleting")
+			return err
 		})
 	}
 

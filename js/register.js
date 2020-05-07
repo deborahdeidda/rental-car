@@ -1,28 +1,40 @@
 $(document).ready(function() {
-  
-    $("#error-email").hide()
-    $("#error-password").hide()
-    $("#fill-email").hide()
-    $("#show-alert-registerd").hide()
-    $("#show-alert-registered-failed").hide()
 
-    $("#register-btn").click(function(e) {
+  //hide alert in html
+  $("#show-alert-registerd").hide()
+  $("#show-alert-registered-failed").hide()
 
-        var name = $('#name').val()
-        var email = $('#email').val()
-        var password = $('#password').val()
-        var surname = $('#surname').val()
-        var birthday = $('#birthday').val()
-        e.preventDefault()
+  //btn - to register
+  $("#register-btn").click(function(e) {
 
-        function checkUser(){
-            if (email != "" && password != ""){
-                true
-            } else {
-                false
-            }
-        }
+    var name = $('#name').val()
+    var email = $('#email').val()
+    var password = $('#pass-word').val()
+    var surname = $('#surname').val()
+    var birthday = $('#birthday').val()
 
+  	var validatePassword = function(){
+      console.log(password)
+  		if(password.length > 7){
+  			true
+  		} else {
+  			false
+  		}
+  	}
+
+    var validateEmail = function(){
+  		 var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+  		 if(reg.test(email)){
+  		 	true
+  		 } else {
+  		 	false
+  		 }
+  	}
+    e.preventDefault()
+    verifyRegistration()
+
+    function verifyRegistration(){
+      if( validateEmail && validatePassword ){
         $.ajax({
             url: "http://localhost:3000/register",
             method: "POST",
@@ -35,15 +47,20 @@ $(document).ready(function() {
                 "role": "customer"
             },
             success: function(data){
-                checkUser()
-                if (data){
-                    $("#show-alert-registered-failed").hide()
-                    $("#show-alert-registerd").show()
-                }
+              if (data){
+                $("#show-alert-registered-failed").hide()
+                $("#show-alert-registerd").show()
+              }
             },
             error: function(){
-                $("#show-alert-registered-failed").show()
+              $('#show-alert-registered-failed').show()
             }
         })
-    })
+
+      } else {
+        $("#show-alert-registered-failed").show()
+      }
+    }
+
+  })
 })

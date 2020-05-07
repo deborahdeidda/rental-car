@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+	//hide alert in html
 	$('#alert-vehicle-deleted').hide()
 	$('#vehicle-form').hide()
 	$('#alert-vehicle-edited').hide()
@@ -9,78 +10,54 @@ $(document).ready(function() {
 
 	$.ajax({
 		type: "GET",
-		url: 'http://localhost:3000/660/users?id=' + localStorage.getItem("userid"),
-		contentType: "json",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		}
-	}).done(function (response) {
-		console.log("user id is:", response[0]['id'])
-	}).fail(function (err)  {
-		console.log("failed:", err)
-	})
-
-	$.ajax({
-		type: "GET",
 		url: 'http://localhost:3000/660/bus_vehicles',
 		contentType: "json",
 		beforeSend: function (xhr) {
 			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 		}
 	}).done(function (response) {
-		console.log("bus vehicles are:", response)
+
+		//Searchbox
+		var datatableInstance = $('#datatable').DataTable({
+			paging: true,
+			sort: true,
+			searching: true,
+			data: response,
+			columns: [
+				{ 'data': 'vehicle_type' },
+				{ 'data': 'model' },
+				{ 'data': 'registration_year' },
+				{ 'data': 'number_plate' },
+				{ 'data': 'availability' }
+			]
+		})
+
+		$('#datatable thead th').each(function () {
+			var title = $('#datatable tfoot th').eq($(this).index()).text()
+			$(this).html('<input type="text" placeholder="Search ' + title + '" />')
+		})
+
+		datatableInstance.columns().every(function () {
+			var dataTableColumn = this
+
+			var searchTextBoxes = $(this.header()).find('input')
+
+			searchTextBoxes.on('keyup change', function () {
+				dataTableColumn.search(this.value).draw()
+			})
+
+			searchTextBoxes.on('click', function(e){
+				e.stopPropagation()
+			})
+		})
+
 	}).fail(function (err)  {
-		console.log("failed:", err)
+		return err
 	})
-
-	//Searchbox
-  $.ajax({
-    url: 'http://localhost:3000/660/bus_vehicles',
-    method: 'get',
-    dataType: 'json',
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		},
-    success: function (data) {
-      var datatableInstance = $('#datatable').DataTable({
-        paging: true,
-        sort: true,
-        searching: true,
-        data: data,
-        columns: [
-          { 'data': 'vehicle_type' },
-          { 'data': 'model' },
-          { 'data': 'registration_year' },
-          { 'data': 'number_plate' },
-          { 'data': 'availability' }
-        ]
-      })
-
-      $('#datatable thead th').each(function () {
-        var title = $('#datatable tfoot th').eq($(this).index()).text()
-        $(this).html('<input type="text" placeholder="Search ' + title + '" />')
-      })
-
-      datatableInstance.columns().every(function () {
-        var dataTableColumn = this
-
-        var searchTextBoxes = $(this.header()).find('input')
-
-        searchTextBoxes.on('keyup change', function () {
-          dataTableColumn.search(this.value).draw()
-        })
-
-        searchTextBoxes.on('click', function(e){
-          e.stopPropagation()
-        })
-      })
-    }
-  })
 
 	getVehicles()
 
 	function getVehicles(){
-		//variables
 	  var $bus = $('#bus')
 		$.ajax({
 			type: "GET",
@@ -90,14 +67,25 @@ $(document).ready(function() {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
-			$bus.html('');//clear select
-			$(response).each(function(i, vehicle){
-	      $bus.append('<div class="col-12 col-md-4 my-4 m-auto justify-items-center" id=" ' + vehicle.id + '">' + '<div class="card mx-auto my-3" style="width: 18rem;"><img class="card-img-top" src="../img/bus.jfif" alt="Card image cap"><div class="card-body"><h5 class="card-title">' + vehicle.vehicle_type + '</h5>' + '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>' + '</div>' + '<ul class="list-group list-group-flush"><li class="list-group-item">' + "<b>Model </b>" + vehicle.model + '</li><li class="list-group-item">' + "<b>Manufacturer </b>"  + vehicle.manufacturer + '</li><li class="list-group-item">' + "<b>Registration year </b>" + vehicle.registration_year + '</li><li class="list-group-item">' + "<b>Number plate </b>" + vehicle.number_plate + '</li><li class="list-group-item">' + "<b>Availability </b>" + vehicle.availability + '</li><li class="list-group-item m-auto text-center">' +
 
+			//Vehicle cards
+			$bus.html('')
+			$(response).each(function(i, vehicle){
+	      $bus.append('<div class="col-12 col-md-4 my-4 m-auto justify-items-center" id=" ' + vehicle.id + '">' + '<div class="card mx-auto my-3" style="width: 18rem;">' +
+				'<img class="card-img-top" src="../img/bus.jfif" alt="Card image cap">' +
+				'<div class="card-body">' +
+				'<h5 class="card-title">' + vehicle.vehicle_type + '</h5>' +
+				'<p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>' + '</div>' +
+				'<ul class="list-group list-group-flush">' +
+				'<li class="list-group-item">' + "<b>Model </b>" + vehicle.model + '</li>' +
+				'<li class="list-group-item">' + "<b>Manufacturer </b>"  + vehicle.manufacturer + '</li>' +
+				'<li class="list-group-item">' + "<b>Registration year </b>" + vehicle.registration_year + '</li>' +
+				'<li class="list-group-item">' + "<b>Number plate </b>" + vehicle.number_plate + '</li>' +
+				'<li class="list-group-item">' + "<b>Availability </b>" + vehicle.availability + '</li>' +
+				'<li class="list-group-item m-auto text-center">' +
 				'<i data-vehicleid="' + vehicle.id + '" class="far fa-edit px-4 editVehicle"></i>' +
 				'<i data-vehicleid="' + vehicle.id + '" class="far fa-trash-alt px-5 deleteVehicle"></i>' +
-
-				'</li>' + '</div>')
+				'</li></div>')
 				loadButtons()
 	    })
 
@@ -108,7 +96,7 @@ $(document).ready(function() {
 	    })
 
 		}).fail(function (err)  {
-			console.log("failed:", err)
+			return err
 		})
 	}
 
@@ -159,13 +147,7 @@ $(document).ready(function() {
 					}
 				})
 		}).fail(function (err)  {
-			console.log("failed:", err)
-		})
-	}
-
-	function refresh(){
-		$('.delete').click(function(){
-			location.reload()
+			return err
 		})
 	}
 
@@ -211,20 +193,12 @@ $(document).ready(function() {
 
 		if (type != "" && model != "" && manufacturer != "" && rYear != "" && nPlate != "" && availability != ""){
 			addVehicle(data)
-			$('#add-vehicle-form').trigger("reset")
-			$('#alert-vehicle-added').show()
-			$('html, body').animate({
-				scrollTop: ($('#alert-vehicle-added').offset().top)
-			},'slow')
-			$('#add-vehicle-form').hide()
-			refresh()
 			e.preventDefault()
 		} else {
 			$('#alert-error-adding-vehicle').show()
 			$('html, body').animate({
 				scrollTop: ($('#alert-error-adding-vehicle').offset().top)
 			},'slow')
-			refresh()
 			e.preventDefault()
 		}
 	})
@@ -239,9 +213,15 @@ $(document).ready(function() {
 			},
 			data: data,
 		}).done( function(response){
-			console.log("new vehicle added")
+			$('#add-vehicle-form').trigger("reset")
+			$('#alert-vehicle-added').show()
+			$('html, body').animate({
+				scrollTop: ($('#alert-vehicle-added').offset().top)
+			},'slow')
+			$('#add-vehicle-form').hide()
+			getVehicles()
 		}).fail( function(err){
-			console.log("error adding vehicle")
+			return err
 		})
 	}
 
@@ -255,7 +235,6 @@ $(document).ready(function() {
 			},
 			data: data,
 		}).done(function (data) {
-			console.log("dati modificati:", data)
 			$('#alert-vehicle-added').hide()
 			$('#vehicle-form').hide()
 			$('#alert-vehicle-deleted').hide()
@@ -263,9 +242,9 @@ $(document).ready(function() {
 			$('html, body').animate({
 				scrollTop: ($('#alert-vehicle-edited').offset().top)
 			},'slow')
-			refresh()
+			getVehicles()
 		}).fail(function (err)  {
-			console.log("failed:", err)
+			return err
 		})
 	}
 
@@ -285,9 +264,9 @@ $(document).ready(function() {
 			$('html, body').animate({
 				scrollTop: ($('#alert-vehicle-deleted').offset().top)
 			},'slow')
-			refresh()
+			getVehicles()
 		}).fail(function (err)  {
-			console.log("failed deleting vehicle:", err)
+			return err
 		})
 	}
 

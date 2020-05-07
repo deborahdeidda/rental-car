@@ -1,51 +1,40 @@
 $(document).ready(function() {
 
+	//hide alert in html
 	$("#alert-admin-added").hide()
 	$("#alert-admin-error").hide()
 	$("#new-admin-form").hide()
 
-	$.ajax({
-		type: "GET",
-		url: 'http://localhost:3000/600/users/' + localStorage.getItem("idfy"),
-		contentType: "json",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		}
-	}).done(function (response) {
-		console.log("done:", response)
-	}).fail(function (err)  {
-		console.log("failed:", err)
-	})
-
 	getUser()
 
 	function getUser(){
-		//variables
 		$admin_data = $('#admin-data')
 		$.ajax({
 			type: "GET",
-			url: 'http://localhost:3000/600/users/' + localStorage.getItem("idfy"),
+			url: 'http://localhost:3000/600/users/' + localStorage.getItem("userid"),
 			contentType: "json",
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
 			$admin_data.html('')
-
-				// now let's populate with Json data
-				if(response){
-					$admin_data.append('<h4 id=" ' + response.id + ' ">' + response.name + " " + response.surname + '</h4>' + "<br>" + '<p>' + "<b>ID </b>" + response.id +  '</p>' + "<br>" + '<p>' + "<b>NAME </b>" + response.name + '</p>' + "<br>" + '<p>' + "<b>SURNAME </b>" + response.surname + '</p>' + "<br>" + '<p>' + "<b>DATE OF BIRTH </b>" + response.birthday +  '</p>' + "<br>" + '<p>' + "<b>MAIL </b>" + response.email + '</p>' + "<br>" +
-
-					'<div class="row pb-3 justify-content-center"><div class="col-6 d-inline-block">' +
-					'<i id="editAdmin" class="fas fa-user-plus"></i>' +
-
-					' </div></div>')
-					loadButtons()
-				} else {
-					console.log("no data")
-				}
+			// now let's populate with Json data
+			if(response){
+				$admin_data.append('<h4 id="' + response.id + '">' + response.name + " " + response.surname + '</h4>' + "<br>" +
+				'<p>' + "<b>ID </b>" + response.id +  '</p>' + "<br>" +
+				'<p>' + "<b>NAME </b>" + response.name + '</p>' + "<br>" +
+				'<p>' + "<b>SURNAME </b>" + response.surname + '</p>' + "<br>" +
+				'<p>' + "<b>DATE OF BIRTH </b>" + response.birthday +  '</p>' + "<br>" +
+				'<p>' + "<b>MAIL </b>" + response.email + '</p>' + "<br>" +
+				'<div class="row pb-3 justify-content-center">' +
+				'<div class="col-6 d-inline-block">' +
+				'<i id="editAdmin" class="fas fa-user-plus"></i></div></div>')
+				loadButtons()
+			} else {
+				return false
+			}
 		}).fail(function (err)  {
-			console.log("failed")
+			return err
 		})
 	}
 
@@ -77,10 +66,6 @@ $(document).ready(function() {
 
 		if (email != "" && name != "" && surname != "" && birthday != "" ){
 			createNewAdmin(data)
-			$('#new-admin-form').trigger("reset")
-			$("#alert-admin-error").hide()
-			$('#alert-admin-added').show()
-			$('#new-admin-form').hide()
 			e.preventDefault()
 		} else {
 			$("#alert-admin-error").show()
@@ -101,10 +86,13 @@ $(document).ready(function() {
 			},
 			data: data,
 			success: function(data){
-				console.log("success")
+				$('#new-admin-form').trigger("reset")
+				$("#alert-admin-error").hide()
+				$('#alert-admin-added').show()
+				$('#new-admin-form').hide()
 			},
-			error: function(){
-				console.log("error")
+			error: function(err){
+				return err
 			}
 		})
 	}
