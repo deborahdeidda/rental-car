@@ -14,20 +14,20 @@ $(document).ready(function() {
     var birthday = $('#birthday').val()
 
   	var validatePassword = function(){
-      console.log(password)
   		if(password.length > 7){
-  			true
+        console.log(password.length)
+  			return true
   		} else {
-  			false
+  			return false
   		}
   	}
 
     var validateEmail = function(){
   		 var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
   		 if(reg.test(email)){
-  		 	true
+  		 	return true
   		 } else {
-  		 	false
+  		 	return false
   		 }
   	}
     e.preventDefault()
