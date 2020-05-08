@@ -125,6 +125,87 @@
       "birthday": "2020-04-27",
       "role": "admin",
       "id": 107
+    },
+    {
+      "email": "d@mailinator.com",
+      "password": "$2a$10$PZsq8Dobj6PYh05ahabsgOs1GPZiaVR2WpDyszWvZuinyUOdNQspW",
+      "name": "Kyle",
+      "surname": "Parks",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 108
+    },
+    {
+      "email": "contact@deiddadeborah.ovh",
+      "password": "$2a$10$ZmU2B.q7zP.Tkls5y2VjReKMHwRqUlcJrs2Q52kyL8MnOVGpNhkTu",
+      "name": "Lillian Jimenez",
+      "surname": "Huber",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 109
+    },
+    {
+      "email": "deborahdeidda63@gmail.com",
+      "password": "$2a$10$bx1aD8GNJqTcdbfN3NEGl.WQIlwjTSwVY/yqIEG1ax.GBquUhIInC",
+      "name": "deborah",
+      "surname": "Huber",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 110
+    },
+    {
+      "email": "deby@deby.it",
+      "password": "$2a$10$qfnMAIY2HKSo4yxwbNjqseHvUpfXFweKWbMgTGGdKIjCU/NCImG2O",
+      "name": "deborah",
+      "surname": "Huber",
+      "birthday": "2020-04-28",
+      "role": "customer",
+      "id": 111
+    },
+    {
+      "email": "deborah@gmail.com",
+      "password": "$2a$10$l1vuqloteV2WAUYmI0EQtOp1tmPz1eAuznJKkgPYwZfId8rhMblDO",
+      "name": "deborah",
+      "surname": "Huber",
+      "birthday": "2020-05-05",
+      "role": "customer",
+      "id": 112
+    },
+    {
+      "email": "deborah@gl.com",
+      "password": "$2a$10$SDX/rB6i4w35Xr4vCnCeOOk0ErxQyclmEdKDt.QrvIbKsl4603xBm",
+      "name": "deborah",
+      "surname": "Huber",
+      "birthday": "2020-05-05",
+      "role": "customer",
+      "id": 113
+    },
+    {
+      "email": "Deborah@presto.it",
+      "password": "$2a$10$qpibAJAJGcT2EKCe00kXrel.zEWdaEuoKo2g4Srp.pmBbUSTwFZwS",
+      "name": "deborah",
+      "surname": "Huber",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 114
+    },
+    {
+      "email": "nuovo@nuovo.it",
+      "password": "$2a$10$zl871EEwTmOYwdclwdysnedTgPFHvF2yFhNQa5G.S5rklauZYPOAO",
+      "name": "Nuovo",
+      "surname": "Nuovo",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 115
+    },
+    {
+      "email": "j@j.it",
+      "password": "$2a$10$6pqxmap1MR67fkTR65p4NOtKd24dx1dJ1YuJ10etQDy5zsukog0ci",
+      "name": "deborah",
+      "surname": "Huber",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 116
     }
   ],
   "bookings": [
