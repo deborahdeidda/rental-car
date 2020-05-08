@@ -31,6 +31,8 @@ $(document).ready(function(){
 			]
 		})
 
+
+
 		$('#datatable thead th').each(function () {
 			var title = $('#datatable tfoot th').eq($(this).index()).text()
 			$(this).html('<input type="text" placeholder="Search ' + title + '" />')

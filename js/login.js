@@ -13,18 +13,18 @@ $(document).ready(function(){
 	  	var validatePassword = function(){
 	      console.log(password)
 	  		if(password != ""){
-	  			true
+	  			return true
 	  		} else {
-	  			false
+	  			return false
 	  		}
 	  	}
 
 	    var validateEmail = function(){
 	  		 var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
 	  		 if(reg.test(email)){
-	  		 	true
+	  		 	return true
 	  		 } else {
-	  		 	false
+	  		 	return false
 	  		 }
 	  	}
 			e.preventDefault()
