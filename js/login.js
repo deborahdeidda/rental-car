@@ -3,6 +3,7 @@ $(document).ready(function(){
 	//hide alert in html
 	$('#show-alert-logged-in').hide()
 	$('#show-alert-error-logging-in').hide()
+	$('#alert-data-incorrect').hide()
 
 	//btn - to login
 		$('#login-btn').click(function(e){
@@ -32,6 +33,8 @@ $(document).ready(function(){
 
 			function verifyLogin(){
 				if( validateEmail && validatePassword ){
+					console.log(validateEmail == true)
+					console.log(validatePassword == true)
 					$.ajax({
 						url: "http://localhost:3000/login",
 						method: "POST",
@@ -56,7 +59,7 @@ $(document).ready(function(){
 								localStorage.setItem("userid", userId)
 
 								if (data[0]['role'] == "admin"){
-									console.log("I am admin")
+									$('#alert-data-incorrect').hide()
 									$('#show-alert-error-logging-in').hide()
 									$('#show-alert-logged-in').show()
 
@@ -68,7 +71,7 @@ $(document).ready(function(){
 									redirect(data)
 
 								} else if (data[0]['role'] == "customer") {
-									console.log("I am customer")
+									$('#alert-data-incorrect').hide()
 									$('#show-alert-error-logging-in').hide()
 									$('#show-alert-logged-in').show()
 									function redirect(data) {
@@ -83,30 +86,25 @@ $(document).ready(function(){
 								}
 						})
 					}).fail(function(error){
-						$('#show-alert-error-logging-in').show()
+							if (email == "" || password == ""){
+								$('#show-alert-logged-in').hide()
+								$('#alert-data-incorrect').hide()
+								$('#show-alert-error-logging-in').show()
+							} else {
+								$('#show-alert-logged-in').hide()
+								$('#show-alert-error-logging-in').hide()
+								$('#alert-data-incorrect').show()
+							}
 					})
 
-				}else{
+				} else {
+					$('#show-alert-logged-in').hide()
+					$('#alert-data-incorrect').hide()
 					$('#show-alert-error-logging-in').show()
 				}
 			}
 
-			// var email = $('#email').val()
-			// var password = $('#password').val()
 			e.preventDefault()
-
-			// verifyLogin()
-
-			// function verifyLogin(){
-				// if (password != "" && email != ""){
-
-				//ajax call
-
-				// }  else {
-				// 	$('#show-alert-error-logging-in').show()
-				// }
-
-			//}
 
 		})
 })
