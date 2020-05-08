@@ -8,17 +8,18 @@ $(document).ready(function() {
 	$('#alert-error-adding-vehicle').hide()
 	$('#alert-vehicle-added').hide()
 
-	$.ajax({
-		type: "GET",
-		url: 'http://localhost:3000/660/bus_vehicles',
-		contentType: "json",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		}
-	}).done(function (response) {
+	getVehicles()
 
-		//Searchbox
-		var datatableInstance = $('#datatable').DataTable({
+	//Searchbox
+	function dataT(response){
+		//initialise datatable
+		var datatableInstance = $('#datatable').DataTable()
+		//destroy
+		datatableInstance.destroy()
+		//empty
+		$('#datatable').empty()
+		//populate
+		datatableInstance = $('#datatable').DataTable({
 			paging: true,
 			sort: true,
 			searching: true,
@@ -50,12 +51,7 @@ $(document).ready(function() {
 				e.stopPropagation()
 			})
 		})
-
-	}).fail(function (err)  {
-		return err
-	})
-
-	getVehicles()
+	}
 
 	function getVehicles(){
 	  var $bus = $('#bus')
@@ -67,6 +63,8 @@ $(document).ready(function() {
 				xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
 			}
 		}).done(function (response) {
+
+			dataT(response)
 
 			//Vehicle cards
 			$bus.html('')

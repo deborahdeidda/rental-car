@@ -15,17 +15,16 @@ $(document).ready(function() {
 
 	getAllUsers()
 
-	$.ajax({
-		type: "GET",
-		url: "http://localhost:3000/660/users",
-		contentType: "json",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"))
-		}
-	}).done(function (response) {
-
-		//searchbox
-		var datatableInstance = $('#datatable').DataTable({
+	//searchbox
+	function dataT(response){
+		//initialise datatable
+		var datatableInstance = $('#datatable').DataTable()
+		//destroy
+		datatableInstance.destroy()
+		//empty
+		$('#datatable').empty()
+		//populate 
+		datatableInstance = $('#datatable').DataTable({
 			paging: true,
 			sort: true,
 			searching: true,
@@ -39,28 +38,30 @@ $(document).ready(function() {
 			]
 		})
 
+		//insert input inside each th table with title
 		$('#datatable thead th').each(function () {
 			var title = $('#datatable tfoot th').eq($(this).index()).text()
 			$(this).html('<input type="text" placeholder="Search ' + title + '" />')
 		})
 
+		//for every data in columns
 		datatableInstance.columns().every(function () {
 			var dataTableColumn = this
 
+			//header input
 			var searchTextBoxes = $(this.header()).find('input')
 
+			//on keyup and on change, search value and put the data in table
 			searchTextBoxes.on('keyup change', function () {
 				dataTableColumn.search(this.value).draw()
 			})
 
+			//at click stop sorting data
 			searchTextBoxes.on('click', function(e){
 				e.stopPropagation()
 			})
 		})
-
-	}).fail(function (err)  {
-		return err
-	})
+	}
 
 	$('#new-user').on('click', function(e){
 		  $('#form').show()
@@ -79,6 +80,8 @@ $(document).ready(function() {
 				test: "test data"
 			},
 		}).done(function (response) {
+
+			dataT(response)
 
 			//users card
 			$(response).each(function(i, user){
@@ -178,7 +181,7 @@ $(document).ready(function() {
 
 		let data = {
 			name: $('#name').val(),
-			surname: ('#surname').val(),
+			surname: $('#surname').val(),
 			birthday: $('#birthday').val(),
 			email: $('#email').val(),
 			role: "customer"
