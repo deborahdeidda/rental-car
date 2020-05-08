@@ -11,7 +11,7 @@
     },
     {
       "name": "Tyrone Hart",
-      "surname": "Colemanno",
+      "surname": "Coleman",
       "birthday": "1978-08-01",
       "email": "xijagi@mailinator.com",
       "password": "$2a$10$7ilxlkuUm9vprh8ELXnqGOKj/JNXEHb/XthPqtguXFDnzIj4WcMum",
@@ -118,15 +118,6 @@
       "id": 105
     },
     {
-      "email": "mao@mao.it",
-      "password": "$2a$10$kUCcd0w6i9AsXk4zv1TTu./KGJ3mnaNifZbud8y9RuMWInfWdMMse",
-      "name": "as",
-      "surname": "fd",
-      "birthday": "2020-04-28",
-      "role": "customer",
-      "id": 106
-    },
-    {
       "email": "admin@ad.it",
       "password": "$2a$10$ynvAQnd.B4DKAkPD7ce1rOGgkm9L3xz.4jL/nJLStQupesnIIF4GG",
       "name": "Administrator",
@@ -134,24 +125,6 @@
       "birthday": "2020-04-27",
       "role": "admin",
       "id": 107
-    },
-    {
-      "name": "Mauro",
-      "surname": "Ardu",
-      "birthday": "1992-11-24",
-      "email": "mauro@cuccu.it",
-      "role": "customer",
-      "password": "$2a$10$Fxvqm1TuB9keLKQAMOkEL.llluYam8hhi26gUP6WQBkDHy3pZQ5We",
-      "id": 108
-    },
-    {
-      "email": "k@l.it",
-      "password": "$2a$10$mVocGy3eFXnQfIK0D.nIpe94cogrLvN2CxM1miC64/t.C/GQH34pW",
-      "name": "kokoko",
-      "surname": "yuytyuyu",
-      "birthday": "2020-04-28",
-      "role": "customer",
-      "id": 109
     }
   ],
   "bookings": [
@@ -288,24 +261,14 @@
       "id": 33
     },
     {
-      "booking_date": "2020-05-15",
+      "booking_date": "2020-05-22",
       "vehicle_type": "High Bus",
       "model": "Model 2020",
       "daily_cost": "100",
       "total_cost": "1000",
       "booking_status": "pending",
       "userId": "105",
-      "id": 35
-    },
-    {
-      "booking_date": "2020-05-21",
-      "vehicle_type": "High Bus",
-      "model": "Model 2020",
-      "daily_cost": "100",
-      "total_cost": "1000",
-      "booking_status": "pending",
-      "userId": "105",
-      "id": 36
+      "id": 37
     }
   ],
   "bus_vehicles": [
