@@ -1,186 +1,340 @@
 {
   "users": [
     {
-      "name": "Jane Hampton",
-      "surname": "Dudley",
-      "birthday": "2020-02-06",
-      "email": "Alias at facilis rer",
-      "id": 1
-    },
-    {
-      "name": "Logan",
-      "surname": "Bennet",
-      "birthday": "2000-07-01",
-      "email": "",
-      "id": 2
-    },
-    {
-      "id": 3,
-      "name": "Kyle",
-      "surname": "Wilson",
-      "birthday": "2013-04-01",
-      "email": "jhon@j.com",
-      "password": "0000",
-      "bookings": "more then one"
-    },
-    {
-      "name": "Tyrone Hahn",
-      "surname": "Wilkins",
-      "birthday": "2004-01-27",
-      "email": "Hic libero excepteur",
-      "id": 4
-    },
-    {
-      "id": 5,
-      "name": "Elsie",
-      "surname": "Hill",
-      "birthday": "1985-07-12",
-      "email": "jhon@lk.com",
-      "password": "221933AA",
-      "bookings": "no",
-      "type": "admin"
-    },
-    {
-      "id": 6,
-      "name": "Ethel",
-      "surname": "Perry",
-      "birthday": "2010-03-01",
-      "email": "jhon@pp.com",
-      "password": "221833PP",
-      "bookings": "more then one",
-      "type": "admin"
-    },
-    {
-      "id": 7,
-      "name": "Sarah",
-      "surname": "Rivera",
-      "birthday": "2011-05-05",
-      "email": "jhon@jj.com",
-      "password": "221833PPF77",
-      "bookings": "more then once"
-    },
-    {
-      "email": "jhon@llllllllllllllllll.com",
-      "password": "$2a$10$U8iee1m4Z2A.n.rqBYgiyOIjhwv.zn6.bn3u33IMefLwuFryvUzFi",
-      "name": "Ethel",
-      "surname": "Perry",
-      "birthday": "2010-03-01",
-      "id": 8
-    },
-    {
-      "type": "admin",
+      "name": "Admina Regina",
+      "surname": "Wilkinson",
+      "birthday": "2000-03-14",
       "email": "admin@admin.com",
       "password": "$2a$10$T2GoYkgcxgF/SLjK1qBK.e0Z6Uc8p2WsBXFy1gqYbmQWacmlWiGxi",
-      "name": "Admin",
+      "role": "admin",
       "id": 34
     },
     {
-      "email": "mauro@mauro.it",
-      "password": "$2a$10$v0pgodc39GgXL6cRhh.HV.VWBXJ0xhWx/fOVqmxvj8zjBWm/8zCge",
-      "name": "mauro",
-      "id": 56
+      "name": "Tyrone Hart",
+      "surname": "Colemanno",
+      "birthday": "1978-08-01",
+      "email": "xijagi@mailinator.com",
+      "password": "$2a$10$7ilxlkuUm9vprh8ELXnqGOKj/JNXEHb/XthPqtguXFDnzIj4WcMum",
+      "role": "customer",
+      "id": 70
     },
     {
-      "name": "Noble Acosta",
-      "surname": "Mcfadden",
-      "birthday": "2017-07-16",
-      "mail": "Rerum tenetur Nam qu",
-      "id": 57
+      "email": "wija@mailinator.com",
+      "password": "$2a$10$ieHrCaP/J96sU2zCPnB2JeMVG7vTSDM6ntr5a3T42b97R2DMHwEdm",
+      "name": "Joshua Harrison",
+      "surname": "Blankenship",
+      "birthday": "1987-03-01",
+      "role": "customer",
+      "id": 75
     },
     {
-      "name": "Hakeem Fuentes",
-      "surname": "Reilly",
-      "birthday": "1987-10-26",
-      "mail": "Alias dolor vel et s",
-      "id": 58
+      "email": "de@mailinator.com",
+      "password": "$2a$10$uXBJum.BLGGRsBFghR4lb.X4L1mYM93.2rO6aHYt.ndPKme2ML64u",
+      "name": "Customer 1",
+      "surname": "Customer 11",
+      "birthday": "2020-04-08",
+      "role": "customer",
+      "id": 78
     },
     {
-      "email": "sazamumog@mailinator.com",
-      "password": "$2a$10$1muNIP07KiIUVDoh9yD62eisLwzRbTVndwXlXDzfN.oFhYeYEjw2S",
-      "name": "Martina Stewart",
-      "surname": "Black",
-      "birthday": "1978-10-07",
-      "id": 59
+      "name": "Sandro",
+      "surname": "Deidda",
+      "birthday": "1971-03-02",
+      "email": "sandro@sandro.it",
+      "password": "$2a$10$r48fTAZ.oTz/AmsyaD4EK.4Zgn8xgCDz6wcYKV6QfpEU.W1jRnw3q",
+      "role": "customer",
+      "id": 97
     },
     {
-      "email": "bymus@mailinator.net",
-      "password": "$2a$10$101ZDpO3tnLyAcJFla6kqOimzU4Td4OsaaYka/sD0bLLYJrnwJH4K",
-      "name": "Kareem Vincent",
-      "surname": "Mullen",
-      "birthday": "1987-10-14",
-      "id": 62
+      "name": "Deborah",
+      "surname": "Deidda",
+      "birthday": "1993-05-14",
+      "email": "de@de.it",
+      "role": "customer",
+      "password": "$2a$10$5hcRUFLoRG47FoMojYQA0.MOA4L.2hFBZ7BdDt.vKBuj9cTVBkRUq",
+      "id": 98
     },
     {
-      "email": "lywuko@mailinator.net",
-      "password": "$2a$10$z2fkRSUSzVNaUa2myPgc8.3vAI2nQeHgm1pcSimDnLmQXmr/FMFP2",
-      "name": "Fletcher Tyler",
-      "surname": "Chapman",
-      "birthday": "2020-02-23",
-      "id": 63
+      "name": "Paolo",
+      "surname": "Deidda",
+      "birthday": "2019-01-27",
+      "email": "paolo@paolo.it",
+      "password": "$2a$10$OQgYg4x7Od/4PhEkLv4d..AuEocP02P.AAPwZMistBFCL4IRTdwrm",
+      "role": "customer",
+      "id": 99
+    },
+    {
+      "email": "hghghgh@kk.it",
+      "password": "$2a$10$svaJKHYmPW/n37uG.mcMz.M2PHdZ8h8vNKlBMSSIzWKTF.Gs4CK6O",
+      "name": "hghgh",
+      "surname": "hghghg",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 100
+    },
+    {
+      "email": "admin@admin.it",
+      "password": "$2a$10$BheX6HCvBAj74WRAhFVxwOu1u4.Z4lqYawJ3/3MoTNDVkZ7tYGEhG",
+      "name": "Admin",
+      "surname": "Admin",
+      "birthday": "2020-04-27",
+      "role": "admin",
+      "id": 101
+    },
+    {
+      "email": "prova@prova.it",
+      "password": "$2a$10$ZwhgS7HahRFhxuawgdaxSeERJw2wFUWHsXJMHsc5m.JrDmZBv6BqO",
+      "name": "deborah",
+      "surname": "Huber",
+      "birthday": "2020-04-29",
+      "role": "customer",
+      "id": 102
+    },
+    {
+      "email": "customer@customer.it",
+      "password": "$2a$10$lpn9oV7ZKbsnXZ40rF0a4O9.FlTuhGRytyQuK2UMavsExa2PeiAie",
+      "name": "customer",
+      "surname": "customer",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 103
+    },
+    {
+      "email": "s@s.it",
+      "password": "$2a$10$jDT1FADHoqhD0PkSHqMRGuUrHv4Ost12bOmbbiaJ1OfCP5bVnkYQW",
+      "name": "sandro",
+      "surname": "deidda",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 104
+    },
+    {
+      "email": "sandro@deidda.it",
+      "password": "$2a$10$fe6kkToXNsPqD44mAi.Hduwu8NSTHSmNbZitw8h.XoageZYMzKVcy",
+      "name": "Sandro",
+      "surname": "Deidda",
+      "birthday": "2020-04-27",
+      "role": "customer",
+      "id": 105
+    },
+    {
+      "email": "mao@mao.it",
+      "password": "$2a$10$kUCcd0w6i9AsXk4zv1TTu./KGJ3mnaNifZbud8y9RuMWInfWdMMse",
+      "name": "as",
+      "surname": "fd",
+      "birthday": "2020-04-28",
+      "role": "customer",
+      "id": 106
+    },
+    {
+      "email": "admin@ad.it",
+      "password": "$2a$10$ynvAQnd.B4DKAkPD7ce1rOGgkm9L3xz.4jL/nJLStQupesnIIF4GG",
+      "name": "Administrator",
+      "surname": "Ad",
+      "birthday": "2020-04-27",
+      "role": "admin",
+      "id": 107
+    },
+    {
+      "name": "Mauro",
+      "surname": "Ardu",
+      "birthday": "1992-11-24",
+      "email": "mauro@cuccu.it",
+      "role": "customer",
+      "password": "$2a$10$Fxvqm1TuB9keLKQAMOkEL.llluYam8hhi26gUP6WQBkDHy3pZQ5We",
+      "id": 108
+    },
+    {
+      "email": "k@l.it",
+      "password": "$2a$10$mVocGy3eFXnQfIK0D.nIpe94cogrLvN2CxM1miC64/t.C/GQH34pW",
+      "name": "kokoko",
+      "surname": "yuytyuyu",
+      "birthday": "2020-04-28",
+      "role": "customer",
+      "id": 109
     }
   ],
   "bookings": [
     {
       "id": 1,
-      "booking_date": "April 5 2020",
-      "vehicle_type": "bus",
-      "model": "model 1",
+      "booking_date": "1990-08-12",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": 100,
       "total_cost": 1000,
+      "booking_status": "confirmed",
+      "userId": 78
+    },
+    {
+      "booking_date": "2020-05-06",
+      "vehicle_type": "High Bus",
+      "model": "Model 1990",
+      "daily_cost": "100",
+      "total_cost": "2000",
       "booking_status": "pending",
-      "userId": 1
+      "id": 5
     },
     {
-      "id": 2,
-      "booking_date": "April 4 2020",
-      "vehicle_type": "taxi",
-      "model": "model taxi 99",
-      "total_cost": 2000,
-      "booking_status": "complete",
-      "userId": 2
+      "booking_date": "2020-05-17",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "2000",
+      "booking_status": "pending",
+      "id": 6
     },
     {
-      "id": 3,
-      "booking_date": "April 2 2020",
-      "vehicle_type": "truck",
-      "model": "model truck 101",
-      "total_cost": 2200,
-      "booking_status": "failed",
-      "userId": 3
+      "booking_date": "2020-05-24",
+      "vehicle_type": "Short Bus",
+      "model": "Model 1990",
+      "daily_cost": "100",
+      "total_cost": "2000",
+      "booking_status": "pending",
+      "id": 7
+    },
+    {
+      "booking_date": "2020-05-08",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "2000",
+      "booking_status": "pending",
+      "id": 8
+    },
+    {
+      "booking_date": "2020-05-08",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "2000",
+      "booking_status": "pending",
+      "id": 9
+    },
+    {
+      "booking_date": "2020-05-24",
+      "vehicle_type": "Long Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "2000",
+      "booking_status": "pending",
+      "id": 10
+    },
+    {
+      "booking_date": "2020-05-29",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "2000",
+      "booking_status": "pending",
+      "id": 11
+    },
+    {
+      "booking_date": "2020-05-17",
+      "vehicle_type": "Short Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "2000",
+      "booking_status": "pending",
+      "id": 12
+    },
+    {
+      "id": 29,
+      "userId": "98",
+      "model": "Model 2020",
+      "booking_date": "2020-05-07",
+      "vehicle_type": "High Bus",
+      "daily_cost": "100",
+      "total_cost": "1000",
+      "booking_status": "confirmed"
+    },
+    {
+      "id": 30,
+      "userId": "99",
+      "model": "Model 2020",
+      "booking_date": "2020-05-15",
+      "vehicle_type": "High Bus",
+      "daily_cost": "100",
+      "total_cost": "1000",
+      "booking_status": "confirmed"
+    },
+    {
+      "booking_date": "2020-05-02",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "1000",
+      "booking_status": "pending",
+      "userId": "97",
+      "id": 31
+    },
+    {
+      "booking_date": "2020-05-08",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "1000",
+      "booking_status": "pending",
+      "userId": "97",
+      "id": 32
+    },
+    {
+      "booking_date": "2020-05-28",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "1000",
+      "booking_status": "pending",
+      "userId": "97",
+      "id": 33
+    },
+    {
+      "booking_date": "2020-05-15",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "1000",
+      "booking_status": "pending",
+      "userId": "105",
+      "id": 35
+    },
+    {
+      "booking_date": "2020-05-21",
+      "vehicle_type": "High Bus",
+      "model": "Model 2020",
+      "daily_cost": "100",
+      "total_cost": "1000",
+      "booking_status": "pending",
+      "userId": "105",
+      "id": 36
     }
   ],
   "bus_vehicles": [
     {
-      "id": 1,
-      "daily_cost": 100,
-      "vehicle_type": "bus 1",
-      "model": "model 2001",
-      "manufacturer": "busful",
-      "number_plate": "WQEl22",
-      "registration_year": 2000,
-      "availability": "yes",
-      "bookingId": 1
+      "vehicle_type": "Short Bus",
+      "model": "Model 2005",
+      "manufacturer": "Fly Bus",
+      "registration_year": "1990-01-12",
+      "number_plate": "2200MM",
+      "availability": "available",
+      "id": 1
     },
     {
-      "id": 2,
-      "daily_cost": 100,
-      "vehicle_type": "bus 2",
-      "model": "model 2002",
-      "manufacturer": "busstop",
-      "number_plate": "WQE6",
-      "registration_year": 2010,
-      "availability": "yes",
-      "bookingId": 2
+      "vehicle_type": "High Bus",
+      "model": "Model 1990",
+      "manufacturer": "Bussy",
+      "registration_year": "1998-01-12",
+      "number_plate": "2200ZZ",
+      "availability": "available",
+      "id": 2
     },
     {
-      "id": 3,
-      "daily_cost": 100,
-      "vehicle_type": "bus 3",
-      "model": "model 2003",
-      "manufacturer": "bus easely",
-      "number_plate": "WQ00",
-      "registration_year": 2003,
-      "availability": "no",
-      "bookingId": 3
+      "vehicle_type": "Long Bus",
+      "model": "Model 2022",
+      "manufacturer": "Brush",
+      "registration_year": "1999-01-12",
+      "number_plate": "2200SSP",
+      "availability": "available",
+      "id": 3
     }
   ]
 }
