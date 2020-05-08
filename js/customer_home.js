@@ -2,7 +2,6 @@ $(document).ready(function(){
 
 	//hide alert in html
 	$('#bookings').hide()
-	$('#bookings2').hide()
 	$('#no-bookings').hide()
 	$('#alert-new-booking-added').hide()
 	$('#alert-booking-deleted').hide()
@@ -16,6 +15,44 @@ $(document).ready(function(){
 
 	getBookings()
 
+	function dataT(response){
+		console.log("dati tabella: " + JSON.stringify(response))
+		//searchbox
+		var datatableInstance = $('#datatable').DataTable({
+			retrieve: true,
+			paging: true,
+			sort: true,
+			searching: true,
+			data: response,
+			columns: [
+				{ 'data': 'booking_date' },
+				{ 'data': 'total_cost' },
+				{ 'data': 'booking_status' }
+			]
+		})
+
+		$('#datatable thead th').each(function () {
+			var title = $('#datatable tfoot th').eq($(this).index()).text()
+			$(this).html('<input type="text" placeholder="Search ' + title + '" />')
+		})
+
+		datatableInstance.columns().every(function () {
+			var dataTableColumn = this
+
+			var searchTextBoxes = $(this.header()).find('input')
+
+			searchTextBoxes.on('keyup change', function () {
+				dataTableColumn.search(this.value).draw()
+			})
+
+			searchTextBoxes.on('click', function(e){
+				e.stopPropagation()
+			})
+
+		})
+	}
+
+
 	function getBookings(){
 		$.ajax({
 			type: "GET",
@@ -26,39 +63,8 @@ $(document).ready(function(){
 			}
 		}).done(function (response) {
 
-			//searchbox
-    	var datatableInstance = $('#datatable').DataTable({
-				retrieve: true,
-	  		paging: true,
-	  		sort: true,
-	  		searching: true,
-	  		data: response,
-	  		columns: [
-	  			{ 'data': 'booking_date' },
-	  			{ 'data': 'total_cost' },
-	  			{ 'data': 'booking_status' }
-	  		]
-  		})
-
-	  	$('#datatable thead th').each(function () {
-	  		var title = $('#datatable tfoot th').eq($(this).index()).text()
-	  		$(this).html('<input type="text" placeholder="Search ' + title + '" />')
-	  	})
-
-	  	datatableInstance.columns().every(function () {
-	  		var dataTableColumn = this
-
-	  		var searchTextBoxes = $(this.header()).find('input')
-
-	  		searchTextBoxes.on('keyup change', function () {
-	  			dataTableColumn.search(this.value).draw()
-	  		})
-
-	  		searchTextBoxes.on('click', function(e){
-	  			e.stopPropagation()
-	  		})
-
-	  	})
+			//
+			dataT(response)
 
 			if(response.length == 0){
 				$('#bookings').hide()
@@ -89,6 +95,7 @@ $(document).ready(function(){
 		}).fail(function (err)  {
 			return err
 		})
+
 	}
 
 	function getOneBooking(id){
