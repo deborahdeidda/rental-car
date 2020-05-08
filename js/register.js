@@ -1,40 +1,47 @@
 $(document).ready(function() {
 
   //hide alert in html
-  $("#show-alert-registerd").hide()
+  $("#show-alert-registered").hide()
   $("#show-alert-registered-failed").hide()
+  $("#alert-email-exists").hide()
+
 
   //btn - to register
   $("#register-btn").click(function(e) {
 
     var name = $('#name').val()
     var email = $('#email').val()
-    var password = $('#pass-word').val()
+    var password = $('#pass').val()
     var surname = $('#surname').val()
     var birthday = $('#birthday').val()
 
-  	var validatePassword = function(){
-  		if(password.length > 7){
-        console.log(password.length)
+    e.preventDefault()
+
+    verifyRegistration()
+
+
+    function validatePassword(){
+  		if(password.length > 7 ){
   			return true
   		} else {
   			return false
   		}
   	}
 
-    var validateEmail = function(){
-  		 var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+    function validateEmail(){
+  		 var reg = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
   		 if(reg.test(email)){
-  		 	return true
+  		 	  return true
   		 } else {
-  		 	return false
+  		 	  return false
   		 }
   	}
-    e.preventDefault()
-    verifyRegistration()
 
     function verifyRegistration(){
-      if( validateEmail && validatePassword ){
+
+      if( validateEmail() && validatePassword() ){
+        console.log( validateEmail(), password.length > 7 )
+        console.log( validateEmail(), email)
         $.ajax({
             url: "http://localhost:3000/register",
             method: "POST",
@@ -45,21 +52,22 @@ $(document).ready(function() {
                 "surname": surname,
                 "birthday": birthday,
                 "role": "customer"
-            },
-            success: function(data){
-              if (data){
-                $("#show-alert-registered-failed").hide()
-                $("#show-alert-registerd").show()
-              }
-            },
-            error: function(){
-              $('#show-alert-registered-failed').show()
             }
+        }).done(function(response){
+          $("#alert-email-exists").hide()
+          $("#show-alert-registered-failed").hide()
+          $("#show-alert-registered").show()
+        }).fail(function(err){
+          $("#show-alert-registered-failed").hide()
+          $("#alert-email-exists").show()
         })
 
       } else {
+        $("#show-alert-registered").hide()
+        $("#alert-email-exists").hide()
         $("#show-alert-registered-failed").show()
       }
+
     }
 
   })
