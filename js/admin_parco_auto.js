@@ -33,20 +33,25 @@ $(document).ready(function() {
 			]
 		})
 
+		//insert input inside each th table with title
 		$('#datatable thead th').each(function () {
 			var title = $('#datatable tfoot th').eq($(this).index()).text()
 			$(this).html('<input type="text" placeholder="Search ' + title + '" />')
 		})
 
+		//for every data in columns
 		datatableInstance.columns().every(function () {
 			var dataTableColumn = this
 
+			//header input
 			var searchTextBoxes = $(this.header()).find('input')
 
+			//on keyup and on change, search value and put the data in table
 			searchTextBoxes.on('keyup change', function () {
 				dataTableColumn.search(this.value).draw()
 			})
 
+			//at click stop sorting data
 			searchTextBoxes.on('click', function(e){
 				e.stopPropagation()
 			})
