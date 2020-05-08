@@ -3,7 +3,7 @@ html {
 }
 
 .center {
-    padding-top: 60px;
+    padding-top: 30px;
 }
 
 .title-orange {
@@ -132,7 +132,19 @@ html {
     color: white;
 }
 
+.alert-data-incorrect {
+  padding: 20px;
+  background-color: #f4bd18;
+  color: white;
+}
+
 .alert-error-editing-user {
+  padding: 20px;
+  background-color: #f4bd18;
+  color: white;
+}
+
+.alert-email-exists {
   padding: 20px;
   background-color: #f4bd18;
   color: white;
