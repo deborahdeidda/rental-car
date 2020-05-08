@@ -16,7 +16,7 @@
     <!--Css-->
     <link rel="stylesheet" href="../css/css.css">
 
-    <!--    js-->
+    <!--js-->
     <script type="text/javascript" src="../js/register.js"></script>
 
 </head>
@@ -56,7 +56,7 @@
              <div class="col-12 col-md-6 m-auto text-center">
 
                  <!--Alert registered successfully-->
-                 <div id="show-alert-registerd" class="alert-registered my-2">
+                 <div id="show-alert-registered" class="alert-registered my-2">
                      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                      <strong>You have been registered successfully!</strong>
                      You can <a class="remove-decoration" href="login.html"><i><h6>login now.</h6></i></a>
@@ -66,6 +66,12 @@
                  <div id="show-alert-registered-failed" class="alert-registered-failed my-2">
                      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                      <strong>Email must be a correct format and password must be greater than 7 digits!</strong>
+                 </div>
+
+                 <!--Alert email already exists-->
+                 <div id="alert-email-exists" class="alert-email-exists my-2">
+                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                     <strong>Email already exists!</strong>
                  </div>
 
                  <form id="registration-form" action="" method="POST">
@@ -103,17 +109,10 @@
 
                      <div class="row my-1">
                          <div class="col-12 col-md-6 m-auto text-center">
-                             <label for="pass-word"><b>Password</b></label><br>
-                             <input id="pass-word" type="password" placeholder="Enter Password" name="pass-word">
+                             <label for="pass"><b>Password</b></label><br>
+                             <input id="pass" type="password" placeholder="Enter Password" name="pass">
                          </div>
                      </div>
-<!--                     <div class="row my-1">-->
-<!--                         <div class="col-12 col-md-6 m-auto text-center">-->
-<!--                             <div id="error-repeat-password" class="alert alert-danger"></div>-->
-<!--                             <label for="repeat-password"><b>Repeat Password</b></label>-->
-<!--                             <input id="repeat-password" type="password" placeholder="Repeat Password" name="repeat-password">-->
-<!--                         </div>-->
-<!--                     </div>-->
                      <hr>
 
                      <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
